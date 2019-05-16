@@ -9,7 +9,15 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class PhiFileReader {
-	
+		
+	/**
+	 * Reading file into a list of Strings.
+	 * 
+	 * @param pathToFileArg
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	public static List<String> readInFile(String pathToFileArg) throws FileNotFoundException, IOException {
 		String pathToFile = pathToFileArg;
 		if (pathToFile.charAt(0) != '/') {

@@ -6,14 +6,15 @@ package main;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import org.apache.commons.cli.CommandLine;
+import java.util.ArrayList;
 import java.util.List;
 
-import main.Arguments;
+import org.apache.commons.cli.CommandLine;
+
+import exceptions.*;
 import parser.PhiFileReader;
-import exceptions.PhiFileNotFoundException;
-import exceptions.PhiIOException;
 import lexer.PhiLexer;
+import lexer.token.PhiToken;
 
 /**
  * @author Martin Kondor
@@ -29,6 +30,7 @@ public class Main {
 		CommandLine commandLineCommands = new Arguments().parse(args);
         final String inputFilePath = commandLineCommands.getOptionValue("input");
         final boolean isVerbose = commandLineCommands.hasOption("verbose");
+        
         if (isVerbose) {
         	System.out.println("Arguments:");
         	System.out.println("-i: " + inputFilePath);
@@ -36,8 +38,9 @@ public class Main {
         }
         
         // Start by reading from file
-        List<String> allLinesInFile = null;
-		try {
+        List<String> allLinesInFile = new ArrayList<String>();
+		/*
+        try {
 			allLinesInFile = PhiFileReader.readInFile(inputFilePath);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -48,21 +51,32 @@ public class Main {
 			new PhiIOException("An error occurred while reading from file: \"" + inputFilePath + "\"", 0);
 			System.exit(1);
 		}
+		*/
         
-		if (isVerbose) {
-			System.out.println("Content of the " + inputFilePath + " file:");
-	        for (int i = 0; i < allLinesInFile.size(); i++) {
-	        	System.out.println("Line " + i + ": " + allLinesInFile.get(i));
-	        }
-	        System.out.println();
+        allLinesInFile.add("\"\"\"");
+        allLinesInFile.add("Multi line comment");
+        allLinesInFile.add("\"\"\"");
+        allLinesInFile.add("");
+        allLinesInFile.add("print(10)");
+        allLinesInFile.add("print 1, 10, 100");
+        allLinesInFile.add("print 10");
+        allLinesInFile.add("print(10)");
+        allLinesInFile.add("print(1, 10, 100)");
+        
+		
+		/*
+		 * Lexing of each line while the lexer build's an AST
+		 */
+		PhiLexer lexer = new PhiLexer();
+		for (int i = 0; i < allLinesInFile.size(); i++) {
+			PhiToken token = lexer.tokenize(allLinesInFile.get(i));
+			
+			if (token != null) {
+				System.out.println(token);
+			}
+			
 		}
 		
-		// Lexing each line
-		PhiLexer lexer = new PhiLexer();
-		
-		for (int i = 0; i < allLinesInFile.size(); i++) {
-        	System.out.println(lexer.tokenize(allLinesInFile.get(i)));
-        }
 	}
 
 }

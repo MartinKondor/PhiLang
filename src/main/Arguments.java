@@ -13,16 +13,23 @@ import org.apache.commons.cli.CommandLine;
 
 public class Arguments {
 	
-	private Options options = new Options();
-	private Option inputFilePath = new Option("i", "input", true, "input file path");
-	private Option isVerbose = new Option("v", "verbose", false, "loging everything");
-	private CommandLineParser parser = new DefaultParser();
-	private HelpFormatter formatter = new HelpFormatter();
+	private final Options options;
+	private final Option inputFilePath;
+	private final Option isVerbose;
+	private final CommandLineParser parser;
+	private final HelpFormatter formatter;
 	
 	public Arguments() {
+		this.options = new Options();
+		this.inputFilePath = new Option("i", "input", true, "input file path");
+		this.isVerbose = new Option("v", "verbose", false, "loging everything");
+		this.parser = new DefaultParser();
+		this.formatter = new HelpFormatter();
+		
 		inputFilePath.setRequired(true);
 		isVerbose.setRequired(false);
 		isVerbose.setOptionalArg(false);
+		
 		// Set command line options
         options.addOption(inputFilePath);
         options.addOption(isVerbose);

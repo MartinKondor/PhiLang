@@ -1,0 +1,53 @@
+"""
+if statements
+"""
+# declaring a variable
+a = 0
+
+if a == 0
+  
+  # no tab/space indent needed only the "end[expression_name]"
+  print "a == 0"
+  
+endif
+
+"""
+if else statements
+"""
+a = 0.1
+
+if a < 1
+
+  print "a < 1"
+
+else
+  
+  print "a >= 1"
+
+endif
+
+"""
+elseif statement
+"""
+a = "mutable"
+
+if a != "mutable"
+  pass  # you can just pass
+elseif a[0] == "m"  # the 0th element of a
+  pass
+elseif a[1] == "u"
+  pass
+else
+  pass
+endif
+
+"""
+Inline if else statements
+"""
+# null value
+a = null
+
+# functions can be called with ()
+# boolean types true and false
+# not is the negation
+print( true if not a else false )

@@ -38,6 +38,8 @@ The parser is designed so it can be used on its own. This makes it simple to cre
 Phi is dynamically typed, all variables are mutable.
 It's got built in types for vectors, matrices, dictionaries, JSON, and strings.
 
+For more please read the `examples/README.md` file.
+
 ## License
 
 Copyright (C) Martin Kondor 2019

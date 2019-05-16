@@ -1,12 +1,25 @@
 # Basic language data types, syntax and properties
 
 * The empty/nothing value is "null", it can be assigned.
-* Arithmetic is the same as in Mathematics, with the exception that the multiplication works only with a "*" sign. The order of execution: /, *, %, +, -.
+* Arithmetic is the same as in Mathematics, with the exception that the multiplication works only with a "*" sign. The order of execution: /, **, *, %, +, -.
 * No endline needed, if there is an additional ";" at the end of the line, it throws a syntax error. Unless it's a null value declaration.
 * Variables are mutable and dynamically typed.
 * Functions can be called with parentheses, or without them, if it is not ambiguous.
 
 # Data types
+
+## Boolean
+
+```
+a = ture
+b = false
+
+a and b  # and expression
+a or b  # or expression
+10 == 0  # returns a Boolean, false
+10 != 0  # returns a Boolean, true
+# also does: <, >, <=, >=
+```
 
 ## Number
 
@@ -28,6 +41,7 @@ print 2 * a / b # prints 1
 print a / b * 2 # prints 1
 print a / (2*b) # prints 0.25
 print 10 % b  # prints 0
+print 10 ** 2  # prints 100
 ```
 
 ## String
@@ -152,12 +166,79 @@ a = ""  # variables are mutable
 
 ## Statements and special expressions
 
+Generaly:
 ```py
-# TODO
+statement [expression(s)]
+  # statement body
+endstatement
+```
+So, the if statement.
+```ruby
+if true
+  pass
+endif
+
+if true
+  pass
+else
+  pass
+endif
+
+if true
+  pass
+elseif
+  pass
+else
+  pass
+endif
+```
+
+The for loop
+```
+for i in list
+  pass
+endfor
+
+# or
+for i = 0; i < list.len(); i++
+  print list[i] 
+endfor
+```
+
+While, the second one is working like the traditional `do {...} while (...)` loop
+```
+while true
+  pass
+endwhile
+
+# or
+while
+  pass
+endwhile true
 ```
 
 ## Functions
 
-```py
-# TODO
+```
+def function(x)  # declaration with name
+  pass # does nothing
+  return x  # return statement
+enddef
+
+# inline function declaration
+function = def (x)  x**2  enddef  # returns x**2
+
+# inline function declaration can be extended to
+function = def (x)
+  return x**2
+enddef
+
+# more parameters and no return statement
+def func(a, b, c)
+  pass  
+enddef
+
+(def (x)
+  pass
+enddef)()  # this is valid, unnamed function called immediately
 ```

@@ -87,6 +87,7 @@ public class PhiLexer {
 		 */
 		int indexOfBuiltinCall = text.indexOf("print");
 		if (indexOfBuiltinCall != -1) {
+			int parentNodeID = this.AST.createNode(0, "print");
 			
 			// Check for parameters
 			String parameters[] = text.substring(5, text.length())
@@ -95,10 +96,8 @@ public class PhiLexer {
 					.replace(")", "")
 					.split(",");
 
-			System.out.println("parameters:");
 			for (int i = 0; i < parameters.length; i++) {
-				parameters[i] = parameters[i].replace(",", "").trim();
-				System.out.println(parameters[i]);
+				this.AST.createNode(parentNodeID, parameters[i].replace(",", "").trim());
 			}
 			
 		}

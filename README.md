@@ -32,13 +32,17 @@ The parser is designed so it can be used on its own. This makes it simple to cre
 
 * Object = Abstract base object that every other object extends.
 * Number = In other languages it's int, float, double.
+* Boolean = true or false.
+* String = "" or ''.
+* List = Can contain any type, elements can be added and removed.
+* Array = Contains only one type, fixed size.
 
 ## Language syntax
 
 Phi is dynamically typed, all variables are mutable.
 It's got built in types for vectors, matrices, dictionaries, JSON, and strings.
 
-For more please read the `examples/README.md` file.
+For more, please read the `examples/README.md` file.
 
 ## License
 

@@ -6,23 +6,32 @@ import java.util.List;
 
 public class AbstractSyntaxTree {
 	/*
-	 * Usage:
-	 * 
-	    AbstractSyntaxTree ast = new AbstractSyntaxTree();
-		int idOfMainNode = ast.createNode(0, "main");  // create the main node
-		int idOfFirstNode = ast.createNode(1, "1st node of main");
-		int idOfSecondNode = ast.createNode(1, "2st node of main");
-		int lastNode = ast.createNode(idOfFirstNode, "node of 1st node of main");
-		
-		System.out.println("Main node:");
-		System.out.println(ast.getChildren(0));
-		System.out.println("\nMain node's children:");
-		System.out.println(ast.getChildren(idOfMainNode));
-		System.out.println("\nMain's 1st node's children:");
-		System.out.println(ast.getChildren(idOfFirstNode));
-		System.out.println("\nEmpty node of the main's second node:");
-		System.out.println(ast.getChildren(idOfSecondNode));
-	 */
+        Example for the code:
+        a = 0
+        b = 10
+        
+        if a < b
+            a += 1
+            print "Something"
+        elseif a == b
+            a -= 1
+        else
+            a -= b
+        endif
+        
+        AbstractSyntaxTree ast = new AbstractSyntaxTree();
+        ast.createNode(ast.createNode(ast.createNode(0, "a"), "="), "0");
+        ast.createNode(ast.createNode(ast.createNode(0, "b"), "="), "10");
+        int ifID = ast.createNode(0, "if");
+        ast.createNode(ast.createNode(ast.createNode(ast.createNode(ifID, "condition"), "a"), "<"), "b");
+        int ifBodyID = ast.createNode(ifID, "body");
+        ast.createNode(ast.createNode(ast.createNode(ifBodyID, "a"), "+="), "1");
+        ast.createNode(ast.createNode(ast.createNode(ifBodyID, "print"), "parameters"), "\"Something\"");
+        int elseIfID = ast.createNode(ifID, "elseif");
+        ast.createNode(ast.createNode(ast.createNode(ast.createNode(elseIfID, "condition"), "a"), "=="), "b");
+        ast.createNode(ast.createNode(ast.createNode(ast.createNode(elseIfID, "body"), "a"), "-="), "1");
+        ast.createNode(ast.createNode(ast.createNode(ast.createNode(ast.createNode(ifID, "else"), "body"), "a"), "-="), "b");
+	*/
 	
 	private HashMap<Integer, ASTNode> container;
 	private int lastUsedID;  // Just increased, never decreased

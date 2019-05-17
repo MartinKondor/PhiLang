@@ -6,6 +6,21 @@
 * Variables are mutable and dynamically typed.
 * Functions can be called with parentheses, or without them, if it is not ambiguous.
 
+# Keywords
+
+```
+if, else, elseif, 
+while, for, in,
+continue, break,
+true, false, null,
+and, or, not,
+def, return, const,
+try, catch, throw,
+as, import, delete,
+finally, is, pass,
+yield
+```
+
 # Data types
 
 ## Boolean
@@ -133,9 +148,10 @@ print list.sum()
 # prints 1 + 2 + 3 + "String?" so: "6String?"
 """
 .remove(i)  # remove the ith element of the list, only works with lists
+[i]  # get the ith element of the list/array, starts from 0 
 ```
 
-# Syntax
+# Syntax and built in functions
 
 ## Comments
 
@@ -167,13 +183,13 @@ a = ""  # variables are mutable
 ## Statements and special expressions
 
 Generaly:
-```py
+```ruby
 statement [expression(s)]
   # statement body
-endstatement
+end[statement]
 ```
 So, the if statement.
-```ruby
+```
 if true
   pass
 endif
@@ -199,9 +215,28 @@ for i in list
   pass
 endfor
 
-# or
+# yes, an N Number can be iterated from 0 to N inclusive on both sides
+for i in 10
+  pass
+endfor
+"""
+How?
+
+(i in 10) means -> (i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+"""
+
+# iterate from 5 to 10 inclusive on both sides
+for i in 5, 10
+  pass
+endfor
+
+# iterate from 5 to 10 inclusive on both sides with steps 0.5
+for i in (5, 10, .5)
+  pass
+endfor
+
 for i = 0; i < list.len(); i++
-  print list[i] 
+  list[i]
 endfor
 ```
 
@@ -238,7 +273,7 @@ def func(a, b, c)
   pass  
 enddef
 
-(def (x)
+def(x)
   pass
-enddef)()  # this is valid, unnamed function called immediately
+enddef(some_parameter)  # this is valid, unnamed function called immediately
 ```

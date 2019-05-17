@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/MartinKondor/PhiLang/blob/master/docs/logo.png" width="450">
+</p>
+
 # PhiLang
 [![version](https://img.shields.io/badge/version-2019.06-red.svg)](https://github.com/MartinKondor/PhiLang) [![Project Status](https://img.shields.io/badge/status-prototype-red.svg)](https://github.com/MartinKondor/PhiLang) [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/MartinKondor/PhiLang/edit/master/LICENSE)
 

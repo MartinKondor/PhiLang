@@ -5,7 +5,7 @@
 # PhiLang
 [![version](https://img.shields.io/badge/version-2019.06-red.svg)](https://github.com/MartinKondor/PhiLang) [![Project Status](https://img.shields.io/badge/status-prototype-red.svg)](https://github.com/MartinKondor/PhiLang) [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/MartinKondor/PhiLang/edit/master/LICENSE)
 
-PhiLang is a general-purpose programming language designed for running Machine Learning and Deep Learning programs.
+Phi is a general-purpose programming language designed for writing the most readable and most understandable programs, which yet they are powerfull enough to run webservers, io operations, and even microcontrollers. The only requirement for writing a program with Phi is that you must know how to read plain English text.
 
 Goals:
 
@@ -13,6 +13,7 @@ Goals:
 - [ ] Executes faster than Python, R, Octave, Matlab and other competitors.
 - [ ] Can be easily accessed and runned from other programming languages.
 - [ ] Contains the basic ML and DL algorithms.
+- [ ] Have an option to be compiled to bytecode, for running low level operations.
 
 ## How the interpreter works
 

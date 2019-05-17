@@ -1,8 +1,10 @@
 package exceptions;
 
-public class PhiFileNotFoundException extends PhiException {
+public final class PhiFileNotFoundException extends PhiException {
 
-	public PhiFileNotFoundException(String cause, int lineNumber) {
+	private static final long serialVersionUID = 1L;
+	
+	public PhiFileNotFoundException(final String cause, final int lineNumber) {
 		super(cause, lineNumber);
 	}
 

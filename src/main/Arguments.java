@@ -39,7 +39,7 @@ public class Arguments {
 	 * @param args Arguments from the command line
 	 * @return
 	 */
-	public CommandLine parse(String[] args) {
+	public CommandLine parse(final String[] args) {
 		CommandLine cmd = null;
         try {
             cmd = parser.parse(options, args);

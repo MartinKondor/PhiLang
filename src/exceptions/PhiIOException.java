@@ -1,8 +1,10 @@
 package exceptions;
 
-public class PhiIOException extends PhiException {
+public final class PhiIOException extends PhiException {
 	
-	public PhiIOException(String cause, int lineNumber) {
+	private static final long serialVersionUID = 1L;
+	
+	public PhiIOException(final String cause, final int lineNumber) {
 		super(cause, lineNumber);
 	}
 	

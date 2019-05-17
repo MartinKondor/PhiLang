@@ -1,8 +1,10 @@
 package parser;
 
+import java.util.List;
+
+import lexer.Checker;
 import lexer.ast.ASTNode;
 import lexer.ast.AbstractSyntaxTree;
-import lexer.lexer.Checker;
 
 public class PhiParser {
 

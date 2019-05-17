@@ -1,5 +1,5 @@
 # PhiLang
-[![version](https://img.shields.io/badge/version-v0.1.0-red.svg)](https://github.com/MartinKondor/PhiLang) [![Project Status](https://img.shields.io/badge/status-prototype-red.svg)](https://github.com/MartinKondor/PhiLang) [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/MartinKondor/PhiLang/edit/master/LICENSE)
+[![version](https://img.shields.io/badge/version-2019.06-red.svg)](https://github.com/MartinKondor/PhiLang) [![Project Status](https://img.shields.io/badge/status-prototype-red.svg)](https://github.com/MartinKondor/PhiLang) [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/MartinKondor/PhiLang/edit/master/LICENSE)
 
 PhiLang is a general-purpose programming language designed for running Machine Learning and Deep Learning programs.
 
@@ -16,14 +16,14 @@ When running a program, this is what happens:
 
 - [X] Parser reads the program text.
 - [ ] Lexer makes a parse tree (AST). Finds syntax errors, recognize out statements and expressions, save tokens to the AST.
-- [ ] Parser makes semantic analysis of the parse tree -- finds semantic errors, type errors, resolves types, figures out lexical scopes resolves variable names. Creates Action Tree (AT).
-- [ ] Executes the code according to the AT.
+- [ ] Parser makes semantic analysis of the parse tree -- finds semantic errors, type errors, resolves types, figures out lexical scopes resolves variable names. Creates Concrete Syntax Tree (CST).
+- [ ] Executes the code according to the CST.
 
 ### Parser
 
 The parser reads a Phi program as a text (1) and figures out evaluation order of expressions according to the AST. (3)
 
-The parser adds structure to to the AST tokens then produces and creates an Action Tree or AT. (4)
+The parser adds structure to to the AST tokens then produces and creates a Concrete Syntax Tree or CST. (4)
 
 ### Lexer
 
@@ -49,13 +49,13 @@ Then AST would look something like this:
   0 (Number)     a (variable)     10 (Number)
 ```
 
-### Action Tree (AT)
+### Concrete Syntax Tree (CST)
 
 The AST with context. That context is info such as what type a function returns, or that two places in which a variable is used are in fact using the same variable.
 
 When running it, each action node has a function `execute` which takes some input, does whatever the action should (including possibly calling sub action) and returns the action's output. This is the interpreter in action.
 
-An AT from the above example's AST:
+A CST from the above example's AST:
 ```
 a (declare varialbe with value) --> 0
 print (function call) --> 0 (the variable 'a' maps to 0 at this line), 10 --> "0 10" (executed function output)

@@ -1,4 +1,4 @@
-# Abstract Syntax Tree (AST) and Action Tree (AT)
+# Abstract Syntax Tree (AST) and Concrete Syntax Tree (CST)
 
 ## Commons
 
@@ -28,22 +28,23 @@ a   b
 
    if
    |
-   -----------------------
-   |            |        |         
-condition      body    elseif     
+   --------------
+   |            |                 
+condition      body----elseif     
    |            |        |     
-   |            |        --------------------
-   |            |        |          |       |
-   a            a     condition    body    else
-   |            |        |          |       |
-   <            +=       b          b       b
-   |            |        |          |       |
-   b            1        <          +=      -=
-                         |          |       |
-                         0          1       1
+   |            |        ------------
+   |            |        |          |       
+   a            a     condition    body------
+   |            |        |          |      else
+   <            +=       b          b       |
+   |            |        |          |       b
+   b            1        <          +=      |
+                         |          |       -=
+                         0          1       |
+										    1
 ```
 
-AT of the above AST:
+CST of the above AST:
 ```
 a - = -> 0
 b - = -> 10

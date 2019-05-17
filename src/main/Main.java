@@ -4,38 +4,37 @@
  */
 package main;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.cli.CommandLine;
 
-import exceptions.*;
-import parser.PhiFileReader;
+import exceptions.PhiSyntaxError;
 import lexer.PhiLexer;
-import lexer.token.PhiToken;
 
 /**
  * @author Martin Kondor
- * @version 0.1
+ * @version 2019.06.prototype
+ * @java 11
  */
-public class Main {
+public final class Main {
 	
-	public static final String PHI_VERSION = "0.1";
+	public final static String PHI_VERSION = "2019.06.prototype";
 
-	public static void main(String[] args) {
-        
+	/**
+	 * Usage:
+	 * 
+	 * phi -i [inputFileName]
+	 * 
+	 * @param args
+	 */
+	public final static void main(final String[] args) {
+        // For testing
+		final double startTime = System.currentTimeMillis();
+		
 		// Parse in commands
-		CommandLine commandLineCommands = new Arguments().parse(args);
+		final CommandLine commandLineCommands = new Arguments().parse(args);
         final String inputFilePath = commandLineCommands.getOptionValue("input");
         final boolean isVerbose = commandLineCommands.hasOption("verbose");
-        
-        if (isVerbose) {
-        	System.out.println("Arguments:");
-        	System.out.println("-i: " + inputFilePath);
-        	System.out.println();
-        }
         
         // Start by reading from file
         List<String> allLinesInFile = new ArrayList<String>();
@@ -53,30 +52,48 @@ public class Main {
 		}
 		*/
         
-        allLinesInFile.add("\"\"\"");
-        allLinesInFile.add("Multi line comment");
-        allLinesInFile.add("\"\"\"");
-        allLinesInFile.add("");
-        allLinesInFile.add("print(10)");
-        allLinesInFile.add("print 1, 10, 100");
-        allLinesInFile.add("print 10");
-        allLinesInFile.add("print(10)");
-        allLinesInFile.add("print(1, 10, 100)");
-        
-		
-		/*
-		 * Lexing of each line while the lexer build's an AST
-		 */
-		PhiLexer lexer = new PhiLexer();
+        // For performance testing
+        for (int i = 0; i < 1; i++) {
+        	//allLinesInFile.add("_something = 2");
+        	//allLinesInFile.add("_something == 2");
+        	//allLinesInFile.add("_something != 2");
+        	//allLinesInFile.add("_something += 2");
+        	//allLinesInFile.add("_something -= 2");
+        	//allLinesInFile.add("_something <= 2");
+        	//allLinesInFile.add("_something >= 2");
+        	//allLinesInFile.add("_something < 2");
+        	//allLinesInFile.add("_something > 2");
+        	//allLinesInFile.add("_something + 2");
+        	//allLinesInFile.add("_something - 2");
+        	//allLinesInFile.add("_something * 2");
+        	//allLinesInFile.add("_something / 2");
+        	
+        	/*
+        	allLinesInFile.add("if 1 == 1");
+        	allLinesInFile.add("	inif1 == 1");
+        	allLinesInFile.add("	inif2 == 1");
+        	allLinesInFile.add("elseif 3 == 3");
+        	allLinesInFile.add("	inelseif1 == 1");
+        	allLinesInFile.add("else");
+        	allLinesInFile.add("	inelse2 == 1");
+        	allLinesInFile.add("endif");
+        	allLinesInFile.add("outofif = 1");
+        	*/
+        }
+	
+		final PhiLexer lexer = new PhiLexer();
 		for (int i = 0; i < allLinesInFile.size(); i++) {
-			PhiToken token = lexer.tokenize(allLinesInFile.get(i));
-			
-			if (token != null) {
-				System.out.println(token);
+			try {
+				lexer.tokenize(allLinesInFile.get(i));
+			} catch (PhiSyntaxError e) {
+				e.printStackTrace();
+				System.exit(1);
 			}
-			
 		}
 		
+		// lexer.printAST(18);
+		
+		System.out.println("\nFinished in: " + (System.currentTimeMillis() - startTime)/1000 + " seconds");
 	}
 
 }

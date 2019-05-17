@@ -12,7 +12,7 @@ public class Checker {
     }
     
     public static boolean isVariable(String text) {
-        return isNumeric(text.charAt(0)) ? false : true;
+        return isNumeric(String.valueOf(text.charAt(0))) ? false : true;
     }
     
 }

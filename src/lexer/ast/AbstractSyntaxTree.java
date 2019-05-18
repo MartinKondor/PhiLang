@@ -33,7 +33,7 @@ public class AbstractSyntaxTree {
         ast.createNode(ast.createNode(ast.createNode(ast.createNode(ast.createNode(ifID, "else"), "body"), "a"), "-="), "b");
 	*/
 	
-	private HashMap<Integer, ASTNode> container;
+	private final HashMap<Integer, ASTNode> container;
 	private int lastUsedID;  // Just increased, never decreased
 	
 	public AbstractSyntaxTree() {
@@ -41,22 +41,22 @@ public class AbstractSyntaxTree {
 		this.lastUsedID = 0;
 	}
 	
-	public int getNewID() {
+	public final int getNewID() {
 		this.lastUsedID += 1;
 		return this.lastUsedID;
 	}
 	
-	public int createNode(int parentID, String value) {
+	public final int createNode(final int parentID, final String value) {
 		int id = getNewID();
 		createNode(parentID, id, value);
 		return id;
 	}
 	
-	public void createNode(int parentID, int nodeID, String value) {
+	public final void createNode(final int parentID, final int nodeID, String value) {
 		this.container.put(nodeID, new ASTNode(parentID, nodeID, value));
 	}
 	
-	public List<ASTNode> getChildren(int parentID) {
+	public final List<ASTNode> getChildren(final int parentID) {
 		List<ASTNode> children = new ArrayList<ASTNode>();
 		
 		for (Object key : this.container.keySet().toArray()) {
@@ -69,8 +69,18 @@ public class AbstractSyntaxTree {
 		return children;
 	}
 	
-	public ASTNode getNode(int id) {
+	public final ASTNode getNode(final int id) {
 		return this.container.get(id);
+	}
+	
+	public final ASTNode getNode(final String value) {
+		for (Object key : this.container.keySet().toArray()) {
+			ASTNode currentNode = this.container.get(key);
+			if (currentNode.getValue() == value) {
+				return currentNode;
+			}
+		}
+		return null;
 	}
 	
 }

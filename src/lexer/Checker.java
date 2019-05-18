@@ -45,12 +45,16 @@ public class Checker {
     	return op == "==" || op == "!=" || op == ">=" || op == "<=" || op == ">" || op == "<" ? true : false;
     }
     
-    public final static boolean isIfStatement(final String text) {
+    private final static boolean hasTheGivenKeyword(final String givenKeyword, final String text) {
     	String inputText = text.trim();
-    	if (inputText.startsWith("if") && inputText.charAt(2) == ' ') {
+    	if (inputText.startsWith(givenKeyword) && inputText.charAt(givenKeyword.length()) == ' ') {
     		return true;
     	}
     	return false;
+    }
+    
+    public final static boolean isIfStatement(final String text) {
+    	return hasTheGivenKeyword("if", text);
     }
     
     public final static boolean isElseIfStatement(final String text) {
@@ -59,6 +63,10 @@ public class Checker {
     		return true;
     	}
     	return false;
+    }
+    
+    public final static boolean isWhileStatement(final String text) {
+    	return hasTheGivenKeyword("while", text);
     }
     
 }

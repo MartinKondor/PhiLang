@@ -9,6 +9,8 @@ import java.util.List;
 import org.apache.commons.cli.CommandLine;
 
 import exceptions.PhiSyntaxError;
+import lexer.LEXER_COMMENT_STATUS;
+import lexer.LEXER_STATUS;
 import lexer.PhiLexer;
 
 /**
@@ -26,8 +28,9 @@ public final class Main {
 	 * phi -i [inputFileName]
 	 * 
 	 * @param args
+	 * @throws PhiSyntaxError 
 	 */
-	public final static void main(final String[] args) {
+	public final static void main(final String[] args) throws PhiSyntaxError {
         // For testing
 		final double startTime = System.currentTimeMillis();
 		
@@ -54,31 +57,19 @@ public final class Main {
         
         // For performance testing
         for (int i = 0; i < 1; i++) {
-        	//allLinesInFile.add("_something = 2");
-        	//allLinesInFile.add("_something == 2");
-        	//allLinesInFile.add("_something != 2");
-        	//allLinesInFile.add("_something += 2");
-        	//allLinesInFile.add("_something -= 2");
-        	//allLinesInFile.add("_something <= 2");
-        	//allLinesInFile.add("_something >= 2");
-        	//allLinesInFile.add("_something < 2");
-        	//allLinesInFile.add("_something > 2");
-        	//allLinesInFile.add("_something + 2");
-        	//allLinesInFile.add("_something - 2");
-        	//allLinesInFile.add("_something * 2");
-        	//allLinesInFile.add("_something / 2");
-        	
-        	/*
         	allLinesInFile.add("if 1 == 1");
-        	allLinesInFile.add("	inif1 == 1");
-        	allLinesInFile.add("	inif2 == 1");
-        	allLinesInFile.add("elseif 3 == 3");
-        	allLinesInFile.add("	inelseif1 == 1");
-        	allLinesInFile.add("else");
-        	allLinesInFile.add("	inelse2 == 1");
+        	allLinesInFile.add("	insideFirstIf = 0");
+        	allLinesInFile.add("	if 1 == 1");
+        	allLinesInFile.add("		insideSecondIf = 0");
+        	allLinesInFile.add("		if 1 == 1");
+        	allLinesInFile.add("			insideThirdIf = 0");
+        	allLinesInFile.add("		endif");
+        	allLinesInFile.add("		insideSecondIf_2 = 0");
+        	allLinesInFile.add("	endif");
+        	allLinesInFile.add("	insideFirstIf_2 = 0");
         	allLinesInFile.add("endif");
-        	allLinesInFile.add("outofif = 1");
-        	*/
+        	allLinesInFile.add("");
+        	allLinesInFile.add("out = 0");
         }
 	
 		final PhiLexer lexer = new PhiLexer();
@@ -91,9 +82,22 @@ public final class Main {
 			}
 		}
 		
-		// lexer.printAST(18);
+		lexer.printAST(0);
+		print(lexer.ast.getNode("insideFirstIf_2"));
+		
+		/*
+		if (lexer.getLexerCommentStatus() == LEXER_COMMENT_STATUS.IN_COMMENT) {
+			throw new PhiSyntaxError("Error:\n\tEnd of multi line comment expected.", -1);
+		} else if (lexer.getLexerStatus() == LEXER_STATUS.IN_IF) {
+			throw new PhiSyntaxError("Error:\n\tEnd of if statement expected.", -1);
+		}
+		*/	
 		
 		System.out.println("\nFinished in: " + (System.currentTimeMillis() - startTime)/1000 + " seconds");
+	}
+	
+	public static void print(Object o) {
+		System.out.println(o);
 	}
 
 }

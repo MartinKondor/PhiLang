@@ -8,21 +8,21 @@ import lexer.ast.AbstractSyntaxTree;
 
 public final class PhiLexer {
 
-	private enum LEXER_STATUS {
-		FREE,
-		IN_COMMENT,
-		IN_IF;
-	}
-	private LEXER_STATUS status;
+	private int nestNumber;
+	private LEXER_STATUS status, savedStatus;
+	private LEXER_COMMENT_STATUS commentStatus;
 	private int astNodeLevelID;
 	private int astSavedNodeLevelID;
-	private final AbstractSyntaxTree ast;  // The Abstract Syntax Tree
+	public final AbstractSyntaxTree ast;  // The Abstract Syntax Tree
 	
 	public PhiLexer() {
 		this.status = LEXER_STATUS.FREE;
+		this.savedStatus = LEXER_STATUS.FREE;
+		this.commentStatus = LEXER_COMMENT_STATUS.FREE; 
 		this.ast = new AbstractSyntaxTree();
 		this.astNodeLevelID = 0;
 		this.astSavedNodeLevelID = 0;
+		this.nestNumber = 0;
 	}
 	
 	public final boolean tokenizeOperator(String text, final String operatorSign) throws PhiSyntaxError {
@@ -63,19 +63,19 @@ public final class PhiLexer {
 		// Multi line comment
 		final int multiLineCommentStartIndex = inputLine.indexOf("\"\"\"");
 		if (multiLineCommentStartIndex != -1) {
-			if (this.status == LEXER_STATUS.IN_COMMENT) {
+			if (this.commentStatus == LEXER_COMMENT_STATUS.IN_COMMENT) {
 				
 				// This means the end of the comment
 				inputLine = inputLine.substring(multiLineCommentStartIndex + 3, inputLine.length()).trim();
-				this.status = LEXER_STATUS.FREE;
+				this.commentStatus = LEXER_COMMENT_STATUS.FREE;
 			}
 			else {
 				
 				// The start of the comment 
 				inputLine = inputLine.substring(0, multiLineCommentStartIndex).trim();
-				this.status = LEXER_STATUS.IN_COMMENT;
+				this.commentStatus = LEXER_COMMENT_STATUS.IN_COMMENT;
 			}
-		} else if (this.status == LEXER_STATUS.IN_COMMENT) {
+		} else if (this.commentStatus == LEXER_COMMENT_STATUS.IN_COMMENT) {
 			
 			// Ignore the interior of the comment
 			return 1;
@@ -94,15 +94,19 @@ public final class PhiLexer {
 			return 1;
 		}
 		
+		
 		/*
 		 * Start looking for syntax and start building AST
 		 */
 		inputLine = inputLine.trim();
 		
+		
 		/**
 		 * Statements
 		 */
 		if (Checker.isIfStatement(inputLine)) {
+			this.nestNumber++;
+			this.savedStatus = this.status;
 			this.status = LEXER_STATUS.IN_IF;
 			
 			this.astSavedNodeLevelID = this.astNodeLevelID;
@@ -111,7 +115,7 @@ public final class PhiLexer {
 			this.astNodeLevelID = this.ast.createNode(ifNodeID, "condition");
 			tokenize(inputLine.replace("if", "").trim());
 			
-			this.astNodeLevelID = this.ast.createNode(ifNodeID, "body");
+			this.astNodeLevelID = ifNodeID;
 			return 1;
 		}
 		
@@ -122,7 +126,7 @@ public final class PhiLexer {
 				this.astNodeLevelID = this.ast.createNode(elseIfNodeID, "condition");
 				tokenize(inputLine.replace("elseif", "").trim());
 				
-				this.astNodeLevelID = this.ast.createNode(elseIfNodeID, "body");
+				this.astNodeLevelID = elseIfNodeID;
 				return 1;
 			} else {
 				throw new PhiSyntaxError("Unexpected token \"elseif\".", -1);
@@ -140,7 +144,15 @@ public final class PhiLexer {
 		
 		if (inputLine.replaceAll("\\s*", "").equals("endif")) {
 			if (this.status == LEXER_STATUS.IN_IF) {
-				this.status = LEXER_STATUS.FREE;
+				
+				/*
+				if (this.nestNumber > 1) {
+					this.astSavedNodeLevelID--;
+				}
+				*/
+				
+				this.nestNumber--;
+				this.status = this.savedStatus;
 				
 				// Restore the last node level before "if"
 				this.astNodeLevelID = this.astSavedNodeLevelID; 
@@ -153,9 +165,24 @@ public final class PhiLexer {
 		/*
 		 * Loops
 		 */
-		// TODO
+		if (Checker.isWhileStatement(inputLine)) {
+			print("While here: " + inputLine);
+		}
 		
 		inputLine = inputLine.replaceAll("\\s*", "");
+		
+		if (inputLine.equals("insideFirstIf_2=0")) {
+			print(this.nestNumber);
+			print(this.astNodeLevelID);
+			print(this.astSavedNodeLevelID);
+			print(this.status);
+			print(this.savedStatus);
+		}
+		
+		if (this.nestNumber == 0 && this.status == LEXER_STATUS.IN_IF) {
+			this.status = LEXER_STATUS.FREE;
+			this.astNodeLevelID = 0;
+		}
 		
 		/**
 		 * Operators
@@ -167,6 +194,14 @@ public final class PhiLexer {
 		}
 		
 		return 0;
+	}
+	
+	public final LEXER_STATUS getLexerStatus() {
+		return this.status;
+	}
+	
+	public final LEXER_COMMENT_STATUS getLexerCommentStatus() {
+		return this.commentStatus;
 	}
 	
 	public void print(Object o) {

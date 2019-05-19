@@ -41,7 +41,8 @@ int main(const int argc, const char** args) {
     default: break;
   }
 
-  // lexer.ast.printChildren(0);
+  Parser::Parser parser = Parser::Parser(lexer.ast);
+  parser.parseAST();
 
   clock_t end = clock();
   double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;

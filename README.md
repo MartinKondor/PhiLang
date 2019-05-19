@@ -9,18 +9,18 @@ Phi is a general-purpose programming language designed for writing the most read
 
 Goals:
 
-- [ ] Easy to use, it let's you think about the algorithm instead of code writing. Be [sweet syntactically](https://en.wikipedia.org/wiki/Syntactic_sugar).
-- [ ] Executes faster than Python, R, Octave, Matlab and other competitors.
-- [ ] Can be easily accessed and runned from other programming languages.
-- [ ] Contains the basic ML and DL algorithms.
-- [ ] Have an option to be compiled to bytecode, for running low level operations.
+* Easy to use, it let's you think about the algorithm instead of code writing. Be [sweet syntactically](https://en.wikipedia.org/wiki/Syntactic_sugar).
+* Executes faster than Python, R, Octave, Matlab and other competitors.
+* Can be easily accessed and runned from other programming languages.
+* Contains the basic ML and DL algorithms.
+* Have an option to be compiled to bytecode, for running low level operations.
 
 ## How the interpreter works
 
 When running a program, this is what happens:
 
 - [X] Parser reads the program text.
-- [ ] Lexer makes a parse tree (AST). Finds syntax errors, recognize out statements and expressions, save tokens to the AST.
+- [X] Lexer makes a parse tree (AST). Finds syntax errors, recognize out statements and expressions, save tokens to the AST.
 - [ ] Parser makes semantic analysis of the parse tree -- finds semantic errors, type errors, resolves types, figures out lexical scopes resolves variable names. Creates Concrete Syntax Tree (CST).
 - [ ] Executes the code according to the CST.
 

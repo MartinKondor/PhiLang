@@ -218,6 +218,8 @@ class Lexer {
 
     ast.addNode(currentNodeID, line);
   }
+
+  ~Lexer() {}
 };
 
 }

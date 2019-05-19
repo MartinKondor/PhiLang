@@ -22,6 +22,12 @@ namespace Parser {
 
     class Parser {
         public:
+        AST::AST ast;
+
+        Parser(AST::AST _ast) {
+            ast = _ast;
+        }
+
         static bool isOperator(std::string text) {
             for (uint8_t i = 0; i < N_OF_OPERATORS; i++) {
                 if (OPERATORS[i] == text) {
@@ -42,5 +48,17 @@ namespace Parser {
             } 
             return "null";
         }
+
+        void parseAST() {
+            // TODO
+            int currentNode = 0;
+            std::vector<AST::ASTNode> children = ast.getChildren(currentNode);
+            
+            for (AST::ASTNode child : children) {
+                std::cout << child.value << std::endl;
+            }
+
+        }
+
     };
 }

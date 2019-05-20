@@ -9,10 +9,10 @@ Phi is a general-purpose programming language designed for writing the most read
 
 Goals:
 
-* Easy to use, it let's you think about the algorithm instead of code writing. Be [sweet syntactically](https://en.wikipedia.org/wiki/Syntactic_sugar).
+* Easy to use, it let's you think about the algorithm instead of code writing. Phi is [sweet syntactically](https://en.wikipedia.org/wiki/Syntactic_sugar).
 * Executes faster than Python, R, Octave, Matlab and other competitors.
 * Can be easily accessed and runned from other programming languages.
-* Contains the basic ML and DL algorithms.
+* Contains the general algorithms.
 * Have an option to be compiled to bytecode, for running low level operations.
 
 ## How the interpreter works
@@ -22,17 +22,17 @@ When running a program, this is what happens:
 - [X] Parser reads the program text.
 - [X] Lexer makes a parse tree (AST). Finds syntax errors, recognize out statements and expressions, save tokens to the AST.
 - [ ] Parser makes semantic analysis of the parse tree -- finds semantic errors, type errors, resolves types, figures out lexical scopes resolves variable names. Creates Concrete Syntax Tree (CST).
-- [ ] Executes the code according to the CST.
+- [ ] Executor executes the code according to the CST.
+
+### Lexer
+
+Finds syntax errors, recognize statements and expressions, saves tokens in the AST. (2)
 
 ### Parser
 
 The parser reads a Phi program as a text (1) and figures out evaluation order of expressions according to the AST. (3)
 
 The parser adds structure to to the AST tokens then produces and creates a Concrete Syntax Tree or CST. (4)
-
-### Lexer
-
-Finds syntax errors, recognize statements and expressions, saves tokens in the AST. (2)
 
 ### Abstract Syntax Tree (AST)
 
@@ -92,7 +92,7 @@ For more, please read the `examples/README.md` file.
 
 ## How to contribute
 
-Fork repository, make changes, send us a pull request. We will review your changes and apply them to the master branch shortly, provided they don't violate our [quality standards](https://github.com/MartinKondor/PhiLang/blob/master/CODE_OF_CONDUCT.md).
+Fork repository, make changes, send us a pull request. We will review your changes and apply them to the master branch shortly, provided they don't violate our [quality standards](https://github.com/MartinKondor/PhiLang/blob/master/docs/CODE_OF_CONDUCT.md) and the our [style guide](https://github.com/MartinKondor/PhiLang/blob/master/docs/CODE_STYLE_GUIDE.md).
 
 ## Repository structure
 

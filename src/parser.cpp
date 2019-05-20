@@ -165,7 +165,7 @@ namespace Parser {
                     
                     return createdVariable;
                 } else {
-                    utils::closeWithError("Undefined varialbe \"" + variableValue + "\" ");
+                    utils::closeWithError("Undefined variable \"" + variableValue + "\" ");
                 }
             }            
             return PhiObject("null", "null", "null");
@@ -192,7 +192,7 @@ namespace Parser {
             else {
                 int rightPartIndex = this->isVariableDefined(value);
                 if (rightPartIndex == -1) {
-                    utils::closeWithError("Undefined varialbe \"" + value + "\" ");
+                    utils::closeWithError("Undefined variable \"" + value + "\" ");
                 } else {
                     return this->variables[rightPartIndex];
                 }

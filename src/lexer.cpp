@@ -13,11 +13,13 @@ class Lexer {
   int currentNodeID;
   AST::AST ast;
   LEXER_STATUS lexerStatus;
+  bool inComment;
 
   Lexer() {
     this->currentNodeID = 0;
     this->ast = AST::AST();
     this->lexerStatus = LEXER_FREE;
+    this->inComment = false;
   }
 
   /**
@@ -47,9 +49,39 @@ class Lexer {
   }
 
   const void lex(const std::string &line, const unsigned int &lineNumber=0) {
+    using namespace std;
+    /*
+    * Check and remove comments
+    */
+    size_t commentIndex;
+    commentIndex = line.find_first_of("\"\"\"");
+    if (commentIndex != std::string::npos) {
+        if (!this->inComment) {
+          std::string inputLine = line.substr(0, commentIndex);
+          utils::trim(inputLine);
+          lex(inputLine, lineNumber);
+          this->inComment = true;
+          return;
+        } else {
+          std::string inputLine = line.substr(commentIndex + 3, line.length());
+          utils::trim(inputLine);
+          this->inComment = false;
+          lex(inputLine, lineNumber);
+          return;
+        }
+    }
+    else if (this->inComment) {
+      return;
+    }
 
-    // Remove comments
-    // TODO
+    // One line comment
+    commentIndex = line.find_first_of("#");
+    if (commentIndex != std::string::npos) {
+      std::string inputLine = line.substr(0, commentIndex);
+      utils::trim(inputLine);
+      lex(inputLine);
+      return;
+    }
 
     // Ignore whitespace
     if (line.find_first_not_of(' ') == std::string::npos) {

@@ -25,7 +25,7 @@ int main(const int argc, const char** args) {
     myfile.close();
   }
   else {
-	  cout << "Unable to open input file \"" << args[0] << "\"" << endl << "Phi stops.";
+	  cout << "Unable to open input file \"" << args[1] << "\"" << endl << "Phi stops.";
   } 
 
   switch (lexer.lexerStatus) {

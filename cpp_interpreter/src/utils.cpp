@@ -56,8 +56,27 @@ namespace utils {
     	return false;
     }
     
-    // ?
-    const bool isNumeric(const std::string text) {
+    const bool isNumeric(const std::string s) {
+        std::string::const_iterator it = s.begin();
+        while (it != s.end() && std::isdigit(*it)) ++it;
+        return !s.empty() && it == s.end();
+    }
+    
+    const bool isString(const std::string text) {
+        std::string inputText = text;
+        utils::trim(inputText);
+        if (inputText[0] == '"' && inputText[inputText.length() - 1] == '"') {
+            return true;
+        }
+        return false;
+    }
+    
+    const bool isArrayValue(const std::string text) {
+        std::string inputText = text;
+        utils::trim(inputText);
+        if (inputText[0] == '[' && inputText[inputText.length() - 1] == ']') {
+            return true;
+        }
         return false;
     }
 

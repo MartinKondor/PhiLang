@@ -3,8 +3,9 @@ b = 10
 
 a -= b
 a += b
+a *= b
+a /= b
+b /= a
 
-hello = "hello"
-world = "world"
-
-hello += world
+b = 7
+a %= b

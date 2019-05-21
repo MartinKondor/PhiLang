@@ -4,12 +4,12 @@
 
 #include <algorithm>
 
-#define N_OF_OPERATORS 14
+#define N_OF_OPERATORS 17
 #define N_OF_KEYWORDS 27
 
 
 const std::string OPERATORS[N_OF_OPERATORS] = {
-    "==", "!=", "+=", "-=", ">=", "<=",
+    "==", "!=", "+=", "-=", "*=", "/=", "%=", ">=", "<=",
     "=", ">", "<", "/", "*", "%", "+", "-",
 };
 

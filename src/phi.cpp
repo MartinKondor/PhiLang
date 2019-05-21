@@ -5,8 +5,9 @@
 #include <vector>
 #include "utils.cpp"
 #include "ast.cpp"
-#include "parser.cpp"
 #include "lexer.cpp"
+#include "phiobjects.cpp"
+#include "parser.cpp"
 using namespace std;
 
 

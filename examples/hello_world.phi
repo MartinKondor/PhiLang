@@ -1,7 +1,1 @@
-"""
-Multi line comment here.
-"""
-
-print "Hello world!"  # Some one line comment
-
-print 10
+print "Hello world!"

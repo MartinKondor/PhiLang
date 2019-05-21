@@ -1,3 +1,7 @@
+#ifndef LEXER_CPP_
+#define LEXER_CPP_
+#endif
+
 
 namespace Lexer {
 
@@ -39,9 +43,7 @@ class Lexer {
       const int operatorNodeID = this->ast.addNode(this->ast.addNode(this->currentNodeID, leftPart), _operator);
       const int _savedNodeID = this->currentNodeID;
       this->currentNodeID = operatorNodeID;
-
       this->lex(rightPart);
-
       this->currentNodeID = _savedNodeID;
       return true;
     }
@@ -49,9 +51,9 @@ class Lexer {
   }
 
   const void lex(const std::string &line, const unsigned int &lineNumber=0) {
-    using namespace std;
-    /*
-    * Check and remove comments
+      
+    /**
+    * Multi line comments
     */
     size_t commentIndex;
     commentIndex = line.find_first_of("\"\"\"");
@@ -88,12 +90,15 @@ class Lexer {
       return;
     }
 
+    /**
+    *  pass
+    */
     const std::string lineWithoutSpace = utils::removeSpace(line);
     if (lineWithoutSpace == "pass") return;
     size_t tokenIndex;
 
-    /*
-    *  Check for statements
+    /**
+    *  if
     */
     tokenIndex = line.find("if");
     if (tokenIndex != std::string::npos && utils::hasTheGivenKeyword("if", line)) {
@@ -112,6 +117,9 @@ class Lexer {
       return;
     }
 
+    /**
+    *  elseif
+    */
     tokenIndex = line.find("elseif");
     if (tokenIndex != std::string::npos && utils::hasTheGivenKeyword("elseif", line)) {
       if (this->lexerStatus == LEXER_IN_IF) {
@@ -133,6 +141,9 @@ class Lexer {
       }
     }
 
+    /**
+    *  endif
+    */
     tokenIndex = line.find("endif");
     if (tokenIndex != std::string::npos && utils::hasTheGivenKeyword("endif", line)) {
       if (this->lexerStatus == LEXER_IN_IF) {
@@ -154,6 +165,9 @@ class Lexer {
       }
     }
 
+    /**
+    *  else
+    */
     tokenIndex = line.find("else");
     if (tokenIndex != std::string::npos && utils::hasTheGivenKeyword("else", line)) {
       if (this->lexerStatus != LEXER_IN_IF) {
@@ -163,6 +177,9 @@ class Lexer {
       return;
     }
 
+    /**
+    *  while
+    */
     tokenIndex = line.find("while");
     if (tokenIndex != std::string::npos && utils::hasTheGivenKeyword("while", line)) {
       std::string lineWithoutWhile = line.substr(tokenIndex + 5, line.length());
@@ -180,6 +197,9 @@ class Lexer {
       return;
     }
 
+    /**
+    *  endwhile
+    */
     tokenIndex = line.find("endwhile");
     if (tokenIndex != std::string::npos && utils::hasTheGivenKeyword("endwhile", line)) {
       if (this->lexerStatus == LEXER_IN_WHILE) {
@@ -201,6 +221,9 @@ class Lexer {
       }
     }
 
+    /**
+    *  for
+    */
     tokenIndex = line.find("for");
     if (tokenIndex != std::string::npos && utils::hasTheGivenKeyword("for", line)) {
         std::string lineWithoutFor = line.substr(tokenIndex + 3, line.length());
@@ -218,6 +241,9 @@ class Lexer {
         return;
     }
 
+    /**
+    *  endfor
+    */
     tokenIndex = line.find("endfor");
     if (tokenIndex != std::string::npos && utils::hasTheGivenKeyword("endfor", line)) {
       if (this->lexerStatus == LEXER_IN_FOR) {
@@ -239,7 +265,7 @@ class Lexer {
       }
     }
 
-    /*
+    /**
     *  Check for Operators
     */
     for (int i = 0; i < N_OF_OPERATORS; i++) {
@@ -248,7 +274,7 @@ class Lexer {
       }
     }
 
-    /*
+    /**
     *  Add line to the AST by default
     */
     ast.addNode(this->currentNodeID, line);

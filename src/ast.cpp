@@ -1,5 +1,10 @@
+#ifndef AST_CPP_
+#define AST_CPP_
+#endif
+
 
 namespace AST {
+    
     class ASTNode {
         public:
         int parentID;
@@ -28,12 +33,21 @@ namespace AST {
             return ++this->currentID;
         }
 
+        /**
+        * Add a new uniuqe IDd node for the given
+        * parentID with the given value
+        */
         const int addNode(const int &parentID, const std::string &value) {
             const int newNodeID = this->getNewNodeID();
             this->container.push_back(ASTNode(parentID, newNodeID, value));
             return newNodeID;
         }
 
+        /**
+        * Rerturns the value of the searched node,
+        * if the node does not found, it returns a
+        * ASTNode(-1, -1, "null")
+        */
         const ASTNode getNode(const int &ID) {
             for (int i = 0; i < this->container.size(); i++) {
                 if (this->container[i].ID == ID) {
@@ -43,6 +57,20 @@ namespace AST {
             return ASTNode(-1, -1, "null");
         }
 
+        /**
+        *  Returns the vector of the children nodes
+        *  of the given IDd node
+        */ 
+        const std::vector<ASTNode> getChildren(const int &parentNodeID) {
+            std::vector<ASTNode> children = {};
+            for (int i = 0; i < this->container.size(); i++) {
+                if (this->container[i].parentID == parentNodeID) {
+                    children.push_back(this->container[i]);
+                }
+            }
+            return children;
+        }
+        
         const void printChildren(int &parentNodeID) {
             for (int i = 0; i < this->container.size(); i++) {
                 if (this->container[i].parentID == parentNodeID) {
@@ -50,15 +78,7 @@ namespace AST {
                 }
             }
         }
-
-        const std::vector<ASTNode> getChildren(const int &parentNodeID) {
-            std::vector<ASTNode> ret = {};
-            for (int i = 0; i < this->container.size(); i++) {
-                if (this->container[i].parentID == parentNodeID) {
-                    ret.push_back(this->container[i]);
-                }
-            }
-            return ret;
-        }
+        
     };
+    
 }

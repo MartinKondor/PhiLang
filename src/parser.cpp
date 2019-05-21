@@ -1,3 +1,7 @@
+#ifndef PARSER_CPP_
+#define PARSER_CPP_
+#endif
+
 
 namespace Parser {
 
@@ -27,6 +31,9 @@ namespace Parser {
             return this->ID == other.ID && this->type == other.type && this->value == other.value;
         }
 
+        /**
+        * Method for the + operator
+        */
         PhiObject __plus__(const PhiObject &other) {
             if (this->type == "number" && other.type == "number") {
                 return PhiObject("null", std::to_string(std::stoi(this->value) + stoi(other.value)), "number");
@@ -38,7 +45,10 @@ namespace Parser {
             utils::closeWithError("Types cannot be added together: \"" + this->type + "\" + \"" + other.type + "\"");
             return PhiObject();
         }
-
+        
+        /**
+        * Method for the - operator
+        */
         PhiObject __minus__(const PhiObject &other) {
             if (this->type == "number" && other.type == "number") {
                 return PhiObject("null", std::to_string(std::stoi(this->value) - stoi(other.value)), "number");
@@ -111,7 +121,7 @@ namespace Parser {
             return false;
         }
 
-        /*
+        /**
         * Tries to find an operator, if found, the operator is returned
         */
         const static std::string hasOperator(const std::string &text) {
@@ -123,7 +133,7 @@ namespace Parser {
             return "null";
         }
         
-        /*
+        /**
         * Returns the index of the variable if found in this->variables,
         * if not it's returning -1
         */
@@ -136,7 +146,7 @@ namespace Parser {
             return -1;
         }
         
-        /*
+        /**
         * Attempts to create a new variable with the given variableName and variableValue
         */
         const PhiObject parseVariableValue(const std::string &variableName, const std::string &variableValue) {
@@ -200,6 +210,9 @@ namespace Parser {
             return PhiObject("null", "null", "null");
         }
         
+        /**
+        * Parse in a variable + operator + variable|value expression
+        */
         const void parseVariable(const AST::ASTNode &variableNode) {
             const std::vector<AST::ASTNode> variableChildren = this->ast.getChildren(variableNode.ID);        
             

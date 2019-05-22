@@ -15,8 +15,9 @@ int main(const int argc, const char** args) {
   /*
   clock_t begin = clock();
   */
-  
+ 
   const char* inputFilePath;
+  bool isVerbose = false;
   Lexer::Lexer lexer;
 
   /**

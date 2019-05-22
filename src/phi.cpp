@@ -12,9 +12,7 @@ using namespace std;
 
 
 int main(const int argc, const char** args) {
-  /*
   clock_t begin = clock();
-  */
   
   const char* inputFilePath;
   Lexer::Lexer lexer;
@@ -71,11 +69,9 @@ int main(const int argc, const char** args) {
   Parser::Parser parser = Parser::Parser(lexer.ast);
   parser.parseAST();
 
-  /*
   clock_t end = clock();
   double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
   cout << endl << "Finished in: " << elapsed_secs << " seconds";
-  */
   
   return 0;
 }

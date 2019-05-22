@@ -170,11 +170,10 @@ namespace Parser {
                  * Operators
                  */
                 if (variableChildren[0].value == "=") {
-
                     // The left part of the 
                     // variableNode = variableValue[0]
                     const std::vector<AST::ASTNode> variableValue = this->ast.getChildren(variableChildren[0].ID);
-                            
+                    
                     // In case of one variable value
                     if (variableValue.size() == 1) {  
                         PhiObject parsedVariable = this->parseVariableValue(variableNode.value, variableValue[0].value);
@@ -183,47 +182,72 @@ namespace Parser {
                 }
                 else if (variableChildren[0].value == "==") {
                     const std::vector<AST::ASTNode> otherValue = this->ast.getChildren(variableChildren[0].ID);
-
                     if (otherValue.size() == 1) {
-                        PhiObject rightPart = resolveValue(variableNode.value),
-                                leftPart = resolveValue(otherValue[0].value);
+                        PhiObject rightPart = resolveValue(variableNode.value), leftPart = resolveValue(otherValue[0].value);
                         std::cout << rightPart.value << " == " << leftPart.value << " will be " << rightPart.__isEqual__(leftPart) << std::endl;
+                    }
+                }
+                else if (variableChildren[0].value == "!=") {
+                    const std::vector<AST::ASTNode> otherValue = this->ast.getChildren(variableChildren[0].ID);
+                    if (otherValue.size() == 1) {
+                        PhiObject rightPart = resolveValue(variableNode.value), leftPart = resolveValue(otherValue[0].value);
+                        std::cout << rightPart.value << " != " << leftPart.value << " will be " << !rightPart.__isEqual__(leftPart) << std::endl;
                     }
                 }
                 else if (variableChildren[0].value == "+=") {
                     const std::vector<AST::ASTNode> otherValue = this->ast.getChildren(variableChildren[0].ID);
-
-                    PhiObject rightPart = resolveValue(variableNode.value),
-                            leftPart = resolveValue(otherValue[0].value);
+                    PhiObject rightPart = resolveValue(variableNode.value), leftPart = resolveValue(otherValue[0].value);
                     std::cout << rightPart.value << " += " << leftPart.value << " will be " << rightPart.__plus__(leftPart).value << std::endl;
                 }
                 else if (variableChildren[0].value == "-=") {
                     const std::vector<AST::ASTNode> otherValue = this->ast.getChildren(variableChildren[0].ID);
-
-                    PhiObject rightPart = resolveValue(variableNode.value),
-                            leftPart = resolveValue(otherValue[0].value);
+                    PhiObject rightPart = resolveValue(variableNode.value), leftPart = resolveValue(otherValue[0].value);
                     std::cout << rightPart.value << " -= " << leftPart.value << " will be " << rightPart.__minus__(leftPart).value << std::endl;
                 }
                 else if (variableChildren[0].value == "*=") {
                     const std::vector<AST::ASTNode> otherValue = this->ast.getChildren(variableChildren[0].ID);
-
-                    PhiObject rightPart = resolveValue(variableNode.value),
-                            leftPart = resolveValue(otherValue[0].value);
+                    PhiObject rightPart = resolveValue(variableNode.value), leftPart = resolveValue(otherValue[0].value);
                     std::cout << rightPart.value << " *= " << leftPart.value << " will be " << rightPart.__star__(leftPart).value << std::endl;
                 }
                 else if (variableChildren[0].value == "/=") {
                     const std::vector<AST::ASTNode> otherValue = this->ast.getChildren(variableChildren[0].ID);
-
-                    PhiObject rightPart = resolveValue(variableNode.value),
-                            leftPart = resolveValue(otherValue[0].value);
+                    PhiObject rightPart = resolveValue(variableNode.value), leftPart = resolveValue(otherValue[0].value);
                     std::cout << rightPart.value << " /= " << leftPart.value << " will be " << rightPart.__slash__(leftPart).value << std::endl;
                 }
                 else if (variableChildren[0].value == "%=") {
                     const std::vector<AST::ASTNode> otherValue = this->ast.getChildren(variableChildren[0].ID);
-
-                    PhiObject rightPart = resolveValue(variableNode.value),
-                            leftPart = resolveValue(otherValue[0].value);
+                    PhiObject rightPart = resolveValue(variableNode.value), leftPart = resolveValue(otherValue[0].value);
                     std::cout << rightPart.value << " %= " << leftPart.value << " will be " << rightPart.__modulo__(leftPart).value << std::endl;
+                }
+                else if (variableChildren[0].value == "<") {
+                    const std::vector<AST::ASTNode> otherValue = this->ast.getChildren(variableChildren[0].ID);
+                    PhiObject rightPart = resolveValue(variableNode.value), leftPart = resolveValue(otherValue[0].value);
+                    std::cout << rightPart.value << " < " << leftPart.value << " will be " << rightPart.__lessThan__(leftPart) << std::endl;
+                }
+                else if (variableChildren[0].value == ">") {
+                    const std::vector<AST::ASTNode> otherValue = this->ast.getChildren(variableChildren[0].ID);
+                    PhiObject rightPart = resolveValue(variableNode.value), leftPart = resolveValue(otherValue[0].value);
+                    std::cout << rightPart.value << " > " << leftPart.value << " will be " << rightPart.__biggerThan__(leftPart) << std::endl;
+                }
+                else if (variableChildren[0].value == "<=") {
+                    const std::vector<AST::ASTNode> otherValue = this->ast.getChildren(variableChildren[0].ID);
+                    PhiObject rightPart = resolveValue(variableNode.value), leftPart = resolveValue(otherValue[0].value);
+                    std::cout << rightPart.value << " <= " << leftPart.value << " will be " << rightPart.__lessThanOrEqual__(leftPart) << std::endl;
+                }
+                else if (variableChildren[0].value == ">=") {
+                    const std::vector<AST::ASTNode> otherValue = this->ast.getChildren(variableChildren[0].ID);
+                    PhiObject rightPart = resolveValue(variableNode.value), leftPart = resolveValue(otherValue[0].value);
+                    std::cout << rightPart.value << " >= " << leftPart.value << " will be " << rightPart.__biggerThanOrEqual__(leftPart) << std::endl;
+                }
+                else if (variableChildren[0].value == "+") {
+                    const std::vector<AST::ASTNode> otherValue = this->ast.getChildren(variableChildren[0].ID);
+                    PhiObject rightPart = resolveValue(variableNode.value), leftPart = resolveValue(otherValue[0].value);
+                    std::cout << rightPart.value << " + " << leftPart.value << " will be " << rightPart.__plus__(leftPart).value << std::endl;
+                }
+                else if (variableChildren[0].value == "-") {
+                    const std::vector<AST::ASTNode> otherValue = this->ast.getChildren(variableChildren[0].ID);
+                    PhiObject rightPart = resolveValue(variableNode.value), leftPart = resolveValue(otherValue[0].value);
+                    std::cout << rightPart.value << " - " << leftPart.value << " will be " << rightPart.__minus__(leftPart).value << std::endl;
                 }
 
             }

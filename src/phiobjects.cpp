@@ -65,7 +65,7 @@ namespace PhiObjects {
             if (this->type == "number" && other.type == "number") {
                 return PhiObject("null", std::to_string(std::stoi(this->value) * std::stoi(other.value)), "number");
             }
-            // TODO: implement element wise array substraction
+            // TODO: implement element wise array multipication
             utils::closeWithError("Types cannot be multiplied: \"" + this->type + "\" + \"" + other.type + "\"");
             return PhiObject();
         }
@@ -77,7 +77,7 @@ namespace PhiObjects {
             if (this->type == "number" && other.type == "number") {
                 return PhiObject("null", std::to_string(std::stof(this->value) / std::stof(other.value)), "number");
             }
-            // TODO: implement element wise array substraction
+            // TODO: implement element wise array division
             utils::closeWithError("Types cannot be subtracted: \"" + this->type + "\" + \"" + other.type + "\"");
             return PhiObject();
         }
@@ -89,9 +89,37 @@ namespace PhiObjects {
             if (this->type == "number" && other.type == "number") {
                 return PhiObject("null", std::to_string(std::stoi(this->value) % std::stoi(other.value)), "number");
             }
-            // TODO: implement element wise array substraction
+            // TODO: implement element wise array modulo
             utils::closeWithError("Types cannot be used with modulo: \"" + this->type + "\" + \"" + other.type + "\"");
             return PhiObject();
+        }
+
+        /**
+        * Method for the < operator
+        */
+        bool __lessThan__(const PhiObject &other) {
+            return std::stoi(this->value) < std::stoi(other.value);
+        }
+        
+        /**
+        * Method for the > operator
+        */
+        bool __biggerThan__(const PhiObject &other) {
+            return std::stoi(this->value) > std::stoi(other.value);
+        }
+
+        /**
+        * Method for the >= operator
+        */
+        bool __biggerThanOrEqual__(const PhiObject &other) {
+            return this->__biggerThan__(other) || this->__isEqual__(other);
+        }
+
+        /**
+        * Method for the <= operator
+        */
+        bool __lessThanOrEqual__(const PhiObject &other) {
+            return this->__lessThan__(other) || this->__isEqual__(other);
         }
 
     };

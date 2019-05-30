@@ -1,11 +1,15 @@
 
+ccflags = -std=c++17 -I"header" -static-libstdc++
+inputfile = examples/test.phi
+
+
 build:
-	@g++ src/phi.cpp -o bin/phi.exe
+	@g++ source/phi.cpp $(ccflags) -o bin/phi.exe
 
 run:
-	@bin/phi.exe examples/test.phi
-
+	@bin/phi.exe $(inputfile)
+    
 test:
-	@g++ src/phi.cpp -o bin/phi.exe
-	@bin/phi.exe examples/test.phi
+	$(build)
+	$(run)
     

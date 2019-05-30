@@ -16,7 +16,7 @@ const std::vector<std::string> IO::IO::read_file(std::string filepath) {
         }
     }
     else {
-        throw "Can't open input file.";
+        throw Phi_Error("Inputfile " + filepath + " not found");
     }
     input_file.close();
 

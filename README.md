@@ -7,6 +7,13 @@
 
 Phi is a general-purpose programming language designed for writing the most readable and most understandable programs, which yet they are powerfull enough to run webservers, io operations, and even microcontrollers. The only requirement for writing a program with Phi is that you must know how to read plain English text.
 
+Development goals:
+
+- [x] Do TDD
+- [x] Use OOP
+- [] Use some sort of CI
+- [] Issue tracking
+
 Goals:
 
 * Easy to use, it let's you think about the algorithm instead of code writing. Phi is [sweet syntactically](https://en.wikipedia.org/wiki/Syntactic_sugar).
@@ -14,57 +21,6 @@ Goals:
 * Can be easily accessed and runned from other programming languages.
 * Contains the general algorithms.
 * Have an option to be compiled to bytecode, for running low level operations.
-
-## How the interpreter works
-
-When running a program, this is what happens:
-
-- [X] Parser reads the program text.
-- [X] Lexer makes a parse tree (AST). Finds syntax errors, recognize out statements and expressions, save tokens to the AST.
-- [ ] Parser makes semantic analysis of the parse tree -- finds semantic errors, type errors, resolves types, figures out lexical scopes resolves variable names. Creates Concrete Syntax Tree (CST).
-- [ ] Executor executes the code according to the CST.
-
-### Lexer
-
-Finds syntax errors, recognize statements and expressions, saves tokens in the AST. (2)
-
-### Parser
-
-The parser reads a Phi program as a text (1) and figures out evaluation order of expressions according to the AST. (3)
-
-The parser adds structure to to the AST tokens then produces and creates a Concrete Syntax Tree or CST. (4)
-
-### Abstract Syntax Tree (AST)
-
-Does not have any info about types or which identifiers are which. It is simply structured tokens built by the lexer.
-
-As an example if the code is:
-```
-a = 0
-print(a, 10)
-```
-Then AST would look something like this:
-```
-  a (variable)    print (function)
-  |                 |
-  |                 |
-  = (operator)   ------------------ (parameters)
-  |              |                |
-  |              |                |
-  0 (Number)     a (variable)     10 (Number)
-```
-
-### Concrete Syntax Tree (CST)
-
-The AST with context. That context is info such as what type a function returns, or that two places in which a variable is used are in fact using the same variable.
-
-When running it, each action node has a function `execute` which takes some input, does whatever the action should (including possibly calling sub action) and returns the action's output. This is the interpreter in action.
-
-A CST from the above example's AST:
-```
-a (declare varialbe with value) --> 0
-print (function call) --> 0 (the variable 'a' maps to 0 at this line), 10 --> "0 10" (executed function output)
-```
 
 ## Data types
 

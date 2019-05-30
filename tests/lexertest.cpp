@@ -6,15 +6,10 @@ const bool token_should_behave_as_expected() {
     return token.type == "type" && token.value == "value";
 }
 
-const bool lexer_can_recognize_simple(Lexer::Lexer &lexer) {
-    std::vector<std::string> tokens;
-
-    tokens = lexer.lex("0");
-    // TODO
-
+bool lexer_can_recognize_simple(Lexer::Lexer lexer) {
     return false;
 }
 
-const bool lexer_throws_err_on_bad_keyword_usage(Lexer::Lexer &lexer) {
+bool lexer_throws_err_on_bad_keyword_usage(Lexer::Lexer lexer) {
     return false;
 }

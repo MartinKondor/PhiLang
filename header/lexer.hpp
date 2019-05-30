@@ -32,19 +32,14 @@ namespace Lexer {
         Token(std::string type, std::string value);
     };
 
-    class Lexer {
-        private:
-        std::vector<std::string> lines;
+    class TokenStream {
+        public:
+        TokenStream();
+    };
 
+    class Lexer {
         public:
         Lexer();
-        Lexer(std::vector<std::string> lines);
-
-        /**
-        * Spliting "line" into the recognized symbols
-        * of the language aka "tokens"
-        */
-        std::vector<std::string> lex(std::string line);
     };
 
 }

@@ -19,7 +19,8 @@ using std::endl;
 
 
 int main(const int argc, const char** argv) {
-    
+    cout << "##################################" << endl;
+
     // IO tests
     IO::IO io = IO::IO();
     test("IO throws error on not found file", throws_error_on_not_found_file(io));
@@ -33,8 +34,8 @@ int main(const int argc, const char** argv) {
 
     // Lexer tests
     Lexer::Lexer lexer = Lexer::Lexer();
-    //test("Lexer can recognize simple expressions", lexer_can_recognize_simple(lexer));
-    //test("Lexer throws an error on unproper keyword usage", lexer_throws_err_on_bad_keyword_usage(lexer));
+    test("Lexer can recognize simple expressions", lexer_can_recognize_simple(lexer));
+    test("Lexer throws an error on unproper keyword usage", lexer_throws_err_on_bad_keyword_usage(lexer));
 
     // Parser tests
     //Parser::Parser parser = Parser::Parser();

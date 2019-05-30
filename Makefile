@@ -7,9 +7,10 @@ build:
 	@g++ source/phi.cpp $(ccflags) -o bin/phi.exe
 
 run:
+	@g++ source/phi.cpp $(ccflags) -o bin/phi.exe
 	@bin/phi.exe $(inputfile)
     
 test:
-	$(build)
-	$(run)
+	@g++ tests/phi.cpp $(ccflags) -o bin/phitest.exe
+	@./bin/phitest.exe
     

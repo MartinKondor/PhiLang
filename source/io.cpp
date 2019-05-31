@@ -25,18 +25,18 @@ const std::vector<std::string> IO::IO::read_file(std::string filepath) {
 
 const std::string IO::IO::read_file_as_str(std::string filepath) {
     std::string line;
-    std::string container = "";
+    std::stringstream ss;
     std::ifstream input_file(filepath);
 
     if (input_file.is_open()) {
         while (getline(input_file, line)) {
-            container += (line + '\n');
+            ss << (line + '\n');
         }
     }
     else {
         throw Phi_Error("Inputfile " + filepath + " not found");
     }
-    input_file.close();
 
-    return line;
+    input_file.close();
+    return ss.str();
 }

@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <iterator>
+#include <regex>
 
 #include "../library/utils.cpp"
 #include "errors.hpp"
@@ -36,7 +38,8 @@ int main(const int argc, const char** argv) {
 
     // Lexer tests
     test("Lexer can recognize simple expressions", lexer_can_recognize_simple());
-    test("Lexer throws an error on unproper keyword usage", lexer_throws_err_on_bad_keyword_usage());
+    test("Lexer can recognize variables", lexer_can_recognize_var());
+    test("Lexer can recognize function definitions", lexer_can_recognize_func());
 
     // Parser tests
     PARSER::Parser parser = PARSER::Parser();

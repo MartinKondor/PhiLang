@@ -18,19 +18,53 @@ bool lexer_can_recognize_simple() {
         }
     }
 
+    // Should all be keywords
     for (std::string keyword : LEXER::KEYWORDS) {
         if (!LEXER::Lexer::is_keyword(keyword)) {
             return false;
         }
     }
-
     if (LEXER::Lexer::is_keyword("something")) {
+        return false;
+    }
+
+    if (!LEXER::Lexer::is_digit('0') || LEXER::Lexer::is_digit('a')) {
+        return false;
+    }
+
+    // Should all be operators
+    for (std::string op : LEXER::OPERATORS) {
+        if (!LEXER::Lexer::is_operator(op)) {
+            return false;
+        }
+    }
+    if (LEXER::Lexer::is_operator("0")) {
+        return false;
+    }
+
+    // punctuation
+    if (!LEXER::Lexer::is_punc('(') || !LEXER::Lexer::is_punc(')') ||
+        !LEXER::Lexer::is_punc('[') || !LEXER::Lexer::is_punc(']')) {
+        return false;
+    }
+    if (LEXER::Lexer::is_punc('a')) {
         return false;
     }
 
     return true;
 }
 
-bool lexer_throws_err_on_bad_keyword_usage() {
-    return false;
+bool lexer_can_recognize_var() {
+    return LEXER::Lexer::is_id_start('a') &&
+            !LEXER::Lexer::is_id_start('1') &&
+            !LEXER::Lexer::is_id_start('\s');
+}
+
+bool lexer_can_recognize_func() {
+    return LEXER::Lexer::is_function_definition("def a()") &&
+            LEXER::Lexer::is_function_definition("def a") &&
+            LEXER::Lexer::is_function_definition("def a param1, param2") &&
+            LEXER::Lexer::is_function_definition("def a(param1, param2)") &&
+            !LEXER::Lexer::is_function_definition("def = 10") &&
+            !LEXER::Lexer::is_function_definition("adef = 10");
 }

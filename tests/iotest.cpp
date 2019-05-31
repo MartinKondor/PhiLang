@@ -23,5 +23,5 @@ const bool io_can_read_in_example_file(IO::IO& io) {
 
 const bool io_can_read_in_example_file_as_str(IO::IO& io) {
     std::string c = io.read_file_as_str("tests/testdata/io2.txt");
-    return c == "R1\nR2";
+    return c == "R1\nR2\n";
 }

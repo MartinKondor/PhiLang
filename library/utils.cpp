@@ -2,6 +2,7 @@
 #define _UTILS_CPP_
 
 #include <algorithm>
+#include <sstream>
 
 
 namespace Utils {
@@ -22,6 +23,12 @@ namespace Utils {
     inline void trim(std::string &s) {
         ltrim(s);
         rtrim(s);
+    }
+
+    std::string to_string(int d) {
+        std::ostringstream ss;
+        ss << d;
+        return ss.str();
     }
 
 }

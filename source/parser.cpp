@@ -4,14 +4,14 @@
 /**
  * Input stream
  */
-Parser::InputStream::InputStream(std::string input) {
+PARSER::InputStream::InputStream(std::string input) {
     this->input = input;
     this->line_number = 0;
     this->line_column = 0;
     this->current_pos = 0;
 }
 
-char Parser::InputStream::next() {
+char PARSER::InputStream::next() {
     char ch = this->input[this->current_pos++];
     if (ch == '\n') {
         this->line_number++;
@@ -22,21 +22,20 @@ char Parser::InputStream::next() {
     return ch;
 }
 
-char Parser::InputStream::peek() {
+char PARSER::InputStream::peek() {
     return this->input[this->current_pos];
 }
 
-bool Parser::InputStream::is_eof() {
+bool PARSER::InputStream::is_eof() {
     return this->input.length() == this->current_pos;
 }
 
-void Parser::InputStream::croak(std::string msg) {
+void PARSER::InputStream::croak(std::string msg) {
     throw new Phi_Error(msg + " At: ("
-        + std::to_string(this->line_number) + ":" + std::to_string(this->line_column)
-        + ")");
+        + Utils::to_string(this->line_number) + ":" + Utils::to_string(this->line_column) + ")");
 }
 
 /**
  * Parser
  */
-Parser::Parser::Parser() {}
+PARSER::Parser::Parser() {}

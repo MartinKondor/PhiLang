@@ -2,7 +2,7 @@
 /**
  * Nice printing of the test case's result 
  */
-const void test(const char* what, const bool result) {
+const bool test(const char* what, const bool result) {
     std::cout << what;
 
     if (result) {
@@ -24,4 +24,6 @@ const void test(const char* what, const bool result) {
             cout << "\033[31m" << "FAILED" << "\033[0m" << endl;
 #       endif
     }
+
+    return result;
 }

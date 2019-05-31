@@ -9,7 +9,8 @@ Lexer class.
 #define N_OF_OPERATORS 17
 #define N_OF_KEYWORDS 27
 
-namespace Lexer {
+
+namespace LEXER {
     
     const std::string OPERATORS[N_OF_OPERATORS] = {
         "==", "!=", "+=", "-=", "*=", "/=", "%=", ">=", "<=",
@@ -29,17 +30,19 @@ namespace Lexer {
         std::string type;
         std::string value;
 
+        Token();
         Token(std::string type, std::string value);
     };
 
-    class TokenStream {
-        public:
-        TokenStream();
-    };
-
     class Lexer {
+        private:
+        Token current_token;
+        PARSER::InputStream* input_stream;
+
         public:
-        Lexer();
+        static bool is_whitespace(char ch);
+        static bool is_keyword(std::string input);
+        Lexer(PARSER::InputStream* input_stream);
     };
 
 }

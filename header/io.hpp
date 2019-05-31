@@ -19,6 +19,12 @@ namespace IO {
          * as a vector of strings.
          */
         const std::vector<std::string> read_file(std::string filepath);
+
+        /**
+        * Reading in file an concatenate lines into one big string
+        * where each line is separated by '\n'
+        */
+        const std::string read_file_as_str(std::string filepath);
     };
 }
 

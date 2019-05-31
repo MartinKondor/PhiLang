@@ -8,7 +8,7 @@ Parser is responsible for:
 #define _PARSER_HPP_
 
 
-namespace Parser {
+namespace PARSER {
 
     class InputStream {
         private:

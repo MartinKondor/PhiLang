@@ -23,10 +23,6 @@ int main(const int argc, const char** argv) {
     }
 
     // read from file
-    IO::IO* io = new IO::IO;
-    std::vector<std::string> file_lines = io->read_file(argv[1]);
-    delete io;
-
     // lex each line
     // parse tokens
     // evaluate

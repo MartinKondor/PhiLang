@@ -11,8 +11,8 @@ Development goals:
 
 - [x] Do TDD
 - [x] Use OOP
-- [] Use some sort of CI
-- [] Issue tracking
+- [ ] Use some sort of CI
+- [ ] Issue tracking
 
 Goals:
 

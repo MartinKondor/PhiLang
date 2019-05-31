@@ -58,11 +58,9 @@ bool LEXER::Lexer::is_punc(char ch) {
     return ispunct(ch);
 }
 
-bool LEXER::Lexer::is_id_start(char ch) {
+bool LEXER::Lexer::is_id(std::string input) {
     std::regex var_regex("[^0-9][a-zA-Z0-9]*");
-    std::stringstream ss;
-    ss << ch;
-    return std::regex_match(ss.str(), var_regex);
+    return std::regex_match(input, var_regex);
 }
 
 bool LEXER::Lexer::is_function_definition(std::string input) {

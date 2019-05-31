@@ -45,7 +45,7 @@ namespace LEXER {
         static bool is_digit(char ch);
         static bool is_operator(std::string input);
         static bool is_punc(char ch);  // punctuation
-        static bool is_id_start(char ch);  // is the start of an ID
+        static bool is_id(std::string input);
         static bool is_function_definition(std::string input);
 
         Lexer(PARSER::InputStream* input_stream);

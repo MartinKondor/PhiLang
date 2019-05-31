@@ -55,9 +55,9 @@ bool lexer_can_recognize_simple() {
 }
 
 bool lexer_can_recognize_var() {
-    return LEXER::Lexer::is_id_start('a') &&
-            !LEXER::Lexer::is_id_start('1') &&
-            !LEXER::Lexer::is_id_start('\s');
+    return LEXER::Lexer::is_id("a12") &&
+            !LEXER::Lexer::is_id("12") &&
+            !LEXER::Lexer::is_id("\s");
 }
 
 bool lexer_can_recognize_func() {

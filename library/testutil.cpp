@@ -11,7 +11,9 @@ const bool test(const char* what, const bool result) {
             std::cout << "SUCCEEDED" << std::endl;
             system("echo [0m");
 #       else
-            cout << "\033[32m" << "SUCCEEDED" << "\033[0m" << endl;
+            system("\033[32m");
+            cout << "SUCCEEDED" << endl;
+            system("\033[0m");
 #       endif
     }
     else
@@ -21,7 +23,9 @@ const bool test(const char* what, const bool result) {
             std::cout << "FAILED" << std::endl;
             system("echo [0m");
 #       else
-            cout << "\033[31m" << "FAILED" << "\033[0m" << endl;
+            system("echo \033[31m");
+            cout << "FAILED" << endl;
+            system("echo \033[0m");
 #       endif
     }
 

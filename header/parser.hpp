@@ -18,6 +18,7 @@ namespace PARSER {
         int line_column;
 
         public:
+        InputStream();
         InputStream(std::string line);
         
         /**

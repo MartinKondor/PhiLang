@@ -18,7 +18,7 @@ LEXER::Token::Token(std::string type, std::string value) {
 /**
 * Lexer
 */
-LEXER::Lexer::Lexer(PARSER::InputStream* input_stream) {
+LEXER::Lexer::Lexer(PARSER::InputStream input_stream) {
     this->input_stream = input_stream;
     this->current_token = LEXER::Token();
 }
@@ -59,11 +59,11 @@ bool LEXER::Lexer::is_punc(char ch) {
 }
 
 bool LEXER::Lexer::is_id(std::string input) {
-    std::regex var_regex("[^0-9][a-zA-Z0-9]*");
+    std::regex var_regex("^[^\\s0-9][a-zA-Z0-9]*");
     return std::regex_match(input, var_regex);
 }
 
-bool LEXER::Lexer::is_function_definition(std::string input) {
-    std::regex func_regex("^def\\s{1,}[^0-9][a-zA-Z0-9]*\\({1}\\){1}");
+bool LEXER::Lexer::is_def(std::string input) {
+    std::regex func_regex("^def\\s{1,}[^0-9][a-zA-Z0-9]*\\(?([^0-9][a-zA-Z0-9]*\\,?)*\\)?");
     return std::regex_match(input, func_regex);
 }

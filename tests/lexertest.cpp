@@ -1,11 +1,20 @@
 #include "../source/lexer.cpp"
 
 
-const bool token_should_behave_as_expected() {
+bool token_should_behave_as_expected() {
     LEXER::Token token = LEXER::Token("type", "value");
     LEXER::Token null_token = LEXER::Token();
     return token.type == "type" && token.value == "value" &&
             null_token.type == "null" && null_token.value == "null";
+}
+
+bool lexer_wproperly() {
+    PARSER::InputStream is = PARSER::InputStream("");
+    LEXER::Lexer lexer = LEXER::Lexer(is);
+
+    // TODO
+    
+    return false;
 }
 
 bool lexer_can_recognize_simple() {
@@ -57,14 +66,13 @@ bool lexer_can_recognize_simple() {
 bool lexer_can_recognize_var() {
     return LEXER::Lexer::is_id("a12") &&
             !LEXER::Lexer::is_id("12") &&
-            !LEXER::Lexer::is_id("\s");
+            !LEXER::Lexer::is_id(" ");
 }
 
 bool lexer_can_recognize_func() {
-    return LEXER::Lexer::is_function_definition("def a()") &&
-            LEXER::Lexer::is_function_definition("def a") &&
-            LEXER::Lexer::is_function_definition("def a param1, param2") &&
-            LEXER::Lexer::is_function_definition("def a(param1, param2)") &&
-            !LEXER::Lexer::is_function_definition("def = 10") &&
-            !LEXER::Lexer::is_function_definition("adef = 10");
+    return LEXER::Lexer::is_def("def a()") &&
+            LEXER::Lexer::is_def("def a") &&
+            LEXER::Lexer::is_def("def a param1, param2") &&
+            LEXER::Lexer::is_def("def a(param1, param2)") &&
+            !LEXER::Lexer::is_def("adef = 10");
 }

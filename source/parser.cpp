@@ -4,6 +4,13 @@
 /**
  * Input stream
  */
+PARSER::InputStream::InputStream() {
+    this->input = "";
+    this->line_number = 0;
+    this->line_column = 0;
+    this->current_pos = 0;
+}
+
 PARSER::InputStream::InputStream(std::string input) {
     this->input = input;
     this->line_number = 0;

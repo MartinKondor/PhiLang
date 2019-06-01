@@ -45,3 +45,7 @@ bool input_stream_woks_on_multipe_lines() {
     }
     return is.next() == 'b';
 }
+
+bool parser_wproperly() {
+    return false;
+}

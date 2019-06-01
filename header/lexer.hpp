@@ -37,7 +37,7 @@ namespace LEXER {
     class Lexer {
         private:
         Token current_token;
-        PARSER::InputStream* input_stream;
+        PARSER::InputStream input_stream;
 
         public:
         static bool is_whitespace(char ch);
@@ -46,9 +46,10 @@ namespace LEXER {
         static bool is_operator(std::string input);
         static bool is_punc(char ch);  // punctuation
         static bool is_id(std::string input);
-        static bool is_function_definition(std::string input);
+        static bool is_def(std::string input);
 
-        Lexer(PARSER::InputStream* input_stream);
+        Lexer(PARSER::InputStream input_stream);
+        std::string read_while(bool (*)(char ch));
     };
 
 }

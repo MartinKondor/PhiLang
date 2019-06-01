@@ -16,12 +16,9 @@
 #include "parsertest.cpp"
 #include "lexertest.cpp"
 
-using std::cout;
-using std::endl;
-
 
 int main(const int argc, const char** argv) {
-    cout << "##################################" << endl;
+    std::cout << "##################################" << std::endl;
 
     // IO tests
     IO::IO io = IO::IO();
@@ -37,13 +34,14 @@ int main(const int argc, const char** argv) {
     test("Token should behave as expected", token_should_behave_as_expected());
 
     // Lexer tests
+    test("Lexer works properly", lexer_wproperly());
     test("Lexer can recognize simple expressions", lexer_can_recognize_simple());
     test("Lexer can recognize variables", lexer_can_recognize_var());
     test("Lexer can recognize function definitions", lexer_can_recognize_func());
 
     // Parser tests
     PARSER::Parser parser = PARSER::Parser();
-    test("Parser", false);
+    test("Parser works properly", parser_wproperly());
 
     return 0;
 }

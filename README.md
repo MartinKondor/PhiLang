@@ -54,9 +54,12 @@ Fork repository, make changes, send us a pull request. We will review your chang
 
 ```
 examples/  # example Phi programs and the basic description of the language in the README.md file
-src/  # Source files of the interpreter
-lib/  # Libraries
+header/
+source/  # Source files of the interpreter
+library/  # Libraries
 docs/  # descriptions
+tests/  # test cases
+OLDsource/  # source from before the merge with the "experimental" branch
 ```
 
 ## License

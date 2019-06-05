@@ -5,10 +5,10 @@
 # PhiLang
 [![version](https://img.shields.io/badge/version-2019.06-red.svg)](https://github.com/MartinKondor/PhiLang)
 [![Project Status](https://img.shields.io/badge/status-prototype-red.svg)](https://github.com/MartinKondor/PhiLang)
-[![C++](https://img.shields.io/badge/C++-17-blue.svg)](https://github.com/MartinKondor/WildTetris)
-[![GitHub Issues](https://img.shields.io/github/issues/MartinKondor/WildTetris.svg)](https://github.com/MartinKondor/WildTetris/issues)
-![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/MartinKondor/PhiLang/edit/master/LICENSE)
+[![C++](https://img.shields.io/badge/C++-17-blue.svg)](https://github.com/MartinKondor/PhiLang)
+[![GitHub Issues](https://img.shields.io/github/issues/MartinKondor/WildTetris.svg)](https://github.com/MartinKondor/PhiLang/issues)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-blue.svg)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/MartinKondor/PhiLang/edit/master/LICENSE)
 
 Phi is a general-purpose programming language designed for writing the most readable and most understandable programs, which yet they are powerfull enough to run webservers, io operations, and even microcontrollers. The only requirement for writing a program with Phi is that you must know how to read plain English text.
 

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="PhiLang" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/PhiLang" prefix_auto="1" extension_auto="1" />
+				<Option object_output="bin/obj/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/release/PhiLang" prefix_auto="1" extension_auto="1" />
+				<Option object_output="bin/release/obj/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="header/errors.hpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="header/io.hpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="header/lexer.hpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="header/parser.hpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="library/testutil.cpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="library/utils.cpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="source/io.cpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="source/lexer.cpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="source/parser.cpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="source/phi.cpp" />
+		<Unit filename="tests/README.md">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="tests/iotest.cpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="tests/lexertest.cpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="tests/parsertest.cpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="tests/phi.cpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="tests/testdata/io.txt">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="tests/testdata/io2.txt">
+			<Option target="Release" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

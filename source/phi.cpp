@@ -6,8 +6,8 @@
 #include <ctype.h>
 
 #include "../library/utils.cpp"
-#include "errors.hpp"
-#include "io.cpp"
+#include "../header/errors.hpp"
+#include "../header/io.hpp"
 
 using std::cout;
 using std::endl;

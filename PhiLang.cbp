@@ -7,11 +7,13 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/PhiLang" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/phi" prefix_auto="1" extension_auto="1" />
 				<Option object_output="bin/obj/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="examples/1000_hello_world.phi" />
 				<Compiler>
+					<Add option="-std=c11" />
 					<Add option="-g" />
 				</Compiler>
 			</Target>
@@ -31,47 +33,32 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="README.md">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="docs/BASICS.md">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="docs/CODE_STYLE_GUIDE.md">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="header/errors.hpp">
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="header/io.hpp">
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="header/lexer.hpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="header/parser.hpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="library/testutil.cpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="library/utils.cpp">
+		<Unit filename="source/errors.cpp">
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="source/io.cpp">
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="source/lexer.cpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="source/parser.cpp">
-			<Option target="Release" />
-		</Unit>
 		<Unit filename="source/phi.cpp" />
+		<Unit filename="source/utils.cpp">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="tests/README.md">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="tests/iotest.cpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="tests/lexertest.cpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="tests/parsertest.cpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="tests/phi.cpp">
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="tests/testdata/io.txt">

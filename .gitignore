@@ -18,7 +18,8 @@ branding/
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
+#*.dll
+#bin/
 
 # Fortran module files
 *.mod
@@ -34,4 +35,3 @@ branding/
 *.exe
 *.out
 *.app
-bin/

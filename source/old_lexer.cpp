@@ -9,7 +9,7 @@ LEXER::Token::Token() {
     this->value = "null";
 }
 
-LEXER::Token::Token(std::string type, std::string value) {
+LEXER::Token::Token(const std::string &type, const std::string &value) {
     this->type = type;
     this->value = value;
 }
@@ -25,13 +25,13 @@ LEXER::Lexer::Lexer(PARSER::InputStream input_stream) {
 
 
 /**
-* static methods
+* Static methods
 */
-bool LEXER::Lexer::is_whitespace(char ch) {
+const bool LEXER::Lexer::is_whitespace(const char &ch) {
     return isspace(ch);
 }
 
-bool LEXER::Lexer::is_keyword(std::string input) {
+const bool LEXER::Lexer::is_keyword(const std::string &input) {
     for (std::string keyword : LEXER::KEYWORDS) {
         if (input == keyword) {
             return true;
@@ -40,11 +40,11 @@ bool LEXER::Lexer::is_keyword(std::string input) {
     return false;
 }
 
-bool LEXER::Lexer::is_digit(char ch) {
+const bool LEXER::Lexer::is_digit(const char &ch) {
     return isdigit(ch);
 }
 
-bool LEXER::Lexer::is_operator(std::string input) {
+const bool LEXER::Lexer::is_operator(const std::string &input) {
     for (std::string op : LEXER::OPERATORS) {
         if (input == op) {
             return true;
@@ -54,16 +54,16 @@ bool LEXER::Lexer::is_operator(std::string input) {
 }
 
 // ,;(){}[]
-bool LEXER::Lexer::is_punc(char ch) {
+const bool LEXER::Lexer::is_punc(char &ch) {
     return ispunct(ch);
 }
 
-bool LEXER::Lexer::is_id(std::string input) {
+const bool LEXER::Lexer::is_id(const std::string &input) {
     std::regex var_regex("^[^\\s0-9][a-zA-Z0-9]*");
     return std::regex_match(input, var_regex);
 }
 
-bool LEXER::Lexer::is_def(std::string input) {
+const bool LEXER::Lexer::is_def(const std::string &input) {
     std::regex func_regex("^def\\s{1,}[^0-9][a-zA-Z0-9]*\\(?([^0-9][a-zA-Z0-9]*\\,?)*\\)?");
     return std::regex_match(input, func_regex);
 }

@@ -3,7 +3,7 @@
 </p>
 
 # PhiLang
-[![version](https://img.shields.io/badge/version-2019.06-red.svg)](https://github.com/MartinKondor/PhiLang)
+[![version](https://img.shields.io/badge/version-2019.09-red.svg)](https://github.com/MartinKondor/PhiLang)
 [![Project Status](https://img.shields.io/badge/status-prototype-red.svg)](https://github.com/MartinKondor/PhiLang)
 [![C++](https://img.shields.io/badge/C++-17-blue.svg)](https://github.com/MartinKondor/PhiLang)
 [![GitHub Issues](https://img.shields.io/github/issues/MartinKondor/WildTetris.svg)](https://github.com/MartinKondor/PhiLang/issues)
@@ -46,7 +46,7 @@ A type is very similar to interfaces from Java. A type has a name a list of meth
 * Boolean = true or false.
 * String = "..." or '...'.
 * List = Can contain any type, elements can be added and removed.
-* Array = Contains only one type, fixed size.
+* Array = Contains only one type.
 
 ### Language syntax
 
@@ -73,7 +73,6 @@ source/  # Source files of the interpreter
 library/  # Libraries
 docs/  # descriptions
 tests/  # test cases
-OLDsource/  # source from before the merge with the "experimental" branch
 ```
 
 ## Authors

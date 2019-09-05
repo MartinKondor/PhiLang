@@ -17,7 +17,7 @@
 #include "lexertest.cpp"
 
 
-int main(const int argc, const char** argv) {
+int test(const int argc, const char** argv) {
     std::cout << "##################################" << std::endl;
 
     // IO tests

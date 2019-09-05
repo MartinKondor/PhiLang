@@ -11,7 +11,7 @@ Lexer class.
 
 
 namespace LEXER {
-    
+
     const std::string OPERATORS[N_OF_OPERATORS] = {
         "==", "!=", "+=", "-=", "*=", "/=", "%=", ">=", "<=",
         "=", ">", "<", "/", "*", "%", "+", "-",
@@ -31,7 +31,7 @@ namespace LEXER {
         std::string value;
 
         Token();
-        Token(std::string type, std::string value);
+        Token(std::string &type, std::string &value);
     };
 
     class Lexer {
@@ -40,18 +40,18 @@ namespace LEXER {
         PARSER::InputStream input_stream;
 
         public:
-        static bool is_whitespace(char ch);
-        static bool is_keyword(std::string input);
-        static bool is_digit(char ch);
-        static bool is_operator(std::string input);
-        static bool is_punc(char ch);  // punctuation
-        static bool is_id(std::string input);
-        static bool is_def(std::string input);
+        static bool is_whitespace(const char &ch);
+        static bool is_keyword(const std::string &input);
+        static bool is_digit(const char &ch);
+        static bool is_operator(const std::string &input);
+        static bool is_punc(const char &ch);  // punctuation
+        static bool is_id(const std::string &input);
+        static bool is_def(const std::string &input);
 
         Lexer(PARSER::InputStream input_stream);
-        std::string read_while(bool (*)(char ch));
+        const std::string read_while(bool (*)(char ch));
     };
 
 }
 
-#endif
+#endif  // _LEXER_HPP_

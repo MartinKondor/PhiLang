@@ -8,16 +8,12 @@ Errors for the Phi language
 
 class Phi_Error {
     private:
-    std::string msg;
+    std::string m_msg;
 
     public:
-    Phi_Error(std::string msg) {
-        this->msg = msg;
-    }
+    Phi_Error(const std::string &msg);
 
-    virtual const char* what() const throw() {
-        return msg.c_str();
-    }
+    virtual const char* what() const throw() {return m_msg.c_str();}
 };
 
-#endif
+#endif // _ERRORS_HPP_

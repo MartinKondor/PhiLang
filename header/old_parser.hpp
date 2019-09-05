@@ -19,8 +19,8 @@ namespace PARSER {
 
         public:
         InputStream();
-        InputStream(std::string line);
-        
+        InputStream(std::string &line);
+
         /**
          * returns the next char and removes it from the stream
          */
@@ -39,7 +39,7 @@ namespace PARSER {
         /**
          * Throw error with line info
          */
-        void croak(std::string msg);
+        void croak(std::string &msg);
     };
 
     class Parser {
@@ -50,5 +50,5 @@ namespace PARSER {
 
 }
 
-#endif
+#endif  // _PARSER_HPP_
 

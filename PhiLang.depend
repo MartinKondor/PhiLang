@@ -1,21 +1,30 @@
 # depslib dependency file v1.0
-1567156178 source:d:\projects\philang\source\phi.cpp
+1567682023 source:d:\projects\philang\source\phi.cpp
 	<iostream>
 	<vector>
 	<string>
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>
-	"../library/utils.cpp"
-	"../header/errors.hpp"
-	"../header/io.hpp"
-
-1567155821 d:\projects\philang\library\utils.cpp
 	<algorithm>
 	<sstream>
-
-1567155821 d:\projects\philang\header\errors.hpp
-
-1567155821 d:\projects\philang\header\io.hpp
 	<fstream>
+	<sys/stat.h>
+	<windows.h>
+	<direct.h>
+	<unistd.h>
+	"utils.cpp"
+	"../header/errors.hpp"
+	"io.cpp"
+
+1567679201 d:\projects\philang\library\utils.cpp
+
+1567682188 d:\projects\philang\header\errors.hpp
+
+1567680737 d:\projects\philang\header\io.hpp
+
+1567681890 d:\projects\philang\source\io.cpp
+	"../header/io.hpp"
+
+1567679201 d:\projects\philang\source\utils.cpp
 

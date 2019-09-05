@@ -11,7 +11,7 @@
 				<Option object_output="bin/obj/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="examples/1000_hello_world.phi" />
+				<Option parameters="examples/hello_world.phi" />
 				<Compiler>
 					<Add option="-std=c11" />
 					<Add option="-g" />
@@ -45,16 +45,28 @@
 		<Unit filename="header/errors.hpp">
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="header/input_stream.hpp">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="header/io.hpp">
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="header/token_stream.hpp">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="source/errors.cpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="source/input_stream.cpp">
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="source/io.cpp">
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="source/phi.cpp" />
+		<Unit filename="source/token_stream.cpp">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="source/utils.cpp">
 			<Option target="Release" />
 		</Unit>

@@ -13,7 +13,7 @@ private:
     bool stopped;
 
 public:
-
+    TokenStream();
     TokenStream(const InputStream &input);
     const bool is_digit(const char &ch);
     const bool is_keyword(const std::string &str);

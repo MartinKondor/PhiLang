@@ -13,7 +13,6 @@
 				<Option compiler="gcc" />
 				<Option parameters="examples/hello_world.phi" />
 				<Compiler>
-					<Add option="-std=c11" />
 					<Add option="-g" />
 				</Compiler>
 			</Target>

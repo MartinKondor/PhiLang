@@ -1,6 +1,8 @@
 #include "../header/token_stream.hpp"
 
 
+TokenStream::TokenStream() {}
+
 TokenStream::TokenStream(const InputStream &input) {
     this->input = input;
     this->stopped = false;

@@ -1,7 +1,6 @@
 #ifndef _UTILS_CPP_
 #define _UTILS_CPP_
 
-
 namespace Utils {
 
     inline void ltrim(std::string &s) {
@@ -34,6 +33,24 @@ namespace Utils {
         __getcwd(buff, FILENAME_MAX);
         std::string current_working_dir(buff);
         return current_working_dir;
+    }
+
+    const unsigned int get_op_precedence(const std::string &op_str) {
+        if (op_str == "=") return 1;
+        if (op_str == "||") return 2;
+        if (op_str == "&&") return 3;
+        if (op_str == "<") return 7;
+        if (op_str == ">") return 7;
+        if (op_str == "<=") return 7;
+        if (op_str == ">=") return 7;
+        if (op_str == "==") return 7;
+        if (op_str == "!=") return 7;
+        if (op_str == "+") return 10;
+        if (op_str == "-") return 10;
+        if (op_str == "*") return 20;
+        if (op_str == "/") return 20;
+        if (op_str == "%") return 20;
+        return -1;
     }
 
 }

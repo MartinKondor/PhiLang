@@ -9,7 +9,7 @@
 #include <fstream>
 #include <regex>
 #include <sys/stat.h>
-#include <chrono>
+#include <unordered_map>
 
 using std::cout;
 using std::endl;
@@ -42,11 +42,13 @@ const std::regex PUNC_REGEX("[\\(\\)\[\\]\{\\},;]");
 #include "input_stream.cpp"
 #include "token.cpp"
 #include "token_stream.cpp"
+#include "parser.cpp"
 
 
 int main(const int argc, const char** argv) {
     if (argc < 2) {
         CommandUtils::showHelp();
+        system("pause");
         return EXIT_SUCCESS;
     }
 
@@ -67,8 +69,7 @@ int main(const int argc, const char** argv) {
 
     InputStream is(IO::read_file(inputFilePath));
     TokenStream ts(is);
-
-    // ...
+    Parser parser(ts);
 
     return EXIT_SUCCESS;
 }

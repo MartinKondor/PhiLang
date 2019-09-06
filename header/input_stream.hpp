@@ -7,13 +7,13 @@ Input stream.
 #define _INPUT_STREAM_HPP_
 
 class InputStream {
-public:
+private:
     unsigned int pos_index;
     unsigned int line_index;
     unsigned int column_index;
     std::string input_string;
 
-
+public:
     InputStream(const std::string &input_string);
     ~InputStream();
 

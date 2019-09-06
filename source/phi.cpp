@@ -9,6 +9,7 @@
 #include <fstream>
 #include <regex>
 #include <sys/stat.h>
+//#include <functional>
 
 using std::cout;
 using std::endl;
@@ -34,11 +35,12 @@ const std::string NOT_ID_STRING = "?!-<>=0123456789";
 const std::string KEYWORDS = " if else while for def true false ";
 const std::regex DIGIT_REGEX("[0-9]");
 const std::regex ID_START_REGEX("[a-z_]");
-const std::regex OPERATOR_REGEX("\b\+-%=&\|<>!\/\*");
-// const std::regex PUNC_REGEX(R"(,;(){}[])");  // ,;(){}[]
+const std::regex OPERATOR_REGEX("[\\+\\-%=&\\|<>!/\\*]");
+const std::regex PUNC_REGEX("[\\(\\)\[\\]\{\\},;]");
 
 #include "io.cpp"
 #include "input_stream.cpp"
+#include "token.cpp"
 #include "token_stream.cpp"
 
 
@@ -67,6 +69,14 @@ int main(const int argc, const char** argv) {
     // Start reading file with input stream
     IO::IO io;
     InputStream is(io.read_file_as_str(inputFilePath));
+    TokenStream ts(is);
+
+    Token currentToken = ts.next();
+
+    while (!currentToken.is_null()) {
+        cout << currentToken.to_str() << endl;
+        currentToken = ts.next();
+    }
 
     // read from file
     // lex each line

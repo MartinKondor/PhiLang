@@ -42,6 +42,9 @@
 		<Unit filename="docs/CODE_STYLE_GUIDE.md">
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="examples/hello_world.phi">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="header/errors.hpp">
 			<Option target="Release" />
 		</Unit>

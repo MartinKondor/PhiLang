@@ -1,28 +1,25 @@
 #include "../header/input_stream.hpp"
 
 
-InputStream::InputStream(const std::string &input) {
-    this->input = input;
-
-    /* Testing
-    while (!this->eof()) {
-        cout << this->next();
-    }
-    */
+InputStream::InputStream(const std::string &input_string="") {
+    this->input_string = input_string;
+    this->pos_index = 0;
+    this->line_index = 1;
+    this->column_index = 0;
 }
 
 const char InputStream::peek() {
-    return this->input[this->pos];
+    return this->pos_index < this->input_string.length() ? this->input_string[this->pos_index] : '\0';
 }
 
 const char InputStream::next() {
-    const char ch = this->input[this->pos++];
+    const char ch = this->input_string[this->pos_index++];
     if (ch == '\n') {
-        this->line++;
-        this->col = 0;
+        this->line_index++;
+        this->column_index = 0;
     }
     else {
-        this->col++;
+        this->column_index++;
     }
     return ch;
 }

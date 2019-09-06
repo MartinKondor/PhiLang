@@ -1,9 +1,18 @@
+#include "../header/token_stream.hpp"
+
 
 class TokenStream {
 private:
-    int i = 0;
+    InputStream input;
+    Token currentToken;
+    std::string currentTokenString;
 
 public:
+
+    TokenStream(const InputStream &input) {
+        this->input = input;
+        this->currentTokenString = "";
+    }
 
     const bool is_digit(const char &ch) {
         return std::regex_match(Utils::to_string(ch), DIGIT_REGEX);
@@ -26,105 +35,156 @@ public:
     }
 
     const bool is_punc(const char &ch) {
-        //return std::regex_match(Utils::to_string(ch), PUNC_REGEX);
+        return std::regex_match(Utils::to_string(ch), PUNC_REGEX);
     }
 
-    /*
     const bool is_whitespace(const char &ch) {
-        return " \t\n".indexOf(ch) >= 0;
+        return ch == ' ' || ch == '\t' || ch == '\n';
     }
 
-    function read_while(predicate) {
-        var str = "";
-        while (!input.eof() && predicate(input.peek()))
-            str += input.next();
+    /**
+    Reads from input stream until the given function returns false
+    @returns string of the read content
+    */
+    const std::string read_while(const bool (TokenStream::*func)(const char&)) {
+        std::string str;
+
+        while (!this->input.eof() && (this->*func)(this->input.peek())) {
+            str += this->input.next();
+        }
+
         return str;
     }
 
-    function read_number() {
-        var has_dot = false;
-        var number = read_while(function(ch){
-            if (ch == ".") {
-                if (has_dot) return false;
-                has_dot = true;
-                return true;
-            }
-            return is_digit(ch);
-        });
-        return { type: "num", value: parseFloat(number) };
+    const bool is_new_line(const char &ch) {
+        return ch == '\n';
     }
 
-    function read_ident() {
-        var id = read_while(is_id);
-        return {
-            type  : is_keyword(id) ? "kw" : "var",
-            value : id
-        };
+    const bool is_not_new_line(const char &ch) {
+        return !this->is_new_line(ch);
     }
 
-    function read_escaped(end) {
-        var escaped = false, str = "";
-        input.next();
-        while (!input.eof()) {
-            var ch = input.next();
+    /**
+    Reads until the end parameter is found
+    @returns string of the read content
+    */
+    const std::string read_escaped(const char &end) {
+        bool escaped = false;
+        std::string str = "";
+        this->input.next();
+
+        while (!this->input.eof()) {
+            char ch = this->input.next();
+
             if (escaped) {
                 str += ch;
                 escaped = false;
-            } else if (ch == "\\") {
+            }
+            else if (ch == '\\') {
                 escaped = true;
-            } else if (ch == end) {
+            }
+            else if (ch == end) {
                 break;
-            } else {
+            }
+            else {
                 str += ch;
             }
         }
         return str;
     }
 
-    function read_string() {
-        return { type: "str", value: read_escaped('"') };
+    Token read_string() {
+        return Token("str", read_escaped('"'));
     }
 
-    function skip_comment() {
-        read_while(function(ch){ return ch != "\n" });
-        input.next();
-    }
-
-    function read_next() {
-        read_while(is_whitespace);
-        if (input.eof()) return null;
-        var ch = input.peek();
-        if (ch == "#") {
-            skip_comment();
-            return read_next();
-        }
-        if (ch == '"') return read_string();
-        if (is_digit(ch)) return read_number();
-        if (is_id_start(ch)) return read_ident();
-        if (is_punc(ch)) return {
-            type  : "punc",
-            value : input.next()
-        };
-        if (is_op_char(ch)) return {
-            type  : "op",
-            value : read_while(is_op_char)
-        };
-        input.croak("Can't handle character: " + ch);
-    }
-
-    function peek() {
-        return current || (current = read_next());
-    }
-
-    function next() {
-        var tok = current;
-        current = null;
-        return tok || read_next();
-    }
-
-    function eof() {
-        return peek() == null;
-    }
+    /**
+    Skips input stream content until newline
     */
+    const void skip_comment() {
+        read_while(this->is_not_new_line);
+        this->input.next();
+    }
+
+    Token peek() {
+        // return this->currentTokenString || (this->currentTokenString = Utils::to_string(read_next()));
+        if (this->currentToken.is_null()) {
+            this->currentToken = this->read_next();
+        }
+        return this->currentToken;
+    }
+
+    const bool eof() {
+        this->peek();
+        return this->currentToken.is_null();
+    }
+
+    Token read_next() {
+        read_while(is_whitespace);
+
+        if (this->input.eof()) {
+            return Token("null", "null");
+        }
+
+        char ch = this->input.peek();
+
+        if (ch == '#') {
+            this->skip_comment();
+            return this->read_next();
+        }
+
+        if (ch == '"') {
+            return this->read_string();
+        }
+
+        if (this->is_digit(ch)) {
+            return this->read_number();
+        }
+
+        if (this->is_id_start(ch)) {
+            return this->read_ident();
+        }
+
+        if (this->is_punc(ch)) {
+            return Token("punc", Utils::to_string(this->input.next()));
+        }
+
+        if (is_op_char(ch)) {
+            return Token("op", this->read_while(this->is_op_char));
+        }
+
+        this->input.croak("Can't handle character: " + ch);
+    }
+
+    const bool has_dot(const char &ch) {
+        /// TODO: ???
+        bool has_dot = false;
+        if (ch == '.') {
+            if (has_dot) {
+                return false;
+            }
+            has_dot = true;
+            return true;
+        }
+        return this->is_digit(ch);
+    }
+
+    Token read_number() {
+        return Token("num", read_while(this->has_dot));
+    }
+
+    Token next() {
+        Token tok = this->currentToken;
+        this->currentToken = Token("null", "null");
+
+        if (tok.is_null()) {
+            tok = read_next();
+        }
+        return tok;
+    }
+
+    Token read_ident() {
+        std::string id = read_while(is_id);
+        return Token(this->is_keyword(id) ? "kw" : "var", id);
+    }
 
 };

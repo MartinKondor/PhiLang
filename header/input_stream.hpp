@@ -3,13 +3,13 @@
 
 class InputStream {
 private:
-    unsigned int pos = 0;
-    unsigned int line = 1;
-    unsigned int col = 0;
-    std::string input;
+    unsigned int pos_index;
+    unsigned int line_index;
+    unsigned int column_index;
+    std::string input_string;
 
 public:
-    InputStream(const std::string &input);
+    InputStream(const std::string &input_string);
     ~InputStream();
 
     /**

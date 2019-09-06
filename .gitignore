@@ -1,6 +1,7 @@
 branding/
 .vscode/
 .idea/
+*.layout
 
 # Prerequisites
 *.d

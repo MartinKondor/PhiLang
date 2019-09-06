@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1567757294 source:d:\projects\philang\source\phi.cpp
+1567759894 source:d:\projects\philang\source\phi.cpp
 	<iostream>
 	<vector>
 	<string>
@@ -11,6 +11,7 @@
 	<fstream>
 	<regex>
 	<sys/stat.h>
+	<map>
 	<windows.h>
 	<direct.h>
 	<unistd.h>
@@ -30,7 +31,7 @@
 1567682631 d:\projects\philang\source\io.cpp
 	"../header/io.hpp"
 
-1567679201 d:\projects\philang\source\utils.cpp
+1567759043 d:\projects\philang\source\utils.cpp
 
 1567756903 d:\projects\philang\source\errors.cpp
 	"../header/errors.hpp"
@@ -42,13 +43,13 @@
 
 1567691503 d:\projects\philang\source\tokenizer.cpp
 
-1567757103 d:\projects\philang\source\token_stream.cpp
+1567757715 d:\projects\philang\source\token_stream.cpp
 	"../header/token_stream.hpp"
 
-1567757032 d:\projects\philang\source\token.cpp
+1567760155 d:\projects\philang\source\token.cpp
 	"../header/token.hpp"
 
-1567757087 d:\projects\philang\header\token.hpp
+1567760121 d:\projects\philang\header\token.hpp
 
-1567689024 d:\projects\philang\header\token_stream.hpp
+1567758938 d:\projects\philang\header\token_stream.hpp
 

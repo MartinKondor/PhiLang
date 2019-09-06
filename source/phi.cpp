@@ -9,7 +9,6 @@
 #include <fstream>
 #include <regex>
 #include <sys/stat.h>
-//#include <functional>
 
 using std::cout;
 using std::endl;
@@ -45,6 +44,19 @@ const std::regex PUNC_REGEX("[\\(\\)\[\\]\{\\},;]");
 
 
 int main(const int argc, const char** argv) {
+    /*
+    // Start reading file with input stream
+    IO::IO io;
+    InputStream is(io.read_file_as_str(inputFilePath));
+    TokenStream ts(is);
+    Token currentToken = ts.next();
+
+    while (!currentToken.is_null()) {
+        cout << currentToken.to_str() << endl;
+        currentToken = ts.next();
+    }
+    */
+
     if (argc < 2) {
         CommandUtils::showHelp();
         return EXIT_SUCCESS;
@@ -66,21 +78,7 @@ int main(const int argc, const char** argv) {
         exit(EXIT_FAILURE);
     }
 
-    // Start reading file with input stream
-    IO::IO io;
-    InputStream is(io.read_file_as_str(inputFilePath));
-    TokenStream ts(is);
 
-    Token currentToken = ts.next();
 
-    while (!currentToken.is_null()) {
-        cout << currentToken.to_str() << endl;
-        currentToken = ts.next();
-    }
-
-    // read from file
-    // lex each line
-    // parse tokens
-    // evaluate
     return EXIT_SUCCESS;
 }

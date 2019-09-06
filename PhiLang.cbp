@@ -54,6 +54,12 @@
 		<Unit filename="header/io.hpp">
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="header/parser.hpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="header/token.hpp">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="header/token_stream.hpp">
 			<Option target="Release" />
 		</Unit>
@@ -66,7 +72,13 @@
 		<Unit filename="source/io.cpp">
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="source/parser.cpp">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="source/phi.cpp" />
+		<Unit filename="source/token.cpp">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="source/token_stream.cpp">
 			<Option target="Release" />
 		</Unit>

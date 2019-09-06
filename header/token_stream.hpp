@@ -1,3 +1,8 @@
+/*--------------------------------------------
+
+Token stream.
+
+--------------------------------------------*/
 #ifndef _TOKEN_STREAM_HPP_
 #define _TOKEN_STREAM_HPP_
 
@@ -5,7 +10,7 @@ class TokenStream {
 private:
     InputStream input;
     Token currentToken;
-    std::string currentTokenString;
+    bool stopped;
 
 public:
 

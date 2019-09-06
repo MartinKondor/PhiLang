@@ -3,7 +3,7 @@
 
 TokenStream::TokenStream(const InputStream &input) {
     this->input = input;
-    this->currentTokenString = "";
+    this->stopped = false;
 }
 
 const bool TokenStream::is_digit(const char &ch) {
@@ -36,11 +36,9 @@ const bool TokenStream::is_whitespace(const char &ch) {
 
 const std::string TokenStream::read_while(const bool (TokenStream::*func)(const char&)) {
     std::string str;
-
     while (!this->input.eof() && (this->*func)(this->input.peek())) {
         str += this->input.next();
     }
-
     return str;
 }
 
@@ -87,7 +85,6 @@ const void TokenStream::skip_comment() {
 }
 
 Token TokenStream::peek() {
-    // return this->currentTokenString || (this->currentTokenString = Utils::to_string(read_next()));
     if (this->currentToken.is_null()) {
         this->currentToken = this->read_next();
     }
@@ -100,7 +97,7 @@ const bool TokenStream::eof() {
 }
 
 Token TokenStream::read_next() {
-    read_while(is_whitespace);
+    this->read_while(is_whitespace);
 
     if (this->input.eof()) {
         return Token("null", "null");
@@ -112,32 +109,27 @@ Token TokenStream::read_next() {
         this->skip_comment();
         return this->read_next();
     }
-
     if (ch == '"') {
         return this->read_string();
     }
-
     if (this->is_digit(ch)) {
         return this->read_number();
     }
-
     if (this->is_id_start(ch)) {
         return this->read_ident();
     }
-
     if (this->is_punc(ch)) {
         return Token("punc", Utils::to_string(this->input.next()));
     }
-
     if (is_op_char(ch)) {
         return Token("op", this->read_while(this->is_op_char));
     }
 
-    this->input.croak("Can't handle character: " + ch);
+    throw new Phi_Error("Can't handle character: " + ch);
 }
 
 const bool TokenStream::has_dot(const char &ch) {
-    /// TODO: ???
+    // ???
     bool has_dot = false;
     if (ch == '.') {
         if (has_dot) {
@@ -154,13 +146,20 @@ Token TokenStream::read_number() {
 }
 
 Token TokenStream::next() {
-    Token tok = this->currentToken;
-    this->currentToken = Token("null", "null");
+    if (!this->stopped) {
+        Token tok = this->currentToken;
+        this->currentToken = Token("null", "null");
 
-    if (tok.is_null()) {
-        tok = read_next();
+        if (tok.is_null()) {
+            tok = read_next();
+
+            if (tok.is_null()) {
+                this->stopped = true;
+            }
+        }
+        return tok;
     }
-    return tok;
+    return Token("null", "null");
 }
 
 Token TokenStream::read_ident() {

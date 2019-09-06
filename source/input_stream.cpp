@@ -13,7 +13,8 @@ const char InputStream::peek() {
 }
 
 const char InputStream::next() {
-    const char ch = this->input_string[this->pos_index++];
+    const char ch = this->input_string[this->pos_index];
+
     if (ch == '\n') {
         this->line_index++;
         this->column_index = 0;
@@ -21,6 +22,14 @@ const char InputStream::next() {
     else {
         this->column_index++;
     }
+
+    if (this->pos_index >= this->input_string.length()) {
+        return '\0';
+    }
+    else {
+        this->pos_index++;
+    }
+
     return ch;
 }
 
@@ -28,8 +37,9 @@ const bool InputStream::eof() {
     return this->peek() == '\0';
 }
 
-Phi_Error* InputStream::croak(const std::string &msg) {
-    throw new Phi_Error(msg);
+InputStream::~InputStream() {
+    delete &this->input_string;
+    delete &this->pos_index;
+    delete &this->line_index;
+    delete &this->column_index;
 }
-
-InputStream::~InputStream() {}

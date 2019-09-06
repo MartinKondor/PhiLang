@@ -12,7 +12,6 @@ private:
 
 public:
     Phi_Error(const std::string &msg);
-
     virtual const char* what() const throw() {return m_msg.c_str();}
 };
 

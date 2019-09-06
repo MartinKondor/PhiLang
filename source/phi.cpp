@@ -9,6 +9,7 @@
 #include <fstream>
 #include <regex>
 #include <sys/stat.h>
+#include <chrono>
 
 using std::cout;
 using std::endl;
@@ -44,19 +45,6 @@ const std::regex PUNC_REGEX("[\\(\\)\[\\]\{\\},;]");
 
 
 int main(const int argc, const char** argv) {
-    /*
-    // Start reading file with input stream
-    IO::IO io;
-    InputStream is(io.read_file_as_str(inputFilePath));
-    TokenStream ts(is);
-    Token currentToken = ts.next();
-
-    while (!currentToken.is_null()) {
-        cout << currentToken.to_str() << endl;
-        currentToken = ts.next();
-    }
-    */
-
     if (argc < 2) {
         CommandUtils::showHelp();
         return EXIT_SUCCESS;
@@ -64,7 +52,6 @@ int main(const int argc, const char** argv) {
 
     // Specify input file path
     std::string inputFilePath;
-
     if (argv[1][0] == '/' || argv[1][0] == '\\') {
         inputFilePath = argv[1];
     }
@@ -78,7 +65,10 @@ int main(const int argc, const char** argv) {
         exit(EXIT_FAILURE);
     }
 
+    InputStream is(IO::read_file(inputFilePath));
+    TokenStream ts(is);
 
+    // ...
 
     return EXIT_SUCCESS;
 }

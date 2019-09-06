@@ -20,7 +20,7 @@ const std::string Token::get_value() {
 }
 
 const bool Token::is_null() {
-    return this->m_type == "null" && this->m_value == "null";
+    return this->m_type == "null";
 }
 
 std::string Token::to_str() {

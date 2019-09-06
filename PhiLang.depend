@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1567759894 source:d:\projects\philang\source\phi.cpp
+1567770760 source:d:\projects\philang\source\phi.cpp
 	<iostream>
 	<vector>
 	<string>
@@ -11,7 +11,7 @@
 	<fstream>
 	<regex>
 	<sys/stat.h>
-	<map>
+	<chrono>
 	<windows.h>
 	<direct.h>
 	<unistd.h>
@@ -24,11 +24,11 @@
 
 1567679201 d:\projects\philang\library\utils.cpp
 
-1567687074 d:\projects\philang\header\errors.hpp
+1567767607 d:\projects\philang\header\errors.hpp
 
-1567687067 d:\projects\philang\header\io.hpp
+1567766487 d:\projects\philang\header\io.hpp
 
-1567682631 d:\projects\philang\source\io.cpp
+1567768388 d:\projects\philang\source\io.cpp
 	"../header/io.hpp"
 
 1567759043 d:\projects\philang\source\utils.cpp
@@ -36,20 +36,20 @@
 1567756903 d:\projects\philang\source\errors.cpp
 	"../header/errors.hpp"
 
-1567756894 d:\projects\philang\source\input_stream.cpp
+1567770060 d:\projects\philang\source\input_stream.cpp
 	"../header/input_stream.hpp"
 
-1567754219 d:\projects\philang\header\input_stream.hpp
+1567769642 d:\projects\philang\header\input_stream.hpp
 
 1567691503 d:\projects\philang\source\tokenizer.cpp
 
-1567757715 d:\projects\philang\source\token_stream.cpp
+1567770873 d:\projects\philang\source\token_stream.cpp
 	"../header/token_stream.hpp"
 
-1567760155 d:\projects\philang\source\token.cpp
+1567768775 d:\projects\philang\source\token.cpp
 	"../header/token.hpp"
 
-1567760121 d:\projects\philang\header\token.hpp
+1567760334 d:\projects\philang\header\token.hpp
 
-1567758938 d:\projects\philang\header\token_stream.hpp
+1567770890 d:\projects\philang\header\token_stream.hpp
 

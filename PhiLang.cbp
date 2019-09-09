@@ -47,6 +47,9 @@
 		<Unit filename="examples/hello_world.phi">
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="header/ast.hpp">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="header/errors.hpp">
 			<Option target="Release" />
 		</Unit>
@@ -63,6 +66,9 @@
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="header/token_stream.hpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="source/ast.cpp">
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="source/errors.cpp">

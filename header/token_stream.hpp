@@ -7,21 +7,6 @@ Token stream.
 #define _TOKEN_STREAM_HPP_
 
 class TokenStream {
-    /**
-    Example:
-
-    ```
-    InputStream is(IO::read_file(inputFilePath));
-    TokenStream ts(is);
-    Token tok = ts.next();
-
-    cout << tok.to_str() << endl;
-    while (!tok.is_null()) {
-        tok = ts.next();
-        cout << tok.to_str() << endl;
-    }
-    ```
-    */
 private:
     InputStream input;
     Token currentToken;

@@ -70,9 +70,13 @@ int main(const int argc, const char** argv) {
         exit(EXIT_FAILURE);
     }
 
-    //InputStream is(IO::read_file(inputFilePath));
-    //TokenStream ts(is);
-    //Parser parser(ts);
+    InputStream is(IO::read_file(inputFilePath));
+    TokenStream ts(is);
+    Parser parser(ts);
+
+    for (ASTNode node : parser.start().get_children(0)) {
+        cout << node.value.to_str() << endl;
+    }
 
     return EXIT_SUCCESS;
 }

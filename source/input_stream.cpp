@@ -35,5 +35,9 @@ const bool InputStream::eof() {
 }
 
 const void InputStream::croak(const std::string &msg) {
-    throw new Phi_Error(msg);
+    cout << "Error: " << endl;
+    cout << "At line " << this->line_index << ", character " << this->column_index << endl;
+    cout << msg << endl;
+    // throw new Phi_Error(msg);
+    exit(EXIT_FAILURE);
 }

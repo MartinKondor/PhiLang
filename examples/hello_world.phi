@@ -1,5 +1,8 @@
-int = 0
-float = 49.99
-double = 3.1415926535897932384626433832795
-string = "String here!"
-print string
+# int = 0
+# float = 49.99
+# double = 3.1415926535897932384626433832795
+# string = "String here!"
+# print string
+
+a = 1
+print(a)

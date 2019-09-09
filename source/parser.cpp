@@ -1,5 +1,6 @@
 #include "../header/parser.hpp"
 
+
 class Parser {
 private:
     TokenStream input;
@@ -26,22 +27,22 @@ public:
     }
 
     const void unexpected() {
-        throw new Phi_Error("Unexpected token: " + input.peek().to_str());
+        this->input.croak("Unexpected token: " + this->input.peek().to_str());
     }
 
     const void skip_punc(const char &ch) {
         if (this->is_punc(ch)) this->input.next();
-        else throw new Phi_Error("Unexpected token: " + input.peek().to_str());
+        else this->input.croak("Unexpected token: " + this->input.peek().to_str());
     }
 
     const void skip_kw(const char &ch) {
         if (this->is_kw(ch)) this->input.next();
-        else throw new Phi_Error("Expecting keyword: \"" + Utils::to_string(ch) + "\"");
+        else this->input.croak("Expecting keyword: \"" + Utils::to_string(ch) + "\"");
     }
 
     const void skip_op(const char &ch) {
         if (this->is_op(ch)) this->input.next();
-        else throw new Phi_Error("Expecting operator: \"" + Utils::to_string(ch) + "\"");
+        else this->input.croak("Expecting operator: \"" + Utils::to_string(ch) + "\"");
     }
 
 };

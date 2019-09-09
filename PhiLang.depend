@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1567775158 source:d:\projects\philang\source\phi.cpp
+1568012153 source:d:\projects\philang\source\phi.cpp
 	<iostream>
 	<vector>
 	<string>
@@ -21,41 +21,47 @@
 	"input_stream.cpp"
 	"token.cpp"
 	"token_stream.cpp"
+	"ast.cpp"
 	"parser.cpp"
 
 1567679201 d:\projects\philang\library\utils.cpp
 
 1567767607 d:\projects\philang\header\errors.hpp
 
-1567766487 d:\projects\philang\header\io.hpp
+1568012282 d:\projects\philang\header\io.hpp
 
 1567773600 d:\projects\philang\source\io.cpp
 	"../header/io.hpp"
 
-1567775022 d:\projects\philang\source\utils.cpp
+1568010303 d:\projects\philang\source\utils.cpp
 
 1567756903 d:\projects\philang\source\errors.cpp
 	"../header/errors.hpp"
 
-1567770060 d:\projects\philang\source\input_stream.cpp
+1568011069 d:\projects\philang\source\input_stream.cpp
 	"../header/input_stream.hpp"
 
-1567775195 d:\projects\philang\header\input_stream.hpp
+1568010500 d:\projects\philang\header\input_stream.hpp
 
 1567691503 d:\projects\philang\source\tokenizer.cpp
 
-1567775265 d:\projects\philang\source\token_stream.cpp
+1568011749 d:\projects\philang\source\token_stream.cpp
 	"../header/token_stream.hpp"
 
 1567768775 d:\projects\philang\source\token.cpp
 	"../header/token.hpp"
 
-1567760334 d:\projects\philang\header\token.hpp
+1568012386 d:\projects\philang\header\token.hpp
 
-1567775286 d:\projects\philang\header\token_stream.hpp
+1568011792 d:\projects\philang\header\token_stream.hpp
 
-1567779458 d:\projects\philang\source\parser.cpp
+1568012442 d:\projects\philang\source\parser.cpp
 	"../header/parser.hpp"
 
-1567760243 d:\projects\philang\header\parser.hpp
+1568012317 d:\projects\philang\header\parser.hpp
+
+1568012404 d:\projects\philang\source\ast.cpp
+	"../header/ast.hpp"
+
+1568012292 d:\projects\philang\header\ast.hpp
 

@@ -13,6 +13,9 @@ const char InputStream::peek() {
 }
 
 const char InputStream::next() {
+    if (this->pos_index >= this->input_string.length()) {
+        return '\0';
+    }
     const char ch = this->input_string[this->pos_index];
 
     if (ch == '\n') {
@@ -23,13 +26,7 @@ const char InputStream::next() {
         this->column_index++;
     }
 
-    if (this->pos_index >= this->input_string.length()) {
-        return '\0';
-    }
-    else {
-        this->pos_index++;
-    }
-
+    this->pos_index++;
     return ch;
 }
 
@@ -37,9 +34,6 @@ const bool InputStream::eof() {
     return this->peek() == '\0';
 }
 
-InputStream::~InputStream() {
-    delete &this->input_string;
-    delete &this->pos_index;
-    delete &this->line_index;
-    delete &this->column_index;
+const void InputStream::croak(const std::string &msg) {
+    throw new Phi_Error(msg);
 }

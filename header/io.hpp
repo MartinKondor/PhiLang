@@ -1,6 +1,6 @@
 /*--------------------------------------------
 
-IO class for handling file system tasks.
+Functions for handling file system tasks.
 
 --------------------------------------------*/
 #ifndef _IO_HPP_

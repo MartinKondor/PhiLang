@@ -36,14 +36,6 @@ const bool TokenStream::is_whitespace(const char &ch) {
     return ch == ' ' || ch == '\t' || ch == '\n';
 }
 
-const std::string TokenStream::read_while(const bool (TokenStream::*func)(const char&)) {
-    std::string str;
-    while (!this->input.eof() && (this->*func)(this->input.peek())) {
-        str += this->input.next();
-    }
-    return str;
-}
-
 const bool TokenStream::is_new_line(const char &ch) {
     return ch == '\n';
 }
@@ -52,13 +44,24 @@ const bool TokenStream::is_not_new_line(const char &ch) {
     return !this->is_new_line(ch);
 }
 
+const std::string TokenStream::read_while(const bool (TokenStream::*func)(const char&)) {
+    std::string str;
+
+    while (!this->input.eof() && (this->*func)(this->input.peek())) {
+        str += this->input.next();
+    }
+
+    return str;
+}
+
 const std::string TokenStream::read_escaped(const char &end) {
     bool escaped = false;
     std::string str = "";
+    char ch;
     this->input.next();
 
     while (!this->input.eof()) {
-        char ch = this->input.next();
+        ch = this->input.next();
 
         if (escaped) {
             str += ch;
@@ -123,11 +126,11 @@ Token TokenStream::read_next() {
     if (this->is_punc(ch)) {
         return Token("punc", Utils::to_string(this->input.next()));
     }
-    if (is_op_char(ch)) {
+    if (this->is_op_char(ch)) {
         return Token("op", this->read_while(this->is_op_char));
     }
 
-    throw new Phi_Error("Can't handle character: " + ch);
+    this->croak("Can't handle character: " + ch);
 }
 
 const bool TokenStream::has_dot(const char &ch) {
@@ -167,4 +170,8 @@ Token TokenStream::next() {
 Token TokenStream::read_ident() {
     std::string id = read_while(is_id);
     return Token(this->is_keyword(id) ? "kw" : "var", id);
+}
+
+const void TokenStream::croak(const std::string &msg) {
+    this->input.croak(msg);
 }

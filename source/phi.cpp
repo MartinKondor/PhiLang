@@ -17,13 +17,14 @@ using std::endl;
 #ifdef _WIN32
 #include <windows.h>
 #include <direct.h>
-#define __getcwd _getcwd
+#define built_in_getcwd _getcwd
 #define OS_NAME "Windows"
 #else
 #include <unistd.h>
-#define __getcwd getcwd
+#define built_in_getcwd getcwd
 #define OS_NAME "Linux"
 #endif // _WIN32
+
 #define PHI_VERSION "v0.0.1"
 
 #include "errors.cpp"
@@ -42,18 +43,20 @@ const std::regex PUNC_REGEX("[\\(\\)\[\\]\{\\},;]");
 #include "input_stream.cpp"
 #include "token.cpp"
 #include "token_stream.cpp"
+#include "ast.cpp"
 #include "parser.cpp"
 
 
 int main(const int argc, const char** argv) {
     if (argc < 2) {
-        CommandUtils::showHelp();
+        CommandUtils::show_help();
         system("pause");
         return EXIT_SUCCESS;
     }
 
     // Specify input file path
     std::string inputFilePath;
+
     if (argv[1][0] == '/' || argv[1][0] == '\\') {
         inputFilePath = argv[1];
     }

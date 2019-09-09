@@ -15,7 +15,6 @@ private:
 
 public:
     InputStream(const std::string &input_string);
-    ~InputStream();
 
     /**
     * @returns the next value but without removing it from the stream.
@@ -31,6 +30,11 @@ public:
     * @returns true if and only if there are no more values in the stream.
     */
     const bool eof();
+
+    /**
+    * Throws a Phi_Error
+    */
+    const void croak(const std::string &msg);
 };
 
 #endif // _INPUT_STREAM_HPP_

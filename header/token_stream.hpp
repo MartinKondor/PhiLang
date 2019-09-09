@@ -7,6 +7,21 @@ Token stream.
 #define _TOKEN_STREAM_HPP_
 
 class TokenStream {
+    /**
+    Example:
+
+    ```
+    InputStream is(IO::read_file(inputFilePath));
+    TokenStream ts(is);
+    Token tok = ts.next();
+
+    cout << tok.to_str() << endl;
+    while (!tok.is_null()) {
+        tok = ts.next();
+        cout << tok.to_str() << endl;
+    }
+    ```
+    */
 private:
     InputStream input;
     Token currentToken;
@@ -40,7 +55,7 @@ public:
     const std::string read_while(const bool (TokenStream::*func)(const char&));
 
     /**
-    Reads until the end parameter is found
+    Reads until the given end parameter is found
     @returns string of the read content
     */
     const std::string read_escaped(const char &end);
@@ -49,6 +64,11 @@ public:
     Skips input stream content until newline
     */
     const void skip_comment();
+
+    /**
+    * Throws a Phi_Error
+    */
+    const void croak(const std::string &msg);
 };
 
 #endif // _TOKEN_STREAM_HPP_

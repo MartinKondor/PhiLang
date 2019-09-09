@@ -1,3 +1,9 @@
+/*--------------------------------------------
+
+Token data type for TokenStream,
+in order to identify different tokens.
+
+--------------------------------------------*/
 #ifndef _TOKEN_HPP_
 #define _TOKEN_HPP_
 
@@ -17,12 +23,6 @@ private:
     prog { type: "prog", prog: [ AST... ] }
 
     */
-
-    //#include <map>
-    //std::map<std::string, std::string> m_storage;
-    //const void set(std::string key, std::string value);
-    //const std::string get(std::string key);
-
     std::string m_type;
     std::string m_value;
 

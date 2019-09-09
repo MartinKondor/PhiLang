@@ -15,7 +15,9 @@ namespace Utils {
         }).base(), s.end());
     }
 
-    /// Trim the given string from both ends (in place)
+    /**
+    * Trim the given string from both ends (in place)
+    */
     inline void trim(std::string &s) {
         ltrim(s);
         rtrim(s);
@@ -27,10 +29,12 @@ namespace Utils {
         return stm.str();
     }
 
-    /// @returns The current working directory
+    /**
+    * @returns The current working directory
+    */
     const std::string getcwd() {
         char buff[FILENAME_MAX];
-        __getcwd(buff, FILENAME_MAX);
+        built_in_getcwd(buff, FILENAME_MAX);
         std::string current_working_dir(buff);
         return current_working_dir;
     }
@@ -58,7 +62,7 @@ namespace Utils {
 namespace CommandUtils {
 
     /// Prints out help text
-    const void showHelp() {
+    const void show_help() {
         cout << "PhiLang " << PHI_VERSION << " (" << OS_NAME << ")" << endl;
     }
 

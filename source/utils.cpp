@@ -39,7 +39,7 @@ namespace Utils {
         return current_working_dir;
     }
 
-    const unsigned int get_op_precedence(const std::string &op_str) {
+    const int get_op_precedence(const std::string &op_str) {
         if (op_str == "=") return 1;
         if (op_str == "||") return 2;
         if (op_str == "&&") return 3;

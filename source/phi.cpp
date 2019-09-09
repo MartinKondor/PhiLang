@@ -70,9 +70,9 @@ int main(const int argc, const char** argv) {
         exit(EXIT_FAILURE);
     }
 
-    InputStream is(IO::read_file(inputFilePath));
-    TokenStream ts(is);
-    Parser parser(ts);
+    //InputStream is(IO::read_file(inputFilePath));
+    //TokenStream ts(is);
+    //Parser parser(ts);
 
     return EXIT_SUCCESS;
 }

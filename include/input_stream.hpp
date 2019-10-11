@@ -1,12 +1,12 @@
-/*--------------------------------------------
-
-Input stream.
-
---------------------------------------------*/
 #ifndef _INPUT_STREAM_HPP_
 #define _INPUT_STREAM_HPP_
 
-class InputStream {
+#include <iostream>
+#include <string>
+
+
+class InputStream
+{
 private:
     unsigned int pos_index;
     unsigned int line_index;
@@ -14,6 +14,7 @@ private:
     std::string input_string;
 
 public:
+    InputStream();
     InputStream(const std::string &input_string);
 
     /**

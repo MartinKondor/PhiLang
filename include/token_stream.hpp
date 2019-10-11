@@ -1,18 +1,29 @@
-/*--------------------------------------------
-
-Token stream.
-
---------------------------------------------*/
 #ifndef _TOKEN_STREAM_HPP_
 #define _TOKEN_STREAM_HPP_
 
-class TokenStream {
+#include <string>
+#include <regex>
+#include "main.hpp"
+#include "token.hpp"
+#include "input_stream.hpp"
+
+
+class TokenStream
+{
 private:
     InputStream input;
     Token currentToken;
     bool stopped;
 
 public:
+    static const std::string NOT_ID_STRING;
+    static const std::string KEYWORDS;
+    static const std::regex DIGIT_REGEX;
+    static const std::regex ID_START_REGEX;
+    static const std::regex OPERATOR_REGEX;
+    static const std::regex PUNC_REGEX;
+
+
     TokenStream();
     TokenStream(const InputStream &input);
     const bool is_digit(const char &ch);

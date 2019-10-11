@@ -14,6 +14,7 @@
 				<Option parameters="examples/hello_world.phi" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-static-libstdc++" />
@@ -35,73 +36,16 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="README.md">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="docs/BASICS.md">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="docs/CODE_STYLE_GUIDE.md">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="examples/hello_world.phi">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="header/ast.hpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="header/errors.hpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="header/input_stream.hpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="header/io.hpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="header/parser.hpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="header/token.hpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="header/token_stream.hpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="source/ast.cpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="source/errors.cpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="source/input_stream.cpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="source/io.cpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="source/parser.cpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="source/phi.cpp" />
-		<Unit filename="source/token.cpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="source/token_stream.cpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="source/utils.cpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="tests/README.md">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="tests/testdata/io.txt">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="tests/testdata/io2.txt">
-			<Option target="Release" />
-		</Unit>
+		<Unit filename="include/input_stream.hpp" />
+		<Unit filename="include/main.hpp" />
+		<Unit filename="include/parser.hpp" />
+		<Unit filename="include/token.hpp" />
+		<Unit filename="include/token_stream.hpp" />
+		<Unit filename="src/input_stream.cpp" />
+		<Unit filename="src/main.cpp" />
+		<Unit filename="src/parser.cpp" />
+		<Unit filename="src/token.cpp" />
+		<Unit filename="src/token_stream.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

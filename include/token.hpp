@@ -1,13 +1,11 @@
-/*--------------------------------------------
-
-Token data type for TokenStream,
-in order to identify different tokens.
-
---------------------------------------------*/
 #ifndef _TOKEN_HPP_
 #define _TOKEN_HPP_
 
-class Token {
+#include <string>
+
+
+class Token
+{
 private:
     /**
 

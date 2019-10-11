@@ -65,3 +65,47 @@
 
 1568018676 d:\projects\philang\header\ast.hpp
 
+1570791182 source:d:\projects\philang\src\main.cpp
+	<iostream>
+	<string>
+	"main.hpp"
+	"input_stream.hpp"
+	"token_stream.hpp"
+	"parser.hpp"
+
+1570790228 d:\projects\philang\include\main.hpp
+	<string>
+	<sstream>
+	<sys/stat.h>
+	<windows.h>
+	<direct.h>
+
+1570790059 d:\projects\philang\include\input_stream.hpp
+	<iostream>
+	<string>
+
+1570790810 d:\projects\philang\include\token_stream.hpp
+	<string>
+	<regex>
+	"main.hpp"
+	"token.hpp"
+	"input_stream.hpp"
+
+1570789737 d:\projects\philang\include\token.hpp
+	<string>
+
+1570790068 source:d:\projects\philang\src\input_stream.cpp
+	"input_stream.hpp"
+
+1570791053 source:d:\projects\philang\src\parser.cpp
+	"parser.hpp"
+
+1570791024 d:\projects\philang\include\parser.hpp
+	"token_stream.hpp"
+
+1570790854 source:d:\projects\philang\src\token_stream.cpp
+	"token_stream.hpp"
+
+1570790908 source:d:\projects\philang\src\token.cpp
+	"token.hpp"
+

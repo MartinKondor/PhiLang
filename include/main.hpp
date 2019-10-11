@@ -36,6 +36,11 @@ std::string read_file(const std::string file_name);
 */
 void show_help();
 
+/**
+* Returns the given operator's priority
+*/
+int get_op_precedence(const std::string op_str);
+
 template<typename T>
 std::string to_string(const T &n)
 {

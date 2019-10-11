@@ -6,6 +6,8 @@
 #include "token_stream.hpp"
 #include "parser.hpp"
 
+#include "ast.hpp"
+
 
 int main(const int argc, const char** argv)
 {
@@ -71,6 +73,39 @@ std::string read_file(const std::string file_name)
     fclose(input_file);
     free(line);
     return data;
+}
+
+int get_op_precedence(const std::string op_str)
+{
+    if (op_str == "=")
+        return 1;
+    if (op_str == "||")
+        return 2;
+    if (op_str == "&&")
+        return 3;
+    if (op_str == "<")
+        return 7;
+    if (op_str == ">")
+        return 7;
+    if (op_str == "<=")
+        return 7;
+    if (op_str == ">=")
+        return 7;
+    if (op_str == "==")
+        return 7;
+    if (op_str == "!=")
+        return 7;
+    if (op_str == "+")
+        return 10;
+    if (op_str == "-")
+        return 10;
+    if (op_str == "*")
+        return 20;
+    if (op_str == "/")
+        return 20;
+    if (op_str == "%")
+        return 20;
+    return -1;
 }
 
 void show_help()

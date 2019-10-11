@@ -36,11 +36,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="include/ast.hpp" />
 		<Unit filename="include/input_stream.hpp" />
 		<Unit filename="include/main.hpp" />
 		<Unit filename="include/parser.hpp" />
 		<Unit filename="include/token.hpp" />
 		<Unit filename="include/token_stream.hpp" />
+		<Unit filename="src/ast.cpp" />
 		<Unit filename="src/input_stream.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/parser.cpp" />

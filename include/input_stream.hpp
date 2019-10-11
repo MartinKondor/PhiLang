@@ -20,22 +20,22 @@ public:
     /**
     * @returns the next value but without removing it from the stream.
     */
-    const char peek();
+    char peek();
 
     /**
     * @returns the next value and also discards it from the stream.
     */
-    const char next();
+    char next();
 
     /**
     * @returns true if and only if there are no more values in the stream.
     */
-    const bool eof();
+    bool eof();
 
     /**
     * Throws a Phi_Error
     */
-    const void croak(const std::string &msg);
+    void croak(const std::string &msg);
 };
 
 #endif // _INPUT_STREAM_HPP_

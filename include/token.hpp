@@ -26,9 +26,9 @@ private:
 public:
     Token();
     Token(const std::string &type, const std::string &value);
-    const std::string get_type();
-    const std::string get_value();
-    const bool is_null();
+    std::string get_type();
+    std::string get_value();
+    bool is_null();
     std::string to_str();
 };
 

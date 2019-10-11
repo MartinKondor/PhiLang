@@ -1,3 +1,5 @@
 # One line comment
-a = 1
-print(a)
+
+num = 1
+str = "String"
+var = num + 1

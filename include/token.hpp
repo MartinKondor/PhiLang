@@ -2,6 +2,7 @@
 #define _TOKEN_HPP_
 
 #include <string>
+#include <iostream>
 
 
 class Token
@@ -21,6 +22,7 @@ class Token
     prog { type: "prog", prog: [ AST... ] }
     */
 public:
+    unsigned int precedence;
     std::string type;
     std::string value;
 
@@ -28,15 +30,6 @@ public:
     Token(const std::string &type, const std::string &value);
     bool is_null();
     std::string to_str();
-};
-
-
-struct BinaryToken
-{
-    std::string type;
-    std::string op;
-    Token left;
-    Token right;
 };
 
 #endif // _TOKEN_HPP_

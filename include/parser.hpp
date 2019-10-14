@@ -28,9 +28,7 @@ public:
     bool skip_keyword();
     bool skip_op();
 
-    std::vector<BinaryToken> parse_value(std::vector<BinaryToken> tokens, int precedence);
-    bool parse_value();
-    bool parse_expression();
+    bool parse_atom();
 
     /**
     * @returns The Tokens between the two given start and stop strings separated with the separator
@@ -42,7 +40,7 @@ public:
     */
     bool maybe_call();
     bool maybe_assignment();
-    AST start();
+    AST parse();
 };
 
 #endif // _PARSER_HPP_

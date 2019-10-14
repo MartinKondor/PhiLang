@@ -35,11 +35,6 @@ public:
     * @returns the created node's id
     */
     int add_node(const int parent_id, Token value);
-
-    /**
-    * Adds the element of other ast to this ast, for the given node.
-    */
-    void add_ast(const int parent_id, AST other_ast);
 };
 
 #endif // _AST_HPP_

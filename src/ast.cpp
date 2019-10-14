@@ -36,14 +36,6 @@ std::vector<ASTNode> AST::get_children(const int parent_id)
 
 int AST::add_node(const int parent_id, Token value)
 {
-    this->nodes.push_back(ASTNode(this->last_id++, parent_id, value));
+    this->nodes.push_back(ASTNode(++this->last_id, parent_id, value));
     return this->last_id;
-}
-
-void AST::add_ast(const int parent_id, AST other_ast)
-{
-    for (ASTNode node : other_ast.nodes)
-    {
-        this->add_node(parent_id, node.value);
-    }
 }

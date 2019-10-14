@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <sys/stat.h>
+#include <vector>
 
 
 #ifdef _WIN32
@@ -47,6 +48,53 @@ std::string to_string(const T &n)
     std::ostringstream stm;
     stm << n;
     return stm.str();
+}
+
+template <typename T>
+void merge_sort(std::vector<T> &arr, int beg_index, int end_index)
+{
+    if (beg_index == end_index)
+    {
+        return;
+    }
+    int mid = (beg_index + end_index) / 2;
+    merge_sort(arr, beg_index, mid);
+    merge_sort(arr, mid + 1, end_index);
+    int i = beg_index, j = mid + 1;
+    int l = end_index - beg_index + 1;
+    T* temp = new T[l];
+
+    for (size_t k = 0; k < l; k++)
+    {
+        if (j > end_index || (i <= mid && arr[i] < arr[j]))
+        {
+            temp[k] = arr[i];
+            i++;
+        }
+        else
+        {
+            temp[k] = arr[j];
+            j++;
+        }
+    }
+
+    for (size_t k = 0, i = beg_index; k < l; k++, i++)
+    {
+        arr[i] = temp[k];
+    }
+    delete temp;
+}
+
+/**
+* Sorts the given array in place
+* @returns The original indices
+*/
+template <typename T>
+std::vector<size_t> sort(std::vector<T> &arr)
+{
+    std::vector<size_t> indices;
+    merge_sort(arr, 0, arr.size());
+    return indices;
 }
 
 #endif // _MAIN_HPP_

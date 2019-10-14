@@ -7,7 +7,7 @@ const std::regex TokenStream::DIGIT_REGEX("[0-9]");
 const std::regex TokenStream::ID_START_REGEX("[a-z_]");
 const std::regex TokenStream::OPERATOR_REGEX("[\\+\\-%=&\\|<>!/\\*]");
 const std::regex TokenStream::PUNC_REGEX("[\\(\\)\[\\]\{\\},;]");
-const char TokenStream::ENDL_CHAR = ';';
+const char TokenStream::ENDL_CHAR = '!';
 
 
 TokenStream::TokenStream() {}

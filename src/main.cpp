@@ -40,7 +40,11 @@ int main(const int argc, const char** argv)
     TokenStream ts(is);
     Parser parser(ts);
 
-    parser.start();
+    // Show ast
+    for (ASTNode node : parser.parse().nodes)
+    {
+        std::cout << node.value.to_str() << ",\tID: " << node.id << ",\tBase: " << node.parent_id << std::endl;
+    }
 
     return EXIT_SUCCESS;
 }

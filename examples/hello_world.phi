@@ -1,5 +1,9 @@
 # One line comment
 
-num = 1
-str = "String"
-var = num + 1
+
+exp = 1 + 1;
+
+# num = 1.0;
+#str = "String";
+#var = num + 1
+#math = 2 * (var + 1)

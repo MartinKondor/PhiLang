@@ -10,119 +10,173 @@ Parser::Parser(TokenStream &input)
     this->ast = AST();
 }
 
-bool Parser::is_punc(const char &ch)
-{
-    Token tok = this->input.peek();
-    return !tok.is_null() && tok.get_type() == "punc" && tok.get_value() == to_string(ch);
-}
-
-bool Parser::is_keyword(const char &kw)
-{
-    Token tok = this->input.peek();
-    return !tok.is_null() && tok.get_type() == "kw" && tok.get_value() == to_string(kw);
-}
-
-bool Parser::is_op(const char &op)
-{
-    Token tok = this->input.peek();
-    return !tok.is_null() && tok.get_type() == "op" && tok.get_value() == to_string(op);
-}
-
-bool Parser::skip_punc(const char &ch)
-{
-    if (this->is_punc(ch))
-    {
-        this->input.next();
-    }
-    else
-    {
-        this->input.croak("Expecting punctuation: \"" + to_string(ch) + "\"");
-    }
-}
-
-bool Parser::skip_keyword(const char &kw)
-{
-    if (this->is_keyword(kw))
-    {
-        this->input.next();
-    }
-    else
-    {
-        this->input.croak("Expecting keyword: \"" + to_string(kw) + "\"");
-    }
-}
-
-bool Parser::skip_op(const char &op)
-{
-    if (this->is_op(op))
-    {
-        this->input.next();
-    }
-    else
-    {
-        this->input.croak("Expecting operator: \"" + to_string(op) + "\"");
-    }
-}
-
-void Parser::maybe_assignment(int var_node_id)
-{
-    Token op_tok = this->input.next();
-    int op_node_id = this->ast.add_node(var_node_id, op_tok);  // Create a node for the operator
-    Token right = this->input.next();
-
-    if (right.get_type() == "num" || right.get_type() == "str" ||
-        right.get_type() == "var")
-    {
-        this->ast.add_node(op_node_id, right);  // Create a node for the right side
-    }
-    else
-    {
-        this->unexpected();
-    }
-}
-
-void Parser::maybe_function_call(int var_node_id)
-{
-    this->unexpected();
-}
-
-void Parser::parse_var()
-{
-    int var_node_id = this->ast.add_node(this->base_node_id, this->input.next());
-
-    if (this->input.peek().get_type() == "op")
-    {
-        this->maybe_assignment(var_node_id);
-    }
-    else if (this->input.peek().get_value() == "(")
-    {
-        this->maybe_function_call(var_node_id);
-    }
-    else
-    {
-        this->unexpected();
-    }
-}
-
 void Parser::unexpected()
 {
-    this->input.croak("Unexpected token: " + this->input.next().get_value());
+    this->input.croak("Unexpected token: " + this->input.next().value);
+}
+
+bool Parser::is_endl()
+{
+    return this->input.peek().type == "endl";
+}
+
+bool Parser::is_punc(const std::string str)
+{
+    return this->input.peek().value == str && this->input.peek().type == "punc";
+}
+
+bool Parser::is_keyword()
+{
+    return this->input.peek().type == "kw";
+}
+
+bool Parser::is_op()
+{
+    return this->input.peek().type == "op";
+}
+
+bool Parser::skip_endl()
+{
+    if (this->is_endl()) this->input.next();
+    else this->input.croak("Expecting end of line character: \"" + this->input.peek().value + "\"");
+}
+
+bool Parser::skip_punc(const std::string str)
+{
+    if (this->is_punc(str)) this->input.next();
+    else this->input.croak("Expecting punctuation \"" + str + "\": \"" + this->input.peek().value + "\"");
+}
+
+bool Parser::skip_keyword()
+{
+    if (this->is_keyword()) this->input.next();
+    else this->input.croak("Expecting keyword: \"" + this->input.peek().value + "\"");
+}
+
+bool Parser::skip_op()
+{
+    if (this->is_op()) this->input.next();
+    else this->input.croak("Expecting operator: \"" + this->input.peek().value + "\"");
+}
+
+std::vector<Token> Parser::delimited(const std::string start, const std::string stop, const std::string separator)
+{
+    std::vector<Token> container;
+    bool first = true;
+
+    this->skip_punc(start);
+
+    while (!this->input.eof())
+    {
+        if (this->is_punc(stop)) break;
+
+        if (first) first = false;
+        else skip_punc(separator);
+
+        if (this->is_punc(stop)) break;
+        container.push_back(this->input.next());
+    }
+    skip_punc(stop);
+    return container;
+}
+
+bool Parser::maybe_call()
+{
+    if (this->input.peek().value != "(")
+    {
+        return false;
+    }
+
+    for (Token param : this->delimited("(", ")", ","))
+    {
+        this->ast.add_node(this->base_node_id, param);
+    }
+    return true;
+}
+
+std::vector<BinaryToken> Parser::parse_value(std::vector<BinaryToken> tokens, int precedence)
+{
+    if (!this->is_endl())
+    {
+        std::cout << this->input.peek().to_str() << std::endl;
+        this->input.next();
+        return this->parse_value(tokens, 0);
+    }
+    return tokens;
+}
+
+bool Parser::parse_value()
+{
+    std::vector<BinaryToken> output;
+    /*
+    Token current_tok;
+
+    do  // Read in the value of the variable until newline
+    {
+        current_tok = this->input.peek();
+        if (current_tok.type == "endl")
+        {
+            break;
+        }
+        this->input.next();
+
+
+
+    }
+    while (current_tok.type != "endl");
+    */
+    return this->parse_value(output, 0).size() != 0;
+}
+
+bool Parser::maybe_assignment()
+{
+    Token op_tok = this->input.peek();
+    if (op_tok.type != "op")
+    {
+        return false;
+    }
+
+    // Set op to be the base node
+    int op_node_id = this->ast.add_node(this->base_node_id, op_tok);
+    int prev_base_node_id = this->base_node_id;
+    this->base_node_id = op_node_id;
+
+    this->input.next(); // Throw the operator
+    return this->parse_value();
+}
+
+bool Parser::parse_expression()
+{
+    Token var_tok = this->input.peek();
+
+    if (var_tok.type == "var")
+    {
+        // Set var to the base node
+        int var_node_id = this->ast.add_node(this->base_node_id, var_tok);
+        int prev_base_node_id = this->base_node_id;
+        this->base_node_id = var_node_id;
+
+        this->input.next();  // Throw the var token
+
+        if (this->maybe_call())
+        {
+            this->base_node_id = prev_base_node_id;
+            return true;
+        }
+        if (this->maybe_assignment())
+        {
+            this->base_node_id = prev_base_node_id;
+            return true;
+        }
+    }
 }
 
 AST Parser::start()
 {
     while (!this->input.eof())
     {
-        std::cout << this->input.peek().to_str() << std::endl;
-
-        if (this->input.peek().get_type() == "var")
-        {
-            this->parse_var();
-        }
-        else
-        {
-            this->unexpected();
-        }
+        this->parse_expression();
+        this->skip_endl();
     }
     return this->ast;
 }

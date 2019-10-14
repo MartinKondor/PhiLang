@@ -22,6 +22,7 @@ public:
     static const std::regex ID_START_REGEX;
     static const std::regex OPERATOR_REGEX;
     static const std::regex PUNC_REGEX;
+    static const char ENDL_CHAR;
 
 
     TokenStream();
@@ -35,6 +36,7 @@ public:
     bool is_whitespace(const char &ch);
     bool is_new_line(const char &ch);
     bool is_not_new_line(const char &ch);
+    bool is_endl(const char &ch);
     Token read_string();
     Token peek();
     bool eof();

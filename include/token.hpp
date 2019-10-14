@@ -6,30 +6,37 @@
 
 class Token
 {
-private:
     /**
 
     num { type: "num", value: NUMBER }
     str { type: "str", value: STRING }
     bool { type: "bool", value: true or false }
     var { type: "var", value: NAME }
+    endl { type: "endl", value: char }
 
     call { type: "call", func: AST, args: [ AST... ] }
     if { type: "if", cond: AST, then: AST, else: AST }
-    assign { type: "assign", operator: "=", left: AST, right: AST }
-    binary { type: "binary", operator: OPERATOR, left: AST, right: AST }
+    OPToken : assign { type: "assign", value: "=", left: AST, right: AST }
+    OPToken : binary { type: "binary", value: OPERATOR, left: AST, right: AST }
     prog { type: "prog", prog: [ AST... ] }
     */
-    std::string m_type;
-    std::string m_value;
-
 public:
+    std::string type;
+    std::string value;
+
     Token();
     Token(const std::string &type, const std::string &value);
-    std::string get_type();
-    std::string get_value();
     bool is_null();
     std::string to_str();
+};
+
+
+struct BinaryToken
+{
+    std::string type;
+    std::string op;
+    Token left;
+    Token right;
 };
 
 #endif // _TOKEN_HPP_

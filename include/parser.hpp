@@ -1,6 +1,7 @@
 #ifndef _PARSER_HPP_
 #define _PARSER_HPP_
 
+#include <vector>
 #include "main.hpp"
 #include "ast.hpp"
 #include "token_stream.hpp"
@@ -17,26 +18,30 @@ private:
 public:
 
     Parser(TokenStream &input);
-
-    bool is_punc(const char &ch);
-    bool is_keyword(const char &kw);
-    bool is_op(const char &op);
-    bool skip_punc(const char &ch);
-    bool skip_keyword(const char &kw);
-    bool skip_op(const char &op);
-
-    void maybe_function_call(int var_node_id);
-    void maybe_assignment(int var_node_id);
-    void parse_var();
-
-    /**
-    * Prints out error/exception text
-    */
     void unexpected();
+    bool is_endl();
+    bool is_punc(const std::string str);
+    bool is_keyword();
+    bool is_op();
+    bool skip_endl();
+    bool skip_punc(const std::string str);
+    bool skip_keyword();
+    bool skip_op();
+
+    std::vector<BinaryToken> parse_value(std::vector<BinaryToken> tokens, int precedence);
+    bool parse_value();
+    bool parse_expression();
 
     /**
-    * Starts the parsing process
+    * @returns The Tokens between the two given start and stop strings separated with the separator
     */
+    std::vector<Token> delimited(const std::string start, const std::string stop, const std::string separator);
+
+    /**
+    * Parse function call
+    */
+    bool maybe_call();
+    bool maybe_assignment();
     AST start();
 };
 

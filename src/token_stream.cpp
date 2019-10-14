@@ -7,6 +7,7 @@ const std::regex TokenStream::DIGIT_REGEX("[0-9]");
 const std::regex TokenStream::ID_START_REGEX("[a-z_]");
 const std::regex TokenStream::OPERATOR_REGEX("[\\+\\-%=&\\|<>!/\\*]");
 const std::regex TokenStream::PUNC_REGEX("[\\(\\)\[\\]\{\\},;]");
+const char TokenStream::ENDL_CHAR = ';';
 
 
 TokenStream::TokenStream() {}
@@ -60,6 +61,11 @@ bool TokenStream::is_new_line(const char &ch)
 bool TokenStream::is_not_new_line(const char &ch)
 {
     return !this->is_new_line(ch);
+}
+
+bool TokenStream::is_endl(const char &ch)
+{
+    return ch == TokenStream::ENDL_CHAR;
 }
 
 std::string TokenStream::read_while(bool (TokenStream::*func)(const char&))
@@ -160,6 +166,10 @@ Token TokenStream::read_next()
     {
         return this->read_ident();
     }
+    if (this->is_endl(ch))
+    {
+        return Token("endl", to_string(this->input.next()));
+    }
     if (this->is_punc(ch))
     {
         return Token("punc", to_string(this->input.next()));
@@ -174,8 +184,8 @@ Token TokenStream::read_next()
 
 bool TokenStream::has_dot(const char &ch)
 {
-    // ???
     bool has_dot = false;
+
     if (ch == '.')
     {
         if (has_dot)

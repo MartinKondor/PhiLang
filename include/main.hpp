@@ -40,7 +40,7 @@ void show_help();
 /**
 * Returns the given operator's priority
 */
-int get_op_precedence(const std::string op_str);
+unsigned int get_op_precedence(const std::string op_str);
 
 template<typename T>
 std::string to_string(const T &n)
@@ -51,7 +51,7 @@ std::string to_string(const T &n)
 }
 
 template <typename T>
-void merge_sort(std::vector<T> &arr, int beg_index, int end_index)
+void merge_sort(std::vector<T> &arr, unsigned int beg_index, unsigned int end_index)
 {
     if (beg_index == end_index)
     {

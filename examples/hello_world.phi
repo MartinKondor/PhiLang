@@ -1,10 +1,7 @@
-# One line comment
 
-print("...")!
+a = 1 + 1!
 
-# a = 0;
-# exp = 2 * (1 + 1 + (10 * 2)) - 10;
-# num = 1.0;
-# str = "String";
-# var = num + 1
-# math = 2 * (var + 1)
+? a = 0
+{
+    println("test")!
+}

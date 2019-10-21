@@ -65,7 +65,7 @@
 
 1568018676 d:\projects\philang\header\ast.hpp
 
-1571064112 source:d:\projects\philang\src\main.cpp
+1571649645 source:d:\projects\philang\src\main.cpp
 	<iostream>
 	<string>
 	"main.hpp"
@@ -74,7 +74,7 @@
 	"parser.hpp"
 	"ast.hpp"
 
-1571061614 d:\projects\philang\include\main.hpp
+1571642804 d:\projects\philang\include\main.hpp
 	<string>
 	<sstream>
 	<sys/stat.h>
@@ -86,7 +86,7 @@
 	<iostream>
 	<string>
 
-1571044206 d:\projects\philang\include\token_stream.hpp
+1571643769 d:\projects\philang\include\token_stream.hpp
 	<string>
 	<regex>
 	"main.hpp"
@@ -100,27 +100,30 @@
 1571036283 source:d:\projects\philang\src\input_stream.cpp
 	"input_stream.hpp"
 
-1571063769 source:d:\projects\philang\src\parser.cpp
+1571649528 source:d:\projects\philang\src\parser.cpp
 	"parser.hpp"
 	<iostream>
 
-1571062762 d:\projects\philang\include\parser.hpp
+1571644243 d:\projects\philang\include\parser.hpp
 	<vector>
 	"main.hpp"
 	"ast.hpp"
 	"token_stream.hpp"
 	"token.hpp"
 
-1571064032 source:d:\projects\philang\src\token_stream.cpp
+1571645741 source:d:\projects\philang\src\token_stream.cpp
 	"token_stream.hpp"
 
 1571062622 source:d:\projects\philang\src\token.cpp
 	"token.hpp"
 
-1571063733 d:\projects\philang\include\ast.hpp
+1571642644 d:\projects\philang\include\ast.hpp
 	<vector>
 	"token.hpp"
 
-1571063739 source:d:\projects\philang\src\ast.cpp
+1571642785 source:d:\projects\philang\src\ast.cpp
 	"ast.hpp"
+
+1571649831 source:d:\projects\philang\src\main.c
+	<stdio.h>
 

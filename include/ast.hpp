@@ -8,19 +8,19 @@
 class ASTNode
 {
 public:
-    int id;
-    int parent_id;
+    unsigned int id;
+    unsigned int parent_id;
     Token value;
 
-    ASTNode(const int parent_id, Token value);
-    ASTNode(const int id, const int parent_id, Token value);
+    ASTNode(const unsigned int parent_id, Token value);
+    ASTNode(const unsigned int id, const unsigned int parent_id, Token value);
 };
 
 
 class AST
 {
 public:
-    int last_id;
+    unsigned int last_id;
     std::vector<ASTNode> nodes;
 
 
@@ -29,12 +29,12 @@ public:
     /**
     * @returns the children nodes of the given parent.
     */
-    std::vector<ASTNode> get_children(const int parent_id);
+    std::vector<ASTNode> get_children(const unsigned int parent_id);
 
     /**
     * @returns the created node's id
     */
-    int add_node(const int parent_id, Token value);
+    unsigned int add_node(const unsigned int parent_id, Token value);
 };
 
 #endif // _AST_HPP_

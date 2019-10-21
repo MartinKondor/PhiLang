@@ -1,13 +1,12 @@
 #include "token_stream.hpp"
 
 
-const std::string TokenStream::NOT_ID_STRING = "?!-<>=0123456789";
-const std::string TokenStream::KEYWORDS = " if else while for def true false ";
+const std::string TokenStream::NOT_ID_STRING = "!-<>=0123456789";
+const std::string TokenStream::KEYWORDS = " ? else while for def true false ";
 const std::regex TokenStream::DIGIT_REGEX("[0-9]");
-const std::regex TokenStream::ID_START_REGEX("[a-z_]");
+const std::regex TokenStream::ID_START_REGEX("[a-z_\?]");
 const std::regex TokenStream::OPERATOR_REGEX("[\\+\\-%=&\\|<>!/\\*]");
 const std::regex TokenStream::PUNC_REGEX("[\\(\\)\[\\]\{\\},;]");
-const char TokenStream::ENDL_CHAR = '!';
 
 
 TokenStream::TokenStream() {}
@@ -50,22 +49,14 @@ bool TokenStream::is_punc(const char &ch)
 
 bool TokenStream::is_whitespace(const char &ch)
 {
-    return ch == ' ' || ch == '\t' || ch == '\n';
+    return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
 }
 
-bool TokenStream::is_new_line(const char &ch)
-{
-    return ch == '\n';
-}
 
-bool TokenStream::is_not_new_line(const char &ch)
-{
-    return !this->is_new_line(ch);
-}
 
 bool TokenStream::is_endl(const char &ch)
 {
-    return ch == TokenStream::ENDL_CHAR;
+    return ch == '!';
 }
 
 std::string TokenStream::read_while(bool (TokenStream::*func)(const char&))
@@ -222,6 +213,16 @@ Token TokenStream::next()
         return tok;
     }
     return Token("null", "null");
+}
+
+bool TokenStream::is_new_line(const char &ch)
+{
+    return ch == '\n';
+}
+
+bool TokenStream::is_not_new_line(const char &ch)
+{
+    return !this->is_new_line(ch);
 }
 
 Token TokenStream::read_ident()

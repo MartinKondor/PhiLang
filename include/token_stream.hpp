@@ -22,7 +22,6 @@ public:
     static const std::regex ID_START_REGEX;
     static const std::regex OPERATOR_REGEX;
     static const std::regex PUNC_REGEX;
-    static const char ENDL_CHAR;
 
 
     TokenStream();

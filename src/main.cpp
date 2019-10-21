@@ -79,7 +79,7 @@ std::string read_file(const std::string file_name)
     return data;
 }
 
-int get_op_precedence(const std::string op_str)
+unsigned int get_op_precedence(const std::string op_str)
 {
     if (op_str == "=")
         return 1;

@@ -11,7 +11,7 @@
 class Parser
 {
 private:
-    int base_node_id;
+    unsigned int base_node_id;
     TokenStream input;
     AST ast;
 
@@ -28,7 +28,7 @@ public:
     bool skip_keyword();
     bool skip_op();
 
-    bool parse_atom();
+    void parse_var();
 
     /**
     * @returns The Tokens between the two given start and stop strings separated with the separator

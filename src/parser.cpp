@@ -155,33 +155,45 @@ void Parser::parse_var()
     this->base_node_id = prev_base_node_id;
 }
 
+void Parser::parse_atom()
+{
+    if (this->input.peek().type == "var")
+    {
+        this->parse_var();
+    }
+    else if (this->input.peek().type == "kw")
+    {
+        Token kw = this->input.next();
+        unsigned int kw_node_id = this->ast.add_node(this->base_node_id, kw);
+        unsigned int prev_base_node_id = this->base_node_id;
+        this->base_node_id = kw_node_id;
+
+        // If statement
+        if (kw.value != "?")
+        {
+            this->unexpected();
+        }
+
+        this->parse_until(&this->is_punc, "{");
+        this->base_node_id = prev_base_node_id;
+    }
+
+    this->skip_endl();
+}
+
+void Parser::parse_until(bool (Parser::*func)(const std::string), const std::string str)
+{
+    while ((this->*func)(str))
+    {
+        this->parse_atom();
+    }
+}
+
 AST Parser::parse()
 {
     while (!this->input.eof())
     {
-        if (this->input.peek().type == "var")
-        {
-            this->parse_var();
-        }
-        /*
-        else if (this->input.peek().type == "kw")
-        {
-            Token kw = this->input.next();
-            unsigned int kw_node_id = this->ast.add_node(this->base_node_id, kw);
-            unsigned int prev_base_node_id = this->base_node_id;
-
-            // If statement
-            if (kw.value != "?")
-            {
-                this->unexpected();
-            }
-
-            skip_punc("{");
-            this->base_node_id = prev_base_node_id;
-        }
-        */
-
-        this->skip_endl();
+        this->parse_atom();
     }
     return this->ast;
 }

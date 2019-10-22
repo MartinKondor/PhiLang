@@ -65,7 +65,7 @@
 
 1568018676 d:\projects\philang\header\ast.hpp
 
-1571649645 source:d:\projects\philang\src\main.cpp
+1571650198 source:d:\projects\philang\src\main.cpp
 	<iostream>
 	<string>
 	"main.hpp"
@@ -100,11 +100,11 @@
 1571036283 source:d:\projects\philang\src\input_stream.cpp
 	"input_stream.hpp"
 
-1571649528 source:d:\projects\philang\src\parser.cpp
+1571728119 source:d:\projects\philang\src\parser.cpp
 	"parser.hpp"
 	<iostream>
 
-1571644243 d:\projects\philang\include\parser.hpp
+1571728051 d:\projects\philang\include\parser.hpp
 	<vector>
 	"main.hpp"
 	"ast.hpp"

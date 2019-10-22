@@ -29,6 +29,8 @@ public:
     bool skip_op();
 
     void parse_var();
+    void parse_atom();
+    void parse_until(bool (Parser::*func)(const std::string), const std::string str);
 
     /**
     * @returns The Tokens between the two given start and stop strings separated with the separator

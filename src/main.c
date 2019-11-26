@@ -51,7 +51,10 @@ int main(const int argc, const char** argv)
 
 void Phi_execToken(char* token)
 {
-    printf("%s\n", token);
+    for (unsigned int i = 0; i < sizeof(token) / sizeof(*token); i++)
+    {
+        
+    }
 }
 
 void Phi_eval(char* code)
@@ -81,7 +84,7 @@ void Phi_eval(char* code)
         if (in_one_line_comment) continue;
 
         // Reserve more memory for the token
-        if (token_index >= token_mem_size) 
+        if (token_index >= token_mem_size)
         {
             token_mem_size *= 2;
             token = realloc(token, token_mem_size);

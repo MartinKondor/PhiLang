@@ -1,4 +1,3 @@
 # Comment
-str1 = "Hello world"!
-str2 = str1!
-print(str1, str2)!
+hello_world_str = "Hello world"!
+println(hello_world_str)!

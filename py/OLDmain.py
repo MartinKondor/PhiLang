@@ -1,28 +1,10 @@
 import argparse
-import enum
+
+from variable import PhiType, PhiVariable
 
 
 STACK = []  # Stores PhiVariables
 NAMESPACE = []  # Stores functions
-
-
-class PhiType(enum.Enum):
-    ANY = -1
-    NULL = 0
-    STRING = 1
-    INT = 2
-    FLOAT = 3
-
-
-class PhiVariable:
-
-    def __init__(self, id: str, value: str, type: PhiType=PhiType.NULL):
-        self.id = id
-        self.value = value
-        self.type = type
-
-    def __str__(self):
-        return '{' + f'id={self.id}, value={self.value}' + '}'
 
 
 class PhiFunction:

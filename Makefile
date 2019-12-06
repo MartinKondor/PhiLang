@@ -1,7 +1,7 @@
 
 prototype:
-	@python prototype.py examples/test.phi
+	@python py/main.py examples/test.phi
 
-compile:
+build:
 	@gcc src/* -I "include" -o bin/phi.exe
 	@bin/phi.exe examples/test.phi

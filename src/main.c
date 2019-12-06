@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "main.h"
-#include "types.h"
-
 
 int main(const int argc, const char** argv)
 {
@@ -21,7 +18,8 @@ int main(const int argc, const char** argv)
         return 1;
     }
 
-    unsigned int code_mem_size = 1024 * 1024, code_index = 0;
+    unsigned int code_mem_size = 1024;
+    unsigned int code_index = 0;
     char* code = (char*) malloc(code_mem_size);
     char ch;
 
@@ -42,67 +40,12 @@ int main(const int argc, const char** argv)
 
     fclose(input_file);
     code[code_index] = '\0';
-    code = memmove(code, code - (strlen(code) - code_index), strlen(code));
 
-    Phi_eval(code);
+    // Free up some memory
+    code = memmove(code, code - (strlen(code) - code_index), strlen(code));
+    
+    // code
+
     free(code);
     return 0;
-}
-
-void Phi_execToken(char* token)
-{
-    for (unsigned int i = 0; i < sizeof(token) / sizeof(*token); i++)
-    {
-        
-    }
-}
-
-void Phi_eval(char* code)
-{
-    bool in_one_line_comment = false;
-    unsigned int token_mem_size = 1024, token_index = 0,
-                ch_index = 0, line_index = 0;
-    char* token = (char*) malloc(token_mem_size);
-
-    // Go char by char
-    for (; ch_index < strlen(code); ch_index++)
-    {
-        // if (code[ch_index] == ' ' || code[ch_index] == '\n' || code[ch_index] == '\r') continue;  // Ignore whitespace
-        if (code[ch_index] == '#')
-        {
-            in_one_line_comment = true;
-            continue;
-        }
-
-        if (code[ch_index] == '\n' || code[ch_index] == '\r')
-        {
-            in_one_line_comment = false;
-            line_index++;
-            continue;
-        }
-
-        if (in_one_line_comment) continue;
-
-        // Reserve more memory for the token
-        if (token_index >= token_mem_size)
-        {
-            token_mem_size *= 2;
-            token = realloc(token, token_mem_size);
-        }
-
-        // Execute token
-        if (code[ch_index] == '!')
-        {
-            token[token_index] = '\0';
-            Phi_execToken(token);
-            free(token);
-            token_mem_size = 1024;
-            token = (char*) malloc(token_mem_size);
-            token_index = 0;
-            continue;
-        }
-
-        token[token_index++] = code[ch_index];
-    }
-    free(token);
 }

@@ -1,3 +1,9 @@
 # Comment
 hello_world_str = "Hello world"!
 println(hello_world_str)!
+
+my_function(param_1, param_2)
+{
+    a = 1
+    println(a, param_1, param_2)!
+}

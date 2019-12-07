@@ -1,3 +1,6 @@
+"""
+Written in C style, just to make migration easier.
+"""
 import argparse
 import enum
 
@@ -99,8 +102,13 @@ def Phi_maybe_get_variable(name: str, stack: PhiStack):
     """
     var: PhiVariable = Phi_get_variable(name, stack)
     if var != None:
-        return var 
-    return name
+        return var
+    
+    var = PhiVariable()
+    var.name = name
+    var.type = Phi_determine_type(name)
+    var.value = name
+    return var
 
 
 def Phi_function_call(func_name: str, parameters: list, ln_index: int, ch_index: int, stack: PhiStack):
@@ -141,17 +149,14 @@ def Phi_function_call(func_name: str, parameters: list, ln_index: int, ch_index:
         func.body += params_str + ')'
         eval(func.body)
     else:
-        func.body += '('
-        params_str = ''
+        if len(parameter_values) != len(func.parameters):
+            Phi_create_error('Parameters are not matching.', ln_index, ch_index)
+            exit(1)
 
-        for param in parameter_values:
-            params_str += param.value + ','
+        for param_index, param in enumerate(func.parameters):
+            func.body = func.body.replace(param, parameter_values[param_index].value)
 
-        # Add kwargs
-        for param in func.parameters:
-            param += param + ',' 
-
-        func.body += params_str + ')'
+        print(f'Calling {func.name} with {parameter_values}')
 
 
 def Phi_create_function(text: str):
@@ -370,7 +375,7 @@ def main(input_file_name: str):
     main_scope = Phi_eval(contents)
 
     # Print main scope
-    if 0:
+    if True:
         for var in main_scope.variables:
             Phi_print_variable(var)
         for func in main_scope.functions:

@@ -17,15 +17,27 @@ void String_clear(String* self)
 void String_appends(String* self, String other) 
 {
     char* self_value = self->v;
-    self->mem_size = sizeof(char) * strlen(self->v) + strlen(other.v);
+    self->mem_size = sizeof(char) * strlen(self->v) + strlen(other.v) + 1;
     self->v = (char*) malloc(self->mem_size);
-    sprintf(self->v, "%s%s", self_value, other.v);
+    // sprintf(self->v, "%s%s", self_value, other.v);
+    unsigned int i, vi = 0;
+
+    for (i = 0; i < strlen(self_value); i++, vi++) 
+    {
+        self->v[vi] = self_value[i];
+    }
+
+    for (i = 0; i < strlen(other.v); i++, vi++) 
+    {
+        self->v[vi] = other.v[i];
+    }
+
+    self->v[vi] = '\0';
 }
 
 void String_appendc(String* self, char ch) 
 {
-    char* ch_p = &ch;
-    String_append(self, ch_p);
+    String_append(self, &ch);
 }
 
 void String_append(String* self, char* other) 

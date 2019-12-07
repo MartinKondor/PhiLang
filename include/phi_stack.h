@@ -1,5 +1,5 @@
-#ifndef _STACK_H_INCLUDED_
-#define _STACK_H_INCLUDED_
+#ifndef _PHI_STACK_H_INCLUDED_
+#define _PHI_STACK_H_INCLUDED_
 
 typedef struct
 {
@@ -11,6 +11,6 @@ typedef struct
     // functions: list = []  # list[PhiFunction]
 } PhiStack;
 
-void PhiStack_init(unsigned int id);
+PhiStack PhiStack_init(unsigned int id);
 
 #endif

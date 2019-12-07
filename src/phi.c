@@ -1,5 +1,4 @@
 #include "phi.h"
-#include "phi_error.h"
 
 
 int main(const int argc, const char** argv)
@@ -47,17 +46,18 @@ int main(const int argc, const char** argv)
         {
             continue;
         }
+
         if (ch == '#')
         {
             in_one_line_comment = true;
             continue;
         }
-
+        
         if (ch == '"')
         {
             in_string = !in_string;
         }
-
+        
         if (in_string)
         {
             String_appendc(&command, ch);
@@ -78,6 +78,7 @@ int main(const int argc, const char** argv)
                 exit(1);
             }
 
+            in_function_def = false;
             String_clear(&command);
             continue;
         }
@@ -88,10 +89,22 @@ int main(const int argc, const char** argv)
             continue; 
         }
 
-        printf("%c", ch);
+        if (ch == '!') 
+        {
+            if (in_string) 
+            {
+                PhiError_print(PhiError_init("Unclosed string.", ln_index, ch_index));
+                exit(1);
+            }
+
+            String_clear(&command);
+            continue;
+        }
+
+        String_appendc(&command, ch);
     }
     while (ch != EOF);
-    
+
     fclose(input_file);
     return 0;
 }

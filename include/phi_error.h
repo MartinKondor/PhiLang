@@ -1,5 +1,5 @@
-#ifndef _ERRORS_H_INCLUDED_
-#define _ERRORS_H_INCLUDED_
+#ifndef _PHI_ERROR_H_INCLUDED_
+#define _PHI_ERROR_H_INCLUDED_
 
 #include "phi_string.h"
 

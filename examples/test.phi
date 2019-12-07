@@ -1,11 +1,11 @@
 # Comment
-hello_world_str = "Hello world"!
+hello_world_str = "Hello world!"!
 println(hello_world_str)!
 
-my_function(param_1, param_2) { 
-    println(param_1, param_2)!
+my_function(param_1) { 
+    println(param_1)!
 }
 
-my_function2(param_1, param_2) {
+my_function_2(param_1, param_2) { 
     println(param_1, param_2)!
 }

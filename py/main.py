@@ -10,28 +10,29 @@ class PhiType(enum.Enum):
 
 
 class PhiVariable:
-    name: str
-    type: PhiType
-    value: str or int or float
+    name: str = ''
+    type: PhiType = PhiType.NULL
+    value: str or int or float = ''
 
 
 class Error:
-    ln_index: int
-    ch_index: int
-    msg: str
+    ln_index: int = 0
+    ch_index: int = 0
+    msg: str = ''
 
 
 class PhiFunction:
-    name: str
+    name: str = ''
     body: str = ''  # Stores the code of the function
     parameters: list = []  # list[str] Parameter names
+    is_built_in: bool = False
 
 
 class PhiStack:
     """
     Stores variables and function for a given scope.
     """
-    id: int  # Stack ID
+    id: int = 0 # Stack ID
     variables: list = []  # list[PhiVariable]
     functions: list = []  # list[PhiFunction]
 
@@ -102,19 +103,55 @@ def Phi_maybe_get_variable(name: str, stack: PhiStack):
     return name
 
 
-def Phi_function_call(func_name: str, parameters: list, stack: PhiStack):
+def Phi_function_call(func_name: str, parameters: list, ln_index: int, ch_index: int, stack: PhiStack):
     """
     Attempt to call the given function with the given parameters.
     :param func_name: str
     :param parameters: list
     """
+    func: PhiFunction = None
+
+    # Check function in stack in case of undefined function
+    for p_func in stack.functions:
+        if p_func.name == func_name:
+            func = p_func
+            break
+
+    if func == None:
+        Phi_print_error(Phi_create_error(f'Undefined reference to function {func_name}.', ln_index, ch_index))
+        exit(1)
+
     parameter_values = []
 
     # Find variables in the current stack
     for parameter in parameters:
         parameter_values.append(Phi_maybe_get_variable(parameter, stack))
 
-    print(f'Calling "{func_name}" with parameters {parameter_values}')
+    if func.is_built_in:
+        func.body += '('
+        params_str = ''
+
+        for param in parameter_values:
+            params_str += param.value + ','
+
+        # Add kwargs
+        for param in func.parameters:
+            param += param + ',' 
+
+        func.body += params_str + ')'
+        eval(func.body)
+    else:
+        func.body += '('
+        params_str = ''
+
+        for param in parameter_values:
+            params_str += param.value + ','
+
+        # Add kwargs
+        for param in func.parameters:
+            param += param + ',' 
+
+        func.body += params_str + ')'
 
 
 def Phi_create_function(text: str):
@@ -217,16 +254,32 @@ def Phi_eval_command(command: str, ln_index: int, stack: PhiStack):
     if in_assignment:
         var = Phi_create_variable(token, Phi_determine_type(other_token), other_token)
         stack.variables.append(var)
-        
-        print('Allocating: ', end='')
-        Phi_print_variable(var)
     if in_function_call_parameter_field:
         if other_token:
             parameters.append(other_token[:-1])
 
-        Phi_function_call(token, parameters, stack)
+        Phi_function_call(token, parameters, ln_index, ch_index, stack)
 
     return None
+
+
+def Phi_setup_stack(stack: PhiStack):
+    """
+    Adding the built-in functions and variables to the stack.
+    """
+    print_f = PhiFunction()
+    print_f.name = 'print'
+    print_f.body = 'print'
+    print_f.parameters = ['end=""']
+    print_f.is_built_in = True
+    stack.functions.append(print_f)
+
+    println_f = PhiFunction()
+    println_f.name = 'println'
+    println_f.body = 'print'
+    println_f.parameters = []
+    println_f.is_built_in = True
+    stack.functions.append(println_f)
 
 
 def Phi_eval(text: str, stack_id: int=0):
@@ -244,6 +297,7 @@ def Phi_eval(text: str, stack_id: int=0):
     command = ''
     main_stack = PhiStack()
     main_stack.id = stack_id
+    Phi_setup_stack(main_stack)
 
     for ch_index, ch in enumerate(text):
         if ch == '\n':
@@ -265,6 +319,10 @@ def Phi_eval(text: str, stack_id: int=0):
         # In string or not
         if ch == '"':
             in_string = not in_string
+
+        if in_string:
+            command += ch
+            continue
 
         if ch == '{':
             in_function_def = True
@@ -312,10 +370,11 @@ def main(input_file_name: str):
     main_scope = Phi_eval(contents)
 
     # Print main scope
-    for var in main_scope.variables:
-        Phi_print_variable(var)
-    for func in main_scope.functions:
-        Phi_print_function(func)
+    if 0:
+        for var in main_scope.variables:
+            Phi_print_variable(var)
+        for func in main_scope.functions:
+            Phi_print_function(func)
 
 
 if __name__ == '__main__':
@@ -325,4 +384,7 @@ if __name__ == '__main__':
     parser.add_argument('input_file_name', type=str, help='the input file what contains Phi code')
     args = parser.parse_args()
 
+    import time
+    st = time.time()
     main(args.input_file_name)
+    print('\nRun time:', time.time() - st)

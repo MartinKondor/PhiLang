@@ -2,7 +2,7 @@
 #define _PHI_FUNCTION_H_INCLUDED_
 
 #include <stdbool.h>
-#include "phi_string.h"
+#include "x_string.h"
 
 
 typedef struct

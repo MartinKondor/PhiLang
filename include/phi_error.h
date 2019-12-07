@@ -1,7 +1,7 @@
 #ifndef _PHI_ERROR_H_INCLUDED_
 #define _PHI_ERROR_H_INCLUDED_
 
-#include "phi_string.h"
+#include "x_string.h"
 
 
 typedef struct

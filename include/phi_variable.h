@@ -2,7 +2,7 @@
 #define _PHI_VARIABLE_H_INCLUDED_
 
 #include "phi_type.h"
-#include "phi_string.h"
+#include "x_string.h"
 
 
 typedef struct

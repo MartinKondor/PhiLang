@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "phi_string.h"
+#include "x_string.h"
 #include "phi_error.h"
 #include "phi_type.h"
 #include "phi_variable.h"

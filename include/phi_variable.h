@@ -7,7 +7,7 @@
 
 typedef struct
 {
-    String name;
+    String name;  // The id of the variable
     String value;
     PhiType type;
 } PhiVariable;

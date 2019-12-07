@@ -6,12 +6,15 @@
 
 typedef struct
 {
+    /**
+     * Error for showing exceptions and fatal errors
+     */
     String msg;
     unsigned int ln_index;
     unsigned int ch_index;
 } PhiError;
 
-void PhiError_print(PhiError err);
 PhiError PhiError_init(char* msg, unsigned int ln_index, unsigned int ch_index);
+void PhiError_print(PhiError err);
 
 #endif

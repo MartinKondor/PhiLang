@@ -24,9 +24,25 @@ typedef struct
 } String;
 
 String String_init(char* characters);
+
+/**
+ * Removes the contents of the given string.
+ */
 void String_clear(String* self);
+
+/**
+ * Appends a string to an other.
+ */
 void String_appends(String* self, String other);
+
+/**
+ * Appends a char to a string.
+ */
 void String_appendc(String* self, char ch);
+
+/**
+ * Appends a char array to a string.
+ */
 void String_append(String* self, char* other);
 
 #endif

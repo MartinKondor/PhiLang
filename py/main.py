@@ -6,6 +6,7 @@ class PhiType(enum.Enum):
     NULL = 0
     OBJ = 1  # Inherited by everything
     STR = 2
+    NUM = 3 
 
 
 class PhiVariable:
@@ -26,7 +27,7 @@ class PhiFunction:
     parameters: list = []  # list[str] Parameter names
 
 
-class PhiScope:
+class PhiStack:
     """
     Stores variables and function for a given scope.
     """
@@ -78,16 +79,30 @@ def Phi_determine_type(value: str):
     return PhiType.OBJ
 
 
-def Phi_maybe_get_variable(name: str):
+def Phi_get_variable(name: str, stack: PhiStack):
+    """
+    Returns variable form stack if found, else
+    returns None 
+    """
+    for var in stack.variables:
+        if var.name == name:
+            return var
+    return None
+
+
+def Phi_maybe_get_variable(name: str, stack: PhiStack):
     """
     :name str:
     :returns PhiVarible or name: name if PhiVarible
             cannot be found with the given name.
     """
+    var: PhiVariable = Phi_get_variable(name, stack)
+    if var != None:
+        return var 
     return name
 
 
-def Phi_function_call(func_name: str, parameters: list):
+def Phi_function_call(func_name: str, parameters: list, stack: PhiStack):
     """
     Attempt to call the given function with the given parameters.
     :param func_name: str
@@ -97,25 +112,29 @@ def Phi_function_call(func_name: str, parameters: list):
 
     # Find variables in the current stack
     for parameter in parameters:
-        parameter_values.append(Phi_maybe_get_variable(parameter))
+        parameter_values.append(Phi_maybe_get_variable(parameter, stack))
 
     print(f'Calling "{func_name}" with parameters {parameter_values}')
 
 
-def Phi_define_function(text: str):
+def Phi_create_function(text: str):
     """
     :param text: str
     :returns PhiFunction: the scope with the contents of the function
     """
-    last_ch_index = 0
     func = PhiFunction()
+    func.name = ''
+    func.body = ''
+    func.parameters = []
+
+    last_ch_index = 0
     token = ''
     in_parameters = False
 
     for ch_index, ch in enumerate(text):
         if ch == '(':
-            in_parameters = True
             func.name = token
+            in_parameters = True
             token = ''
             continue
         
@@ -152,7 +171,7 @@ def Phi_define_function(text: str):
     return func
 
 
-def Phi_eval_command(command: str, ln_index: int, scope: PhiScope):
+def Phi_eval_command(command: str, ln_index: int, stack: PhiStack):
     """
     :command str: like "s=12"
     :returns None or Error:
@@ -197,23 +216,24 @@ def Phi_eval_command(command: str, ln_index: int, scope: PhiScope):
 
     if in_assignment:
         var = Phi_create_variable(token, Phi_determine_type(other_token), other_token)
-        scope.variables.append(var)
+        stack.variables.append(var)
         
         print('Allocating: ', end='')
         Phi_print_variable(var)
     if in_function_call_parameter_field:
         if other_token:
             parameters.append(other_token[:-1])
-        Phi_function_call(token, parameters)
+
+        Phi_function_call(token, parameters, stack)
 
     return None
 
 
-def Phi_eval(text: str, scope_id: int=0):
+def Phi_eval(text: str, stack_id: int=0):
     """
     Exaluate Phi code from text param.
     :param text: str Phi code string
-    :param scope_id: where to collect variables and functions.
+    :param stack_id: where to collect variables and functions.
     """
 
     # Go char by char
@@ -222,8 +242,8 @@ def Phi_eval(text: str, scope_id: int=0):
     in_one_line_comment = False
     in_function_def = False
     command = ''
-    main_scope = PhiScope()
-    main_scope.id = scope_id
+    main_stack = PhiStack()
+    main_stack.id = stack_id
 
     for ch_index, ch in enumerate(text):
         if ch == '\n':
@@ -255,7 +275,7 @@ def Phi_eval(text: str, scope_id: int=0):
                 exit(1)
 
             in_function_def = False
-            main_scope.functions.append(Phi_define_function(command + '}'))
+            main_stack.functions.append(Phi_create_function(command + '}'))
             command = ''
             continue
 
@@ -268,7 +288,7 @@ def Phi_eval(text: str, scope_id: int=0):
                 Phi_print_error(Phi_create_error('Unclosed string.', ln_index, ch_index))
                 exit(1)
 
-            error = Phi_eval_command(command, ln_index, main_scope)
+            error = Phi_eval_command(command, ln_index, main_stack)
             command = ''
 
             if error is not None:
@@ -279,10 +299,11 @@ def Phi_eval(text: str, scope_id: int=0):
 
         command += ch
 
-    return main_scope
+    return main_stack
 
 
 def main(input_file_name: str):
+
     # Read the contents of the input file
     input_file = open(args.input_file_name, 'r', encoding='utf-8')
     contents = input_file.read()
@@ -298,8 +319,10 @@ def main(input_file_name: str):
 
 
 if __name__ == '__main__':
+
+    # Parse command line arguments
     parser = argparse.ArgumentParser(description='Phi.')
-    parser.add_argument('input_file_name', type=str, help='the phi input file')
+    parser.add_argument('input_file_name', type=str, help='the input file what contains Phi code')
     args = parser.parse_args()
 
     main(args.input_file_name)

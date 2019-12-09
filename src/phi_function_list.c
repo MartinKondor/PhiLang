@@ -21,14 +21,14 @@ void PhiFunctionList_append(PhiFunctionList* list, PhiFunction value)
     list->storage[list->length - 1] = value;
 }
 
-PhiFunction PhiFunctionList_at(PhiFunctionList list, unsigned int index)
+PhiFunction* PhiFunctionList_at(PhiFunctionList list, unsigned int index)
 {
     if (index > list.length - 1)
     {
         printf("PhiFunctionList: the given index (%u) is too big.\n", index);
         exit(1);
     }
-    return list.storage[index];
+    return &list.storage[index];
 }
 
 

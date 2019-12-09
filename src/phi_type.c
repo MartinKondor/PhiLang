@@ -1,7 +1,7 @@
 #include "phi_type.h"
 
 
-PhiType determine_type(String value) 
+PhiType PhiType_determine_type(String value) 
 {
     if (value.v[0] == '"')
     {

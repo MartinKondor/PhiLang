@@ -17,6 +17,6 @@ typedef enum
 /**
  * Determines the PhiType of the given string.
  */
-PhiType determine_type(String value);
+PhiType PhiType_determine_type(String value);
 
 #endif

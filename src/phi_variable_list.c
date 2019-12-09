@@ -21,14 +21,14 @@ void PhiVariableList_append(PhiVariableList* list, PhiVariable value)
     list->storage[list->length - 1] = value;
 }
 
-PhiVariable PhiVariableList_at(PhiVariableList list, unsigned int index)
+PhiVariable* PhiVariableList_at(PhiVariableList list, unsigned int index)
 {
     if (index > list.length - 1)
     {
         printf("PhiVariableList: the given index (%u) is too big.\n", index);
         exit(1);
     }
-    return list.storage[index];
+    return &list.storage[index];
 }
 
 

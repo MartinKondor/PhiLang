@@ -14,5 +14,6 @@ typedef struct
 
 
 PhiVariable PhiVariable_init(String name, PhiType type, String value);
+void PhiVariable_print(PhiVariable func);
 
 #endif

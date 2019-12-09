@@ -26,6 +26,6 @@ typedef struct
 
 PhiVariableList PhiVariableList_init();
 void PhiVariableList_append(PhiVariableList* list, PhiVariable value);
-PhiVariable PhiVariableList_at(PhiVariableList list, unsigned int index);
+PhiVariable* PhiVariableList_at(PhiVariableList list, unsigned int index);
 
 #endif

@@ -13,6 +13,6 @@ typedef struct
 
 PhiFunctionList PhiFunctionList_init();
 void PhiFunctionList_append(PhiFunctionList* list, PhiFunction value);
-PhiFunction PhiFunctionList_at(PhiFunctionList list, unsigned int index);
+PhiFunction* PhiFunctionList_at(PhiFunctionList list, unsigned int index);
 
 #endif

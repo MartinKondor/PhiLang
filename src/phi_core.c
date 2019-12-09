@@ -108,42 +108,9 @@ void Phi_eval_command(String* command, unsigned int ln_index, PhiStack* stack)
     {
         ch = command->v[ch_index];
         
-        // Process parameters of function call
-        if (in_function_call_parameter_field) 
-        {
-            if (ch == ',')
-            {
-                PhiVariableList_append(&parameters, PhiVariable_init(token, PhiType_determine_type(other_token), other_token));
-                String_clear(&other_token);
-            }
-
-            String_appendc(&other_token, ch);
-            continue;
-        }
-
         if (ch == '=')
         {
-            if (in_assignment && strlen(other_token.v) == 0)
-            {
-                PhiError_print(PhiError_init("Unexpected \"=\" operator.", ln_index, ch_index));
-                exit(1);
-            }
 
-            in_assignment = true;
-            String_clear(&other_token);
-            continue;
-        }
-
-        if (ch == '(')
-        {
-            in_function_call_parameter_field = true;
-            continue;
-        }
-
-        if (in_assignment)
-        {
-            String_appendc(&other_token, ch);
-            continue;
         }
 
         String_appendc(&token, ch);
@@ -151,7 +118,8 @@ void Phi_eval_command(String* command, unsigned int ln_index, PhiStack* stack)
 
     if (in_assignment)
     {
-        // PhiVariableList_append(&stack->variables, PhiVariable_init(token, PhiType_determine_type(other_token), other_token));
+        PhiVariable var = PhiVariable_init(token, PhiType_determine_type(other_token), other_token);
+        PhiVariableList_append(&stack->variables, var);
     }
 
     if (in_function_call_parameter_field)
@@ -159,8 +127,8 @@ void Phi_eval_command(String* command, unsigned int ln_index, PhiStack* stack)
         if (strlen(other_token.v) != 0)
         {
             // Remove the last element
-            // parameters.length--;
-            // PhiVariableList_append(&parameters, PhiVariable_init(String_init("<anonymus>"), PhiType_determine_type(other_token), other_token));
+            parameters.length--;
+            PhiVariableList_append(&parameters, PhiVariable_init(String_init("<anonymus>"), PhiType_determine_type(other_token), other_token));
         }
 
         Phi_function_call(&token, &parameters, ln_index, ch_index, stack);

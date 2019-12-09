@@ -8,10 +8,11 @@ String String_init(char* characters)
     return str;
 }
 
-void String_clear(String* self)
+void String_clear(String* str)
 {
-    self->v = "";
-    self->mem_size = 0;
+    // memset(str->v, 0, strlen(str->v));
+    str->v = "";
+    str->mem_size = 0;
 }
 
 void String_appends(String* self, String other) 

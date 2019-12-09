@@ -30,5 +30,3 @@ PhiVariable* PhiVariableList_at(PhiVariableList list, unsigned int index)
     }
     return &list.storage[index];
 }
-
-

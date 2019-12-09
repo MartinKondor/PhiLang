@@ -43,5 +43,7 @@ int main(const int argc, const char** argv)
         PhiFunction_print(*PhiFunctionList_at(stack.functions, i));
     }
 
+    free(stack.variables.storage);
+    free(stack.functions.storage);
     return 0;
 }

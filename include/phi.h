@@ -9,5 +9,7 @@
 #include "phi_type.h"
 #include "phi_variable.h"
 #include "phi_function.h"
+#include "phi_variable_list.h"
+#include "phi_function_list.h"
 
 #endif

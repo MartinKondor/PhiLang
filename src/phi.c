@@ -19,6 +19,7 @@ int main(const int argc, const char** argv)
 
     String code = String_init("");
     char ch;
+
     do 
     {
         ch = fgetc(input_file);
@@ -27,6 +28,7 @@ int main(const int argc, const char** argv)
     while (ch != EOF);
     fclose(input_file);
 
+    // For debuging
     PhiStack stack = Phi_eval(code, 0);
 
     printf("Variables:\n");

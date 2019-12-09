@@ -37,7 +37,9 @@ void String_appends(String* self, String other)
 
 void String_appendc(String* self, char ch) 
 {
-    String_append(self, &ch);
+    char chs[2];
+    sprintf(chs, "%c\0", ch);
+    String_append(self, chs);
 }
 
 void String_append(String* self, char* other) 

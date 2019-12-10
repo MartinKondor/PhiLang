@@ -13,6 +13,12 @@ void StringList_append(StringList* list, String value)
     String* backup_storage = list->storage;
     list->storage = (String*) malloc(++list->length * sizeof(String));
     
+    if (!list->storage) 
+    {
+        printf("StringList: error with allocating memory.\n");
+        exit(1);
+    }
+
     for (unsigned int i = 0; i < list->length - 1; i++) 
     {
         list->storage[i] = backup_storage[i];

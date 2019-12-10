@@ -13,6 +13,12 @@ void PhiFunctionList_append(PhiFunctionList* list, PhiFunction value)
     PhiFunction* backup_storage = list->storage;
     list->storage = (PhiFunction*) malloc(++list->length * sizeof(PhiFunction));
     
+    if (!list->storage) 
+    {
+        printf("PhiFunctionList: error with allocating memory.\n");
+        exit(1);
+    }
+
     for (unsigned int i = 0; i < list->length - 1; i++) 
     {
         list->storage[i] = backup_storage[i];

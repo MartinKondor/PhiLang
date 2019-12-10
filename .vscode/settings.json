@@ -2,6 +2,7 @@
     "files.associations": {
         "string.h": "c",
         "phi_string.h": "c",
-        "x_string.h": "c"
+        "x_string.h": "c",
+        "typeinfo": "c"
     }
 }

@@ -29,7 +29,7 @@ int main(const int argc, const char** argv)
     fclose(input_file);
 
     // For debuging
-    PhiStack stack = Phi_eval(code, 0);
+    PhiStack stack = Phi_eval(&code, 0);
 
     printf("Variables:\n");
     for (unsigned int i = 0; i < stack.variables.length; i++) 
@@ -43,6 +43,7 @@ int main(const int argc, const char** argv)
         PhiFunction_print(*PhiFunctionList_at(stack.functions, i));
     }
 
+    free(code.v);
     free(stack.variables.storage);
     free(stack.functions.storage);
     return 0;

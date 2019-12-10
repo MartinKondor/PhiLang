@@ -1,11 +1,24 @@
-# Comment
-hello_world_str = "Hello world!"!
-println(hello_world_str)!
 
-my_function(param_1) { 
-    println(param_1)!
+long_str = "
+...
+
+Long string with newline.
+
+...
+"!
+
+ret_param(param)
+{ 
+    @param!  # Returning the parameter
 }
 
-my_function_2(param_1, param_2) { 
-    println(param_1, param_2)!
+hw()
+{
+    @"Hello world!"!
 }
+
+hello_world_str = hw()!
+hello_world_str = ret_param(hello_world_str)!
+
+print(hello_world_str)!
+print(long_str)!

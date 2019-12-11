@@ -7,6 +7,7 @@ PhiStack PhiStack_init(unsigned int id)
     stack.id = id;
     stack.variables = PhiVariableList_init();
     stack.functions = PhiFunctionList_init();
+    stack.return_value = PhiVariable_init(String_init("<anonymus>"), PhiType_NULL, String_init(""));
     return stack;
 }
 

@@ -83,8 +83,15 @@ PhiStack Phi_eval(String* code, unsigned int stack_id)
                 exit(1);
             }
 
-            Phi_eval_command(&command, &ln_index, &main_stack);
+            PhiVariable return_value = Phi_eval_command(&command, &ln_index, &main_stack);
             String_clear(&command);
+
+            // If not null there were a return value, which we return here
+            if (return_value.type != PhiType_NULL)
+            {
+                main_stack.return_value = return_value;
+                break;
+            }
             continue;
         }
 
@@ -94,8 +101,9 @@ PhiStack Phi_eval(String* code, unsigned int stack_id)
     return main_stack;
 }
 
-void Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* stack)
+PhiVariable Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* stack)
 {
+    PhiVariable return_value = PhiVariable_init(String_init("<anonymus>"), PhiType_NULL, String_init(""));;
     String token = String_init("");
     String other_token = String_init("");
     String param_token = String_init("");
@@ -105,9 +113,16 @@ void Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* stack)
     bool in_function_call_parameter_field = false;
     bool in_assignment = false;
     bool there_was_a_function_call = false;
+    bool in_return_value = false;
 
     for (; ch_index < strlen(command->v); ch_index++) 
     {
+        if (command->v[ch_index] == '@')
+        {
+            in_return_value = true;
+            continue;
+        }
+
         if (command->v[ch_index] == '=')
         {
             if (in_assignment)
@@ -170,12 +185,25 @@ void Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* stack)
 
     if (in_assignment && there_was_a_function_call) 
     {
-        Phi_function_call(&other_token, &parameters, ln_index, &ch_index, stack);
+        PhiVariable func_result = Phi_function_call(&other_token, &parameters, ln_index, &ch_index, stack);
+        PhiVariable new_var = PhiVariable_init(token, func_result.type, func_result.value);
+        PhiVariableList_append(&stack->variables, new_var);
+
+        if (in_return_value) return func_result;
     }
     else if (in_assignment)
     {
-        PhiVariableList_append(&stack->variables, PhiVariable_init(token, PhiType_determine_type(other_token), other_token));
+        PhiVariable value = PhiVariable_init(token, PhiType_determine_type(other_token), other_token);
+        PhiVariableList_append(&stack->variables, value);
+        if (in_return_value) return value;
     }
+
+    if (in_return_value)
+    {
+        return_value = PhiVariable_init(String_init("<anonymus>"), PhiType_determine_type(token), token);
+    }
+
+    return return_value;
 }
 
 PhiVariable Phi_maybe_get_variable(String name, PhiStack* stack)
@@ -196,7 +224,6 @@ PhiVariable Phi_maybe_get_variable(String name, PhiStack* stack)
 
 PhiVariable Phi_function_call(String* func_name, StringList* parameters, unsigned int* ln_index, unsigned int* ch_index, PhiStack* stack)
 {
-    PhiVariable return_value;
     PhiFunction func = PhiFunction_init(String_init("<anonymus>"));
     unsigned int i;
 
@@ -228,7 +255,7 @@ PhiVariable Phi_function_call(String* func_name, StringList* parameters, unsigne
 
     StringList parameter_values = StringList_init();
     
-    for (i = 0; i < parameters->length; i++) 
+    for (i = 0; i < parameters->length; i++)
     {
         PhiVariable var = Phi_maybe_get_variable(*StringList_at(*parameters, i), stack);
         StringList_append(&parameter_values, var.value);
@@ -245,6 +272,7 @@ PhiVariable Phi_function_call(String* func_name, StringList* parameters, unsigne
     printf("\n");
     */
 
-    // TODO: Eval function body
-    return return_value;
+    // Eval function body
+    PhiStack func_stack = Phi_eval(&func.body, stack->id + 1);
+    return func_stack.return_value;
 }

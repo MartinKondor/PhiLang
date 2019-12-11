@@ -14,6 +14,7 @@ typedef struct
     unsigned int id;
     PhiVariableList variables;
     PhiFunctionList functions;
+    PhiVariable return_value;
 } PhiStack;
 
 

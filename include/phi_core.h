@@ -19,7 +19,7 @@ PhiStack Phi_eval(String* code, unsigned int stack_id);
 /**
  * Attempt to eval one Phi command.
  */
-void Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* stack);
+PhiVariable Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* stack);
 
 /**
  * Attempt to call the given function with the given parameters.

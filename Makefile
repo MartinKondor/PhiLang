@@ -7,4 +7,4 @@ build:
 	
 test:
 	@gcc src/* -I "include" -o bin/phi.exe
-	@bin/phi.exe examples/test.phi
+	@bin/phi.exe examples/short_test.phi

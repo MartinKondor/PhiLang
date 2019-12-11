@@ -180,12 +180,23 @@ void Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* stack)
 
 PhiVariable Phi_maybe_get_variable(String name, PhiStack* stack)
 {
-    
+    unsigned int i;
+
+    for (i = 0; i < stack->variables.length; i++)
+    {
+        if (strcmp(PhiVariableList_at(stack->variables, i)->name.v, name.v) == 0)
+        {
+            return *PhiVariableList_at(stack->variables, i);
+        }
+    }
+
+    PhiVariable result = PhiVariable_init(String_init("<anonymus>"), PhiType_OBJ, name);
+    return result;
 }
 
 PhiVariable Phi_function_call(String* func_name, StringList* parameters, unsigned int* ln_index, unsigned int* ch_index, PhiStack* stack)
 {
-    PhiVariable var;
+    PhiVariable return_value;
     PhiFunction func = PhiFunction_init(String_init("<anonymus>"));
     unsigned int i;
 
@@ -219,14 +230,21 @@ PhiVariable Phi_function_call(String* func_name, StringList* parameters, unsigne
     
     for (i = 0; i < parameters->length; i++) 
     {
-        StringList_append(&parameter_values, Phi_maybe_get_variable(*StringList_at(*parameters, i), stack).value);
+        PhiVariable var = Phi_maybe_get_variable(*StringList_at(*parameters, i), stack);
+        StringList_append(&parameter_values, var.value);
     }
+
+    /*
+    printf("Calling: %s with: \n", func_name->v);
 
     for (i = 0; i < parameter_values.length; i++)
     {
-        printf("((%s))\n", StringList_at(parameter_values, i)->v);
+        printf("%s,", StringList_at(parameter_values, i));
     }
 
+    printf("\n");
+    */
+
     // TODO: Eval function body
-    return var;
+    return return_value;
 }

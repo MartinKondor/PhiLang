@@ -17,6 +17,10 @@ typedef struct
 
 
 PhiFunction PhiFunction_init(String name);
+
+/**
+ * 
+ */
 PhiFunction PhiFunction_from_body(String body);
 void PhiFunction_print(PhiFunction func);
 

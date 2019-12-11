@@ -12,7 +12,8 @@ PhiStack Phi_eval(String* code, unsigned int stack_id)
 
     for (unsigned int ch_index = 0; ch_index < strlen(code->v); ch_index++) 
     {
-        if (code->v[ch_index] == '\n') 
+        // Count lines and turn off in_one_line_comment
+        if (code->v[ch_index] == '\n')
         {
             ln_index++;
             if (in_one_line_comment)
@@ -27,23 +28,28 @@ PhiStack Phi_eval(String* code, unsigned int stack_id)
             continue;
         }
 
+        // Comments
         if (code->v[ch_index] == '#')
         {
             in_one_line_comment = true;
             continue;
         }
 
+        // Strings
         if (code->v[ch_index] == '"')
         {
             in_string = !in_string;
         }
-        
+
+        // Add to command here, as we don't want to skip
+        // any character in strings.        
         if (in_string)
         {
             String_appendc(&command, code->v[ch_index]);
             continue;
         }
 
+        // Start of function definition
         if (code->v[ch_index] == '{') 
         {
             in_function_def = true;
@@ -51,6 +57,7 @@ PhiStack Phi_eval(String* code, unsigned int stack_id)
             // contain the whole function including the {} characters
         }
 
+        // End of function definition
         if (code->v[ch_index] == '}')
         {
             if (!in_function_def)
@@ -64,7 +71,6 @@ PhiStack Phi_eval(String* code, unsigned int stack_id)
 
             // Add function to stack
             PhiFunctionList_append(&main_stack.functions, PhiFunction_from_body(command));
-            
             String_clear(&command);
             continue;
         }
@@ -75,6 +81,8 @@ PhiStack Phi_eval(String* code, unsigned int stack_id)
             continue; 
         }
 
+        // End of statement character,
+        // evaluate the current "command".
         if (code->v[ch_index] == '!')
         {
             if (in_string) 
@@ -83,6 +91,7 @@ PhiStack Phi_eval(String* code, unsigned int stack_id)
                 exit(1);
             }
 
+            // Eval command and get the returned value from it
             PhiVariable return_value = Phi_eval_command(&command, &ln_index, &main_stack);
             String_clear(&command);
 
@@ -95,6 +104,7 @@ PhiStack Phi_eval(String* code, unsigned int stack_id)
             continue;
         }
 
+        // Add character to command
         String_appendc(&command, code->v[ch_index]);
     }
 
@@ -117,12 +127,14 @@ PhiVariable Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* 
 
     for (; ch_index < strlen(command->v); ch_index++) 
     {
+        // Return statement
         if (command->v[ch_index] == '@')
         {
             in_return_value = true;
             continue;
         }
 
+        // Its an assignment
         if (command->v[ch_index] == '=')
         {
             if (in_assignment)
@@ -135,12 +147,14 @@ PhiVariable Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* 
             continue;
         }
 
-        if (command->v[ch_index] == '(')   // Function call
+        // Function call    
+        if (command->v[ch_index] == '(')   
         {
             in_function_call_parameter_field = true;
             continue;
         }
 
+        // End of function call
         if (command->v[ch_index] == ')')
         {
             if (!in_function_call_parameter_field)
@@ -161,6 +175,8 @@ PhiVariable Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* 
             continue;
         }
 
+        // Add parameters to an array to keep
+        // track of parameters.
         if (in_function_call_parameter_field)
         {
             if (command->v[ch_index] == ',')
@@ -174,6 +190,7 @@ PhiVariable Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* 
             continue;
         }
 
+        // Add char to other_token
         if (in_assignment)
         {
             String_appendc(&other_token, command->v[ch_index]);
@@ -183,12 +200,13 @@ PhiVariable Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* 
         String_appendc(&token, command->v[ch_index]);
     }
 
+    // Create a varialbe with thre result of the function call
+    // then save the variable.
     if (in_assignment && there_was_a_function_call) 
     {
         PhiVariable func_result = Phi_function_call(&other_token, &parameters, ln_index, &ch_index, stack);
         PhiVariable new_var = PhiVariable_init(token, func_result.type, func_result.value);
         PhiVariableList_append(&stack->variables, new_var);
-
         if (in_return_value) return func_result;
     }
     else if (in_assignment)
@@ -198,11 +216,11 @@ PhiVariable Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* 
         if (in_return_value) return value;
     }
 
+    // Set the return_value
     if (in_return_value)
     {
         return_value = PhiVariable_init(String_init("<anonymus>"), PhiType_determine_type(token), token);
     }
-
     return return_value;
 }
 
@@ -210,6 +228,7 @@ PhiVariable Phi_maybe_get_variable(String name, PhiStack* stack)
 {
     unsigned int i;
 
+    // Try to find the variable in the stack
     for (i = 0; i < stack->variables.length; i++)
     {
         if (strcmp(PhiVariableList_at(stack->variables, i)->name.v, name.v) == 0)
@@ -218,6 +237,7 @@ PhiVariable Phi_maybe_get_variable(String name, PhiStack* stack)
         }
     }
 
+    // Return anonymus value if nothing found
     PhiVariable result = PhiVariable_init(String_init("<anonymus>"), PhiType_OBJ, name);
     return result;
 }
@@ -237,6 +257,7 @@ PhiVariable Phi_function_call(String* func_name, StringList* parameters, unsigne
         }
     }
 
+    // There is no function with this name
     if (strcmp(func.name.v, "<anonymus>") == 0)
     {
         char msg[36 + strlen(func_name->v)];
@@ -245,6 +266,7 @@ PhiVariable Phi_function_call(String* func_name, StringList* parameters, unsigne
         exit(1);
     }
 
+    // Unpropper number of parameters
     if (parameters->length != func.parameters.length)
     {
         char msg[45 + strlen(func_name->v)];
@@ -253,6 +275,8 @@ PhiVariable Phi_function_call(String* func_name, StringList* parameters, unsigne
         exit(1);
     }
 
+    // Save the value of the parameters
+    // e.g if the parameter is a variable get the value of it
     StringList parameter_values = StringList_init();
     
     for (i = 0; i < parameters->length; i++)
@@ -260,17 +284,6 @@ PhiVariable Phi_function_call(String* func_name, StringList* parameters, unsigne
         PhiVariable var = Phi_maybe_get_variable(*StringList_at(*parameters, i), stack);
         StringList_append(&parameter_values, var.value);
     }
-
-    /*
-    printf("Calling: %s with: \n", func_name->v);
-
-    for (i = 0; i < parameter_values.length; i++)
-    {
-        printf("%s,", StringList_at(parameter_values, i));
-    }
-
-    printf("\n");
-    */
 
     // Eval function body
     PhiStack func_stack = Phi_eval(&func.body, stack->id + 1);

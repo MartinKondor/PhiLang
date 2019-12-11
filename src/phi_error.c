@@ -12,5 +12,6 @@ PhiError PhiError_init(char* msg, unsigned int ln_index, unsigned int ch_index)
 
 void PhiError_print(PhiError err)
 {
+    // Print error with indices
     printf("Error (%u:%u):\n%s", err.ln_index, err.ch_index, err.msg);
 }

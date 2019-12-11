@@ -23,9 +23,17 @@ void Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* stack);
 
 /**
  * Attempt to call the given function with the given parameters.
+ * Rerturns the PhiVariable with the returned value of the function.
  */
-void Phi_function_call(String* token, PhiVariableList* parameters,
+PhiVariable Phi_function_call(String* token, StringList* parameters,
                         unsigned int* ln_index, unsigned int* ch_index,
                         PhiStack* stack);
+
+/**
+ * Retruns the found PhiVariable. 
+ * If no variable was found, returns
+ *  PhiVariable(name="<anonymus>", type=determined from name, value=name).
+ */
+PhiVariable Phi_maybe_get_variable(String name, PhiStack* stack);
 
 #endif

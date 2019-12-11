@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include "x_string.h"
+#include "x_string_list.h"
 #include "phi_variable_list.h"
 
 
@@ -10,7 +11,7 @@ typedef struct
 {
     String name;
     String body;  // Stores the code of the function
-    PhiVariableList parameters;
+    StringList parameters;
     bool is_built_in;
 } PhiFunction;
 

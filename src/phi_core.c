@@ -170,7 +170,7 @@ void Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* stack)
 
     if (in_assignment && there_was_a_function_call) 
     {
-        // Phi_function_call(&other_token, &parameters, ln_index, &ch_index, stack);
+        Phi_function_call(&other_token, &parameters, ln_index, &ch_index, stack);
     }
     else if (in_assignment)
     {
@@ -178,12 +178,19 @@ void Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* stack)
     }
 }
 
-void Phi_function_call(String* func_name, PhiVariableList* parameters, unsigned int* ln_index, unsigned int* ch_index, PhiStack* stack)
+PhiVariable Phi_maybe_get_variable(String name, PhiStack* stack)
 {
+    
+}
+
+PhiVariable Phi_function_call(String* func_name, StringList* parameters, unsigned int* ln_index, unsigned int* ch_index, PhiStack* stack)
+{
+    PhiVariable var;
     PhiFunction func = PhiFunction_init(String_init("<anonymus>"));
+    unsigned int i;
 
     // Check function in stack in case of undefined function
-    for (unsigned int i = 0; i < stack->functions.length; i++) 
+    for (i = 0; i < stack->functions.length; i++) 
     {
         if (strcmp(PhiFunctionList_at(stack->functions, i)->name.v, func_name->v) == 0)
         {
@@ -192,7 +199,7 @@ void Phi_function_call(String* func_name, PhiVariableList* parameters, unsigned 
         }
     }
 
-    if (0 && strcmp(func.name.v, "<anonymus>") == 0)
+    if (strcmp(func.name.v, "<anonymus>") == 0)
     {
         char msg[36 + strlen(func_name->v)];
         sprintf(msg, "Undefined reference to function \"%s\".\n", func_name->v);
@@ -200,12 +207,26 @@ void Phi_function_call(String* func_name, PhiVariableList* parameters, unsigned 
         exit(1);
     }
 
+    if (parameters->length != func.parameters.length)
+    {
+        char msg[45 + strlen(func_name->v)];
+        sprintf(msg, "Wrong number of parameters for function \"%s\".\n", func_name->v);
+        PhiError_print(PhiError_init(msg, *ln_index, *ch_index));
+        exit(1);
+    }
+
     StringList parameter_values = StringList_init();
     
-    for (unsigned int i = 0; i < parameters->length; i++) 
+    for (i = 0; i < parameters->length; i++) 
     {
-        StringList_append(&parameter_values, PhiVariableList_at(*parameters, i)->value);
+        StringList_append(&parameter_values, Phi_maybe_get_variable(*StringList_at(*parameters, i), stack).value);
+    }
+
+    for (i = 0; i < parameter_values.length; i++)
+    {
+        printf("((%s))\n", StringList_at(parameter_values, i)->v);
     }
 
     // TODO: Eval function body
+    return var;
 }

@@ -31,4 +31,9 @@ PhiVariable* PhiStack_get_variable(PhiStack stack, String name);
  */
 PhiVariable* PhiStack_maybe_get_variable(PhiStack stack, String name);
 
+/**
+ * Adds the contents of the right stack to the left.
+ */
+void PhiStack_add(PhiStack* right_stack, PhiStack* left_stack);
+
 #endif

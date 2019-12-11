@@ -19,7 +19,9 @@ typedef struct
 PhiFunction PhiFunction_init(String name);
 
 /**
+ * Parse function from body string.
  * 
+ * body can be like: name(param1,param2){@"Return"!} 
  */
 PhiFunction PhiFunction_from_body(String body);
 void PhiFunction_print(PhiFunction func);

@@ -1,9 +1,14 @@
 #include "phi_core.h"
 
 
-PhiStack Phi_eval(String* code, unsigned int stack_id) 
+PhiStack Phi_eval(String* code, unsigned int stack_id, PhiStack stack) 
 {
     PhiStack main_stack = PhiStack_init(stack_id);
+
+    // Add the contents of the previous stack to
+    // the current stack.
+    PhiStack_add(&main_stack, &stack);
+
     bool in_one_line_comment = false;
     bool in_string = false;
     bool in_function_def = false;
@@ -219,7 +224,7 @@ PhiVariable Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* 
     // Set the return_value
     if (in_return_value)
     {
-        return_value = PhiVariable_init(String_init("<anonymus>"), PhiType_determine_type(token), token);
+        return_value = Phi_maybe_get_variable(token, stack);
     }
     return return_value;
 }
@@ -276,16 +281,26 @@ PhiVariable Phi_function_call(String* func_name, StringList* parameters, unsigne
     }
 
     // Save the value of the parameters
-    // e.g if the parameter is a variable get the value of it
-    StringList parameter_values = StringList_init();
-    
+    // e.g if the parameter is a variable get the value of it    
+    PhiVariable var;
+    PhiStack base_func_stack = PhiStack_init(stack->id + 1);
+
     for (i = 0; i < parameters->length; i++)
     {
-        PhiVariable var = Phi_maybe_get_variable(*StringList_at(*parameters, i), stack);
-        StringList_append(&parameter_values, var.value);
+        var = Phi_maybe_get_variable(*StringList_at(*parameters, i), stack);
+
+        if (strcmp(var.name.v, "<anonymus>") == 0)
+        {
+            var.name = *StringList_at(func.parameters, i);
+            var.type = PhiType_determine_type(var.value);
+        }
+
+        // Add parameter to stack as a variable 
+        // for use in function body
+        PhiVariableList_append(&base_func_stack.variables, var);
     }
 
     // Eval function body
-    PhiStack func_stack = Phi_eval(&func.body, stack->id + 1);
+    PhiStack func_stack = Phi_eval(&func.body, stack->id + 1, base_func_stack);
     return func_stack.return_value;
 }

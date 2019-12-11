@@ -14,7 +14,7 @@
  * Evaluates the given Phi source code and returns
  * the main stack from it.
  */
-PhiStack Phi_eval(String* code, unsigned int stack_id);
+PhiStack Phi_eval(String* code, unsigned int stack_id, PhiStack stack);
 
 /**
  * Attempt to eval one Phi command.

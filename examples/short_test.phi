@@ -1,8 +1,8 @@
 
-get_input_from_function()
+get_input_from_function(param)
 {
-    @"Returned value"!
+    @param!
 }
 
 input = "Some random text"!
-input_from_function = get_input_from_function()!
+input_from_function = get_input_from_function("Returned value")!

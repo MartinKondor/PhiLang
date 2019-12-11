@@ -38,3 +38,19 @@ PhiVariable* PhiStack_maybe_get_variable(PhiStack stack, String name)
     }
     return var;
 }
+
+void PhiStack_add(PhiStack* right_stack, PhiStack* left_stack) 
+{
+    // Adding functions 
+    unsigned int i;
+
+    for (i = 0; i < left_stack->functions.length; i++)
+    {
+        PhiFunctionList_append(&right_stack->functions, *PhiFunctionList_at(left_stack->functions, i));
+    }
+
+    for (i = 0; i < left_stack->variables.length; i++)
+    {
+        PhiVariableList_append(&right_stack->variables, *PhiVariableList_at(left_stack->variables, i));
+    }
+}

@@ -6,3 +6,10 @@ get_input_from_function(param)
 
 input = "Some random text"!
 input_from_function = get_input_from_function("Returned value")!
+
+change_me = "Unchanged"!
+
+true ? 
+{
+    change_me = "Changed"!
+}

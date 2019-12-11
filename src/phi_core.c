@@ -5,8 +5,7 @@ PhiStack Phi_eval(String* code, unsigned int stack_id, PhiStack stack)
 {
     PhiStack main_stack = PhiStack_init(stack_id);
 
-    // Add the contents of the previous stack to
-    // the current stack.
+    // Add the contents of the previous stack to the current stack.
     PhiStack_add(&main_stack, &stack);
 
     bool in_one_line_comment = false;
@@ -130,7 +129,7 @@ PhiVariable Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* 
     bool there_was_a_function_call = false;
     bool in_return_value = false;
 
-    for (; ch_index < strlen(command->v); ch_index++) 
+    for (; ch_index < strlen(command->v); ch_index++)
     {
         // Return statement
         if (command->v[ch_index] == '@')
@@ -217,6 +216,14 @@ PhiVariable Phi_eval_command(String* command, unsigned int* ln_index, PhiStack* 
     else if (in_assignment)
     {
         PhiVariable value = PhiVariable_init(token, PhiType_determine_type(other_token), other_token);
+
+        // Turn true and false into 1 and 0
+        if (value.type == PhiType_NUM)
+        {
+            if (strcmp(value.value.v, "true") == 0) value.value = String_init("1");
+            if (strcmp(value.value.v, "false") == 0) value.value = String_init("0");
+        }
+
         PhiVariableList_append(&stack->variables, value);
         if (in_return_value) return value;
     }

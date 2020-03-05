@@ -4,7 +4,7 @@
 
 # PhiLang
 
-[![version](https://img.shields.io/badge/version-2019.12-red.svg)](https://github.com/MartinKondor/PhiLang)[![Project Status](https://img.shields.io/badge/status-beta-red.svg)](https://github.com/MartinKondor/PhiLang)[![C++](https://img.shields.io/badge/C++-17-blue.svg)](https://github.com/MartinKondor/PhiLang)[![GitHub Issues](https://img.shields.io/github/issues/MartinKondor/PhiLang.svg)](https://github.com/MartinKondor/PhiLang/issues)![Contributions welcome](https://img.shields.io/badge/contributions-welcome-blue.svg)[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/MartinKondor/PhiLang/edit/master/LICENSE)
+[![version](https://img.shields.io/badge/version-2019.12-red.svg)](https://github.com/MartinKondor/PhiLang) [![Project Status](https://img.shields.io/badge/status-beta-red.svg)](https://github.com/MartinKondor/PhiLang) [![C++](https://img.shields.io/badge/C++-17-blue.svg)](https://github.com/MartinKondor/PhiLang) [![GitHub Issues](https://img.shields.io/github/issues/MartinKondor/PhiLang.svg)](https://github.com/MartinKondor/PhiLang/issues) ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-blue.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/MartinKondor/PhiLang/edit/master/LICENSE)
 
 Phi is an interesing interpreted programming language.
 

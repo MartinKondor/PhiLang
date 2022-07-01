@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="https://github.com/MartinKondor/PhiLang/blob/master/docs/logo.png" width="450">
+  <img src="https://github.com/MartinKondor/PhiLang/blob/master/docs/logo.png" width="400">
 </p>
 
 # PhiLang
 
-[![version](https://img.shields.io/badge/version-2019.12-red.svg)](https://github.com/MartinKondor/PhiLang) [![Project Status](https://img.shields.io/badge/status-beta-red.svg)](https://github.com/MartinKondor/PhiLang) [![C++](https://img.shields.io/badge/C++-17-blue.svg)](https://github.com/MartinKondor/PhiLang) [![GitHub Issues](https://img.shields.io/github/issues/MartinKondor/PhiLang.svg)](https://github.com/MartinKondor/PhiLang/issues) ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-blue.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/MartinKondor/PhiLang/edit/master/LICENSE)
+[![version](https://img.shields.io/badge/version-v2.0.svg)](https://github.com/MartinKondor/PhiLang) [![Project Status](https://img.shields.io/badge/status-beta-red.svg)](https://github.com/MartinKondor/PhiLang) [![C++](https://img.shields.io/badge/C++-17-blue.svg)](https://github.com/MartinKondor/PhiLang) [![GitHub Issues](https://img.shields.io/github/issues/MartinKondor/PhiLang.svg)](https://github.com/MartinKondor/PhiLang/issues) ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-blue.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/MartinKondor/PhiLang/edit/master/LICENSE)
 
-Phi is an interesing interpreted programming language.
+Phi is an interpreted fast programming language.
 
 ## Getting Started
 
@@ -47,7 +47,7 @@ We will review your changes and apply them to the master branch shortly, provide
 
 ## License
 
-Copyright (C) Martin Kondor 2019
+Copyright (C) Martin Kondor 2022
 
 This Phi documentation, examples and the interpreter is distributed under [The MIT License](http://www.opensource.org/licenses/MIT).
 

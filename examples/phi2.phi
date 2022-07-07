@@ -1,5 +1,5 @@
 # Comment
 a = "test"  # String declaration
-
 b = a
+
 print(b)

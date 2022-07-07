@@ -7,6 +7,7 @@ from lib2to3.pgen2.token import EQEQUAL
 import time
 import argparse
 from enum import Enum
+from numpy import var
 
 from yaml import parse
 
@@ -19,6 +20,8 @@ class Phi_NodeState(Enum):
 class Phi_NodeType(Enum):
     UNKNOWN = 0
     EQUATION = 1
+    VARIABLE = 2
+    FUNCTION_CALL = 3
 
 
 class Phi_Node:
@@ -43,6 +46,16 @@ class Phi_Node:
     def __str__(self):
         return self.data.__str__()
 
+    @staticmethod
+    def get_type(node):
+        # Search for special characters
+        for data in node.data:
+            if data == "=":
+                return Phi_NodeType.EQUATION    
+            if data == "(":
+                return Phi_NodeType.FUNCTION_CALL    
+        return Phi_NodeType.UNKNOWN
+
 
 class Phi_Tree:
     """
@@ -65,15 +78,49 @@ class Phi_Tree:
     def remove_node(self, index):
         self.nodes[index].state = Phi_NodeState.DEAD
 
+    def extend(self, new_nodes):
+        for new_node in new_nodes:
+            self.nodes.append(new_node)
 
-def execEquation(to_var, type, from_var) -> list:
-    pass
+    def get_var_value(self, var_name):
+        for node in self.nodes:
+            if node.data and node.type == Phi_NodeType.VARIABLE and node.data[0] == var_name:
+                return node.data[1]
+        return var_name
+
+    def set_var_value(self, var_name, value):
+        for node in self.nodes:
+            if node.data and node.type == Phi_NodeType.VARIABLE and node.data[0] == var_name:
+                node.data[1] = value
+        return None
+
+
+def execEquation(var_tree: Phi_Tree, to_var: str, type: Phi_NodeType, from_var: str) -> list:
+    node = Phi_Node(type=Phi_NodeType.VARIABLE)
+
+    if type == "=":
+        val = var_tree.get_var_value(from_var)
+        var_tree.set_var_value(to_var, val)
+        node.add_data(to_var)
+        node.add_data(val)
+
+    return [node]
+
+
+def execFunctionCall(var_tree: Phi_Tree, node: Phi_Node):
+    func_name = node.data[0]
+    params = [var_tree.get_var_value(d) for d in node.data[1:] if d not in ["(", ")"]]
+
+    if func_name == "print":
+        print(*params)
 
 
 def execTree(tree: Phi_Tree):
     var_tree = Phi_Tree()
 
     for node in tree.nodes:
+        node.type = Phi_Node.get_type(node)
+
         if node.type == Phi_NodeType.UNKNOWN:
             print("Error:", node)
             exit(1)
@@ -82,7 +129,13 @@ def execTree(tree: Phi_Tree):
                 print("Error:", node)
                 exit(1)
 
-            var_tree.extend(execEquation(node.data[0], node.data[1], *node.data[2:]))
+            new_tree = execEquation(var_tree, node.data[0], node.data[1], *node.data[2:])
+            var_tree.extend(new_tree)
+
+        if node.type == Phi_NodeType.FUNCTION_CALL:
+            execFunctionCall(var_tree, node)
+
+    return var_tree
 
 
 def parseLine(line) -> Phi_Node:
